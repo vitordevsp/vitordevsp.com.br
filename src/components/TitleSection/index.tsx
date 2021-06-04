@@ -25,7 +25,7 @@ export function TitleSection({ href, title, subTitle, ...props }: TitleSectionPr
           w={6}
           h={6}
           opacity="0"
-          transition="all 0.5s, color 0.4s"
+          transition="all 0.4s"
           _groupHover={{ color: 'custom.secondary', opacity: 1, ml: 4 }}
         />
       )}
@@ -34,6 +34,7 @@ export function TitleSection({ href, title, subTitle, ...props }: TitleSectionPr
 
       <Text
         fontSize="xl"
+        color="gray.100"
         transition="color 0.4s"
         _groupHover={{ color: 'custom.secondary' }}
       >
