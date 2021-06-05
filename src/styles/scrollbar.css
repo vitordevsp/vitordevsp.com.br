@@ -1,0 +1,18 @@
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--chakra-colors-gray-800);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--chakra-colors-gray-600);
+  border: 1px solid var(--chakra-colors-gray-800);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--chakra-colors-gray-500);
+}

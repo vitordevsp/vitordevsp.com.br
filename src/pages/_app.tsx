@@ -1,8 +1,10 @@
 import { AppProps } from 'next/app'
 import { Box, ChakraProvider } from '@chakra-ui/react'
 
-import { theme } from '../styles/theme'
 import { Toolbar } from '../components/toolbar'
+
+import { theme } from '../styles/theme'
+import '../styles/scrollbar.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
