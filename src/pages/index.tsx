@@ -11,7 +11,7 @@ export default function Home() {
     <Stack as="main" my={20} spacing={20}>
       <Box as="section">
         <TitleSection
-          href="/projetos"
+          href="/projects"
           title="Últimos Projetos"
           subTitle="5 Projetos"
           mb={8}

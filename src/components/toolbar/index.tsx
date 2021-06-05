@@ -14,10 +14,10 @@ export function Toolbar() {
 
       <HStack as="nav" spacing={8}>
         <ActiveLink href="/">Home</ActiveLink>
-        <ActiveLink href="/projetos">Projetos</ActiveLink>
+        <ActiveLink href="/projects">Projetos</ActiveLink>
         <ActiveLink href="/videos">Vídeos</ActiveLink>
         <ActiveLink href="/posts">Posts</ActiveLink>
-        <ActiveLink href="/sobre">Sobre</ActiveLink>
+        <ActiveLink href="/about">Sobre</ActiveLink>
       </HStack>
 
       <HStack spacing={6}>
