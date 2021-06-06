@@ -12,7 +12,7 @@ export function ActiveLink({ children, ...rest }: ActiveLinkProps) {
   const isActiveLink = asPath === rest.href
 
   return (
-    <Link {...rest}>
+    <Link {...rest} passHref>
       <LinkChakra
         fontSize="lg"
         opacity={isActiveLink ? 1 : 0.7}
