@@ -16,7 +16,10 @@ export default function Videos({ arrayVideos }: VideosProps) {
           Todos os Vídeos
         </Heading>
 
-        <Text textAlign="center">5 Vídeos</Text>
+        <Text textAlign="center">
+          {arrayVideos.length}
+          {arrayVideos.length > 1 ? ' Vídeos' : ' Vídeo'}
+        </Text>
       </Stack>
 
       <Stack align="center" spacing={20}>
@@ -35,7 +38,7 @@ export default function Videos({ arrayVideos }: VideosProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const arrayVideos = await getVideosYoutube()
+  const arrayVideos = await getVideosYoutube(50)
 
   return {
     props: {
