@@ -4,15 +4,18 @@ import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
 import { CardInfo } from '../components/CardInfo'
 import { CardPost } from '../components/CardPost'
 import { TitleSection } from '../components/TitleSection'
+
 import { getVideosYoutube, YoutubeVideoProps } from '../services/youtube'
+import { getPostsDevTo, PostProps } from '../services/devTo'
 
 interface HomeProps {
   arrayVideos: YoutubeVideoProps[]
+  arrayPosts: PostProps[]
 }
 
 const srcImage = 'https://cdn.dribbble.com/users/690168/screenshots/6292240/shot-money-saving.png'
 
-export default function Home({ arrayVideos }: HomeProps) {
+export default function Home({ arrayVideos, arrayPosts }: HomeProps) {
   return (
     <Stack as="main" my={20} spacing={20}>
       <Box as="section">
@@ -71,45 +74,20 @@ export default function Home({ arrayVideos }: HomeProps) {
         <TitleSection
           href="/posts"
           title="Últimos Posts"
-          subTitle="15 Posts"
+          subTitle={`${arrayPosts.length} ${arrayPosts.length > 1 ? 'Posts' : 'Post'}`}
           mb={8}
         />
 
         <SimpleGrid columns={2} spacing={8}>
-          <CardPost
-            title="GitHub Explore"
-            date="15 Mar 2021"
-            description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-            badges={['ReactJS', 'NextJS', 'ChakraUI', 'Typescript', 'Typescript']}
-          />
-
-          <CardPost
-            title="GitHub Explore"
-            date="15 Mar 2021"
-            description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-            badges={['ReactJS', 'NextJS', 'ChakraUI', 'Typescript', 'Typescript']}
-          />
-
-          <CardPost
-            title="GitHub Explore"
-            date="15 Mar 2021"
-            description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-            badges={['ReactJS', 'NextJS', 'ChakraUI', 'Typescript', 'Typescript']}
-          />
-
-          <CardPost
-            title="GitHub Explore"
-            date="15 Mar 2021"
-            description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-            badges={['ReactJS', 'NextJS', 'ChakraUI', 'Typescript', 'Typescript']}
-          />
-
-          <CardPost
-            title="GitHub Explore"
-            date="15 Mar 2021"
-            description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-            badges={['ReactJS', 'NextJS', 'ChakraUI', 'Typescript', 'Typescript']}
-          />
+          {arrayPosts.map(post => (
+            <CardPost
+              key={post.id}
+              title={post.title}
+              date={post.publishedAt}
+              description={post.description}
+              badges={post.tags}
+            />
+          ))}
         </SimpleGrid>
       </Box>
     </Stack>
@@ -117,11 +95,13 @@ export default function Home({ arrayVideos }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const arrayVideos = await getVideosYoutube()
+  const arrayVideos = await getVideosYoutube(3)
+  const arrayPosts = await getPostsDevTo(6)
 
   return {
     props: {
       arrayVideos,
+      arrayPosts,
     },
     revalidate: 60 * 60 * 6, // 6 hours
   }
