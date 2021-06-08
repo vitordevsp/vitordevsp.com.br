@@ -15,7 +15,7 @@ export interface YoutubeVideoProps {
   }
 }
 
-export async function getVideosYoutube(maxResults = 3): Promise<YoutubeVideoProps[]> {
+export async function getVideosYoutube(maxResults: number) {
   const { YT_API_KEY, YT_CHANNEL_ID } = process.env
 
   const { data } = await axios.get<ArrayVideosProps>('https://www.googleapis.com/youtube/v3/search', {
