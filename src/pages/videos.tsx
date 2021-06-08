@@ -1,9 +1,14 @@
 import { Heading, Stack, Text } from '@chakra-ui/react'
+import { GetStaticProps } from 'next'
+
 import { CardInfoLarge } from '../components/CardInfoLarge'
+import { getVideosYoutube, YoutubeVideoProps } from '../services/youtube'
 
-const srcImage = 'https://cdn.dribbble.com/users/690168/screenshots/6292240/shot-money-saving.png'
+interface VideosProps {
+  arrayVideos: YoutubeVideoProps[]
+}
 
-export default function Videos() {
+export default function Videos({ arrayVideos }: VideosProps) {
   return (
     <Stack as="main" my={20} spacing={20}>
       <Stack>
@@ -15,39 +20,27 @@ export default function Videos() {
       </Stack>
 
       <Stack align="center" spacing={20}>
-        <CardInfoLarge
-          src={srcImage}
-          badges={['ReactJS', 'NextJS', 'ChakraUI', 'Typescript', 'Typescript']}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
-
-        <CardInfoLarge
-          src={srcImage}
-          badges={['ReactJS', 'NextJS']}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
-
-        <CardInfoLarge
-          src={srcImage}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
-
-        <CardInfoLarge
-          src={srcImage}
-          badges={['ReactJS', 'NextJS']}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
-
-        <CardInfoLarge
-          src={srcImage}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
+        {arrayVideos.map(video => (
+          <CardInfoLarge
+            key={video.id}
+            src={video.thumbnails.maxres}
+            badges={video.tags}
+            title={video.title}
+            description={video.description}
+          />
+        ))}
       </Stack>
     </Stack>
   )
+}
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const arrayVideos = await getVideosYoutube()
+
+  return {
+    props: {
+      arrayVideos,
+    },
+    revalidate: 60 * 60 * 6, // 6 hours
+  }
 }
