@@ -12,7 +12,7 @@ interface CardInfoLargeProps {
 export function CardInfoLarge({ src, title, badges, description }: CardInfoLargeProps) {
   return (
     <Stack maxW="800px" direction="row" spacing={8}>
-      <Image w="300px" h="168px" borderRadius="lg" src={src} alt="project" />
+      <Image w="300px" h="170px" borderRadius="lg" src={src} alt="project" />
 
       <Stack spacing={2.5}>
         <Heading as="h3" fontSize="3xl">{title}</Heading>

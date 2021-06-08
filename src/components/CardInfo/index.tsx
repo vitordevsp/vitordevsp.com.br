@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import { Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
 import { Badge } from '../Badge'
 
@@ -22,10 +22,10 @@ export function CardInfo({ src, badges, title, description }: CardInfoProps) {
         </Flex>
       )}
 
-      <Box>
+      <Stack>
         <Heading as="h3" fontSize="3xl">{title}</Heading>
         <Text color="gray.100">{description}</Text>
-      </Box>
+      </Stack>
     </Stack>
   )
 }
