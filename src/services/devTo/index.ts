@@ -1,40 +1,53 @@
 import axios from 'axios'
 import { PostDevToProps } from './types/PostDevToProps'
 
-export interface PostProps {
-  id: number
-  title: string
-  description: string
-  tags: string[]
-  publishedAt: string
-  urlPost: string
+export interface PostsProps {
+  total: number
+  items: {
+    id: number
+    title: string
+    description: string
+    tags: string[]
+    publishedAt: string
+    urlPost: string
+  }[]
 }
 
-export async function getPostsDevTo(maxResults: number) {
-  const { data } = await axios.get<PostDevToProps[]>('https://dev.to/api/articles', {
-    params: {
-      username: process.env.USER_NAME,
-    },
-  })
-
-  const arrayPostsFormatted = data.map(post => {
-    const dateFormatted = new Date(post.published_at).toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
+export async function getPostsDevTo(maxResults: number): Promise<PostsProps> {
+  try {
+    const { data } = await axios.get<PostDevToProps[]>('https://dev.to/api/articles', {
+      params: {
+        username: process.env.USER_NAME,
+      },
     })
 
+    const arrayPostsFormatted = data.map(post => {
+      const dateFormatted = new Date(post.published_at).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      })
+
+      return {
+        id: post.id,
+        title: post.title,
+        description: post.description,
+        tags: post.tag_list,
+        publishedAt: dateFormatted,
+        urlPost: post.url,
+      }
+    })
+
+    const arrayPosts = [...arrayPostsFormatted].splice(0, maxResults)
+
     return {
-      id: post.id,
-      title: post.title,
-      description: post.description,
-      tags: post.tag_list,
-      publishedAt: dateFormatted,
-      urlPost: post.url,
+      total: arrayPostsFormatted.length,
+      items: arrayPosts,
     }
-  })
-
-  const arrayPosts = arrayPostsFormatted.splice(0, maxResults)
-
-  return arrayPosts
+  } catch {
+    return {
+      total: 0,
+      items: [],
+    }
+  }
 }
