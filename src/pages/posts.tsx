@@ -1,7 +1,7 @@
 import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 
-import { CardPost } from '../components/CardPost'
+import { CardTexts } from '../components/CardTexts'
 import { getPostsDevTo, PostProps } from '../services/devTo'
 
 interface PostsProps {
@@ -24,7 +24,7 @@ export default function Posts({ arrayPosts }: PostsProps) {
 
       <SimpleGrid columns={2} spacing={8}>
         {arrayPosts.map(post => (
-          <CardPost
+          <CardTexts
             key={post.id}
             title={post.title}
             date={post.publishedAt}
