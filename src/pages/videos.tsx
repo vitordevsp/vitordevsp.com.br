@@ -30,6 +30,7 @@ export default function Videos({ videos }: PageVideosProps) {
             badges={video.tags}
             title={video.title}
             description={video.description}
+            href={video.urlVideo}
           />
         ))}
       </Stack>
