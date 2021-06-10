@@ -5,29 +5,29 @@ import { CardInfo } from '../components/CardInfo'
 import { CardTexts } from '../components/CardTexts'
 import { TitleSection } from '../components/TitleSection'
 
-import { getVideosYoutube, YoutubeVideoProps } from '../services/youtube'
+import { getVideosYoutube, VideosProps } from '../services/youtube'
 import { getPostsDevTo, PostProps } from '../services/devTo'
 import { getRepositoriesGitHub, RepositoriesProps } from '../services/github'
 
 interface HomeProps {
-  arrayVideos: YoutubeVideoProps[]
+  videos: VideosProps
   repositories: RepositoriesProps
   arrayPosts: PostProps[]
 }
 
-export default function Home({ arrayVideos, repositories, arrayPosts }: HomeProps) {
+export default function Home({ videos, repositories, arrayPosts }: HomeProps) {
   return (
     <Stack as="main" my={20} spacing={20}>
       <Box as="section">
         <TitleSection
           href="/videos"
           title="Últimos Vídeos"
-          subTitle={`${arrayVideos.length} ${arrayVideos.length > 1 ? 'Vídeos' : 'Vídeo'}`}
+          subTitle={`${videos.total} ${videos.total > 1 ? 'Vídeos' : 'Vídeo'}`}
           mb={8}
         />
 
         <SimpleGrid columns={3} spacing={8}>
-          {arrayVideos.map(video => (
+          {videos.items.map(video => (
             <CardInfo
               key={video.id}
               src={video.thumbnails.maxres}
@@ -84,13 +84,13 @@ export default function Home({ arrayVideos, repositories, arrayPosts }: HomeProp
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const arrayVideos = await getVideosYoutube(3)
+  const videos = await getVideosYoutube(3)
   const repositories = await getRepositoriesGitHub(3)
   const arrayPosts = await getPostsDevTo(6)
 
   return {
     props: {
-      arrayVideos,
+      videos,
       repositories,
       arrayPosts,
     },

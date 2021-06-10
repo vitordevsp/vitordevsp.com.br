@@ -2,13 +2,13 @@ import { Heading, Stack, Text } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 
 import { CardInfoLarge } from '../components/CardInfoLarge'
-import { getVideosYoutube, YoutubeVideoProps } from '../services/youtube'
+import { getVideosYoutube, VideosProps } from '../services/youtube'
 
-interface VideosProps {
-  arrayVideos: YoutubeVideoProps[]
+interface PageVideosProps {
+  videos: VideosProps
 }
 
-export default function Videos({ arrayVideos }: VideosProps) {
+export default function Videos({ videos }: PageVideosProps) {
   return (
     <Stack as="main" my={20} spacing={20}>
       <Stack>
@@ -17,13 +17,13 @@ export default function Videos({ arrayVideos }: VideosProps) {
         </Heading>
 
         <Text textAlign="center">
-          {arrayVideos.length}
-          {arrayVideos.length > 1 ? ' Vídeos' : ' Vídeo'}
+          {videos.total}
+          {videos.total > 1 ? ' Vídeos' : ' Vídeo'}
         </Text>
       </Stack>
 
       <Stack align="center" spacing={20}>
-        {arrayVideos.map(video => (
+        {videos.items.map(video => (
           <CardInfoLarge
             key={video.id}
             src={video.thumbnails.maxres}
@@ -38,11 +38,11 @@ export default function Videos({ arrayVideos }: VideosProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const arrayVideos = await getVideosYoutube(50)
+  const videos = await getVideosYoutube(50)
 
   return {
     props: {
-      arrayVideos,
+      videos,
     },
     revalidate: 60 * 60 * 6, // 6 hours
   }
