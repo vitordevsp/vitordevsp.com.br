@@ -2,53 +2,22 @@ import { GetStaticProps } from 'next'
 import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
 
 import { CardInfo } from '../components/CardInfo'
-import { CardPost } from '../components/CardPost'
+import { CardTexts } from '../components/CardTexts'
 import { TitleSection } from '../components/TitleSection'
 
 import { getVideosYoutube, YoutubeVideoProps } from '../services/youtube'
 import { getPostsDevTo, PostProps } from '../services/devTo'
+import { getRepositoriesGitHub, RepositoriesProps } from '../services/github'
 
 interface HomeProps {
   arrayVideos: YoutubeVideoProps[]
+  repositories: RepositoriesProps
   arrayPosts: PostProps[]
 }
 
-const srcImage = 'https://cdn.dribbble.com/users/690168/screenshots/6292240/shot-money-saving.png'
-
-export default function Home({ arrayVideos, arrayPosts }: HomeProps) {
+export default function Home({ arrayVideos, repositories, arrayPosts }: HomeProps) {
   return (
     <Stack as="main" my={20} spacing={20}>
-      <Box as="section">
-        <TitleSection
-          href="/projects"
-          title="Últimos Projetos"
-          subTitle="5 Projetos"
-          mb={8}
-        />
-
-        <SimpleGrid columns={3} spacing={8}>
-          <CardInfo
-            src={srcImage}
-            badges={['ReactJS', 'NextJS', 'ChakraUI', 'Typescript', 'Typescript']}
-            title="GitHub Explore"
-            description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-          />
-
-          <CardInfo
-            src={srcImage}
-            badges={['ReactJS', 'NextJS']}
-            title="GitHub Explore"
-            description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-          />
-
-          <CardInfo
-            src={srcImage}
-            title="GitHub Explore"
-            description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-          />
-        </SimpleGrid>
-      </Box>
-
       <Box as="section">
         <TitleSection
           href="/videos"
@@ -72,6 +41,26 @@ export default function Home({ arrayVideos, arrayPosts }: HomeProps) {
 
       <Box as="section">
         <TitleSection
+          href="/projects"
+          title="Últimos Projetos"
+          subTitle={`${repositories.total} ${repositories.total > 1 ? ' Projetos' : ' Projeto'}`}
+          mb={8}
+        />
+
+        <SimpleGrid columns={3} spacing={8}>
+          {repositories.items.map(repo => (
+            <CardTexts
+              key={repo.id}
+              title={repo.name}
+              description={repo.description}
+              badges={repo.tags}
+            />
+          ))}
+        </SimpleGrid>
+      </Box>
+
+      <Box as="section">
+        <TitleSection
           href="/posts"
           title="Últimos Posts"
           subTitle={`${arrayPosts.length} ${arrayPosts.length > 1 ? 'Posts' : 'Post'}`}
@@ -80,7 +69,7 @@ export default function Home({ arrayVideos, arrayPosts }: HomeProps) {
 
         <SimpleGrid columns={2} spacing={8}>
           {arrayPosts.map(post => (
-            <CardPost
+            <CardTexts
               key={post.id}
               title={post.title}
               date={post.publishedAt}
@@ -96,11 +85,13 @@ export default function Home({ arrayVideos, arrayPosts }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const arrayVideos = await getVideosYoutube(3)
+  const repositories = await getRepositoriesGitHub(3)
   const arrayPosts = await getPostsDevTo(6)
 
   return {
     props: {
       arrayVideos,
+      repositories,
       arrayPosts,
     },
     revalidate: 60 * 60 * 6, // 6 hours

@@ -1,9 +1,14 @@
-import { Heading, Stack, Text } from '@chakra-ui/react'
-import { CardInfoLarge } from '../components/CardInfoLarge'
+import { GetStaticProps } from 'next'
+import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
-const srcImage = 'https://cdn.dribbble.com/users/690168/screenshots/6292240/shot-money-saving.png'
+import { CardTexts } from '../components/CardTexts'
+import { getRepositoriesGitHub, RepositoriesProps } from '../services/github'
 
-export default function Projects() {
+interface ProjectsProps {
+  repositories: RepositoriesProps
+}
+
+export default function Projects({ repositories }: ProjectsProps) {
   return (
     <Stack as="main" my={20} spacing={20}>
       <Stack>
@@ -11,43 +16,33 @@ export default function Projects() {
           Todos os Projetos
         </Heading>
 
-        <Text textAlign="center">5 Projetos</Text>
+        <Text textAlign="center">
+          {repositories.total}
+          {repositories.total > 1 ? ' Projetos' : ' Projeto'}
+        </Text>
       </Stack>
 
-      <Stack align="center" spacing={20}>
-        <CardInfoLarge
-          src={srcImage}
-          badges={['ReactJS', 'NextJS', 'ChakraUI', 'Typescript', 'Typescript']}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
-
-        <CardInfoLarge
-          src={srcImage}
-          badges={['ReactJS', 'NextJS']}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
-
-        <CardInfoLarge
-          src={srcImage}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
-
-        <CardInfoLarge
-          src={srcImage}
-          badges={['ReactJS', 'NextJS']}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
-
-        <CardInfoLarge
-          src={srcImage}
-          title="GitHub Explore"
-          description="Apenas uma pequena descrição de teste para fazer a prototipagem."
-        />
-      </Stack>
+      <SimpleGrid columns={2} spacing={8}>
+        {repositories.items.map(repo => (
+          <CardTexts
+            key={repo.id}
+            title={repo.name}
+            description={repo.description}
+            badges={repo.tags}
+          />
+        ))}
+      </SimpleGrid>
     </Stack>
   )
+}
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const repositories = await getRepositoriesGitHub(3)
+
+  return {
+    props: {
+      repositories,
+    },
+    revalidate: 60 * 60 * 6, // 6 hours
+  }
 }
