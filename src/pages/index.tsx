@@ -34,6 +34,7 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
               badges={video.tags}
               title={video.title}
               description={video.description}
+              href={video.urlVideo}
             />
           ))}
         </SimpleGrid>
