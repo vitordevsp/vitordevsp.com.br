@@ -42,11 +42,13 @@ export async function getVideosYoutube(maxResults: number): Promise<VideosProps>
           },
         })
 
+        const tags = data.items[0].snippet.tags || []
+
         return {
           id: video.id.videoId,
           title: video.snippet.title,
           description: video.snippet.description,
-          tags: data.items[0].snippet.tags,
+          tags,
           publishedAt: video.snippet.publishedAt,
           urlVideo: `https://www.youtube.com/watch?v=${video.id.videoId}`,
           thumbnails: {
