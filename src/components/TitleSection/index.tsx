@@ -10,8 +10,14 @@ interface TitleSectionProps extends FlexProps {
 
 export function TitleSection({ href, title, subTitle, ...props }: TitleSectionProps) {
   return (
-    <Link href={href || ''} passHref>
-      <Flex as="a" align="center" justify="space-between" role="group" {...props}>
+    <Link href={href || ''} passHref={!!href}>
+      <Flex
+        as="a"
+        align="center"
+        justify="space-between"
+        role={href ? 'group' : undefined}
+        {...props}
+      >
         <Heading
           color="custom.primary"
           transition="color 0.4s"
