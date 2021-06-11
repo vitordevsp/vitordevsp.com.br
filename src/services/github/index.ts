@@ -15,8 +15,8 @@ export interface RepositoriesProps {
 
 export async function getRepositoriesGitHub(maxResults: number): Promise<RepositoriesProps> {
   try {
-    const { USER_NAME } = process.env
-    const apiUrl = `https://api.github.com/users/${USER_NAME}/repos`
+    const { GITHUB_USERNAME } = process.env
+    const apiUrl = `https://api.github.com/users/${GITHUB_USERNAME}/repos`
 
     const { data } = await axios.get<RepositoryGitHubProps[]>(apiUrl, {
       headers: {
@@ -25,7 +25,7 @@ export async function getRepositoriesGitHub(maxResults: number): Promise<Reposit
     })
 
     const arrayRepositoriesFormatted = data
-      .filter(repo => repo.name !== USER_NAME)
+      .filter(repo => repo.name !== GITHUB_USERNAME)
       .map(repo => {
         return {
           id: repo.id,

@@ -17,7 +17,7 @@ export async function getPostsDevTo(maxResults: number): Promise<PostsProps> {
   try {
     const { data } = await axios.get<PostDevToProps[]>('https://dev.to/api/articles', {
       params: {
-        username: process.env.USER_NAME,
+        username: process.env.DEVTO_USERNAME,
       },
     })
 
