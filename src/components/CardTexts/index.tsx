@@ -8,12 +8,29 @@ interface CardTextsProps {
   date?: string
   description: string
   badges?: string[]
+  href?: string
 }
 
-export function CardTexts({ title, date, description, badges }: CardTextsProps) {
+export function CardTexts({ title, date, description, badges, href }: CardTextsProps) {
   return (
-    <Stack bg="gray.800" p={6} borderRadius="lg" spacing={2.5}>
-      <Heading as="h3" fontSize="3xl">{title}</Heading>
+    <Stack
+      as="a"
+      bg="gray.800"
+      p={6}
+      borderRadius="lg"
+      spacing={2.5}
+      href={href || undefined}
+      target="_blank"
+      role={href ? 'group' : undefined}
+    >
+      <Heading
+        as="h3"
+        fontSize="3xl"
+        transition="color 0.4s"
+        _groupHover={{ color: 'custom.secondary', textDecoration: 'underline' }}
+      >
+        {title}
+      </Heading>
 
       {date && (
         <Stack my={3} align="center" color="gray.100" isInline>

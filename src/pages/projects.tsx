@@ -29,6 +29,7 @@ export default function Projects({ repositories }: ProjectsProps) {
             title={repo.name}
             description={repo.description}
             badges={repo.tags}
+            href={repo.urlSite || repo.urlRepo}
           />
         ))}
       </SimpleGrid>

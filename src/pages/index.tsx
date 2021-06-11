@@ -55,6 +55,7 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
               title={repo.name}
               description={repo.description}
               badges={repo.tags}
+              href={repo.urlSite || repo.urlRepo}
             />
           ))}
         </SimpleGrid>
@@ -76,6 +77,7 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
               date={post.publishedAt}
               description={post.description}
               badges={post.tags}
+              href={post.urlPost}
             />
           ))}
         </SimpleGrid>
