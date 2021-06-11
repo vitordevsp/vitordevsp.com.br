@@ -21,13 +21,14 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "space-before-function-paren": "off",
-    "comma-dangle": [
-      2,
-      "always-multiline"
-    ],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
+    "space-before-function-paren": "off",
+    "no-console": "warn",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
     "jsx-quotes": [
       "error",
       "prefer-double"
