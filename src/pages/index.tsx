@@ -17,7 +17,7 @@ interface HomeProps {
 
 export default function Home({ videos, repositories, posts }: HomeProps) {
   return (
-    <Stack as="main" my={20} spacing={20}>
+    <Stack as="main" my={[12, 20]} spacing={20}>
       <Box as="section">
         <TitleSection
           href="/videos"
@@ -26,7 +26,12 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
           mb={8}
         />
 
-        <SimpleGrid columns={3} spacing={8}>
+        <SimpleGrid
+          w={[null, '370px', '100%']}
+          columns={[null, 1, 3]}
+          mx="auto"
+          spacing={8}
+        >
           {videos.items.map(video => (
             <CardInfo
               key={video.id}
@@ -48,7 +53,7 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
           mb={8}
         />
 
-        <SimpleGrid columns={3} spacing={8}>
+        <SimpleGrid columns={[null, 1, 3]} spacing={8}>
           {repositories.items.map(repo => (
             <CardTexts
               key={repo.id}
@@ -69,7 +74,7 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
           mb={8}
         />
 
-        <SimpleGrid columns={2} spacing={8}>
+        <SimpleGrid columns={[null, 1, 2]} spacing={8}>
           {posts.items.map(post => (
             <CardTexts
               key={post.id}

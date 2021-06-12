@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Icon, Image, Stack, Text } from '@chakra-ui/react'
+import { AspectRatio, Box, Flex, Heading, Icon, Image, Stack, Text } from '@chakra-ui/react'
 import { FiExternalLink } from 'react-icons/fi'
 
 import { Badge } from '../Badge'
@@ -15,31 +15,34 @@ export function CardInfo({ src, badges, title, description, href }: CardInfoProp
   return (
     <Stack
       as="a"
+      maxWidth="380px"
       spacing={2.5}
       href={href || undefined}
       target="_blank"
       role={href ? 'group' : undefined}
     >
-      <Box w="fit-content" borderRadius="lg" position="relative" overflow="hidden">
-        <Image w="300px" h="170px" src={src} alt="project" />
+      <AspectRatio borderRadius="lg" ratio={16 / 9}>
+        <Box w="fit-content" borderRadius="lg" position="relative" overflow="hidden">
+          <Image src={src} alt="project" />
 
-        {href && (
-          <Flex
-            w="100%"
-            h="100%"
-            bgColor="rgba(0, 0, 0, 0.7)"
-            position="absolute"
-            top="0"
-            align="center"
-            justify="center"
-            opacity="0"
-            transition="opacity 0.3s"
-            _groupHover={{ opacity: '1' }}
-          >
-            <Icon as={FiExternalLink} w={8} h={8} />
-          </Flex>
-        )}
-      </Box>
+          {href && (
+            <Flex
+              w="100%"
+              h="100%"
+              bgColor="rgba(0, 0, 0, 0.7)"
+              position="absolute"
+              top="0"
+              align="center"
+              justify="center"
+              opacity="0"
+              transition="opacity 0.3s"
+              _groupHover={{ opacity: '1' }}
+            >
+              <Icon as={FiExternalLink} w={8} h={8} />
+            </Flex>
+          )}
+        </Box>
+      </AspectRatio>
 
       {badges && (
         <Flex gridGap={2} wrap="wrap">
