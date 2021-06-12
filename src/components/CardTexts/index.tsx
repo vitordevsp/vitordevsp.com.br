@@ -27,7 +27,7 @@ export function CardTexts({ title, date, description, badges, href }: CardTextsP
         as="h3"
         fontSize="3xl"
         transition="color 0.4s"
-        _groupHover={{ color: 'custom.secondary', textDecoration: 'underline' }}
+        _groupHover={{ color: 'custom.secondary' }}
       >
         {title}
       </Heading>

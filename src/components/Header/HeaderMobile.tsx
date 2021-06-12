@@ -1,17 +1,33 @@
-import { Flex, Avatar, Image, HStack } from '@chakra-ui/react'
-import { FiYoutube, FiLinkedin, FiGithub, FiInstagram } from 'react-icons/fi'
+import { Flex, Avatar, Image, HStack, Box, Icon } from '@chakra-ui/react'
+import { FiYoutube, FiLinkedin, FiGithub, FiInstagram, FiMenu } from 'react-icons/fi'
 
 import { ActiveLink } from './ActiveLink'
 import { IconLink } from './IconLink'
 
-export function Toolbar() {
+export function HeaderMobile() {
   return (
-    <Flex as="header" mt={8} justify="space-between">
+    <Flex as="header" mt={8} justify="space-between" align="center">
       <HStack spacing={4}>
         <Avatar name="Vitor DevSP" src="/devsp-perfil.png" bg="black" />
         <Image src="/devsp-logo.svg" alt="devsp" h="20px" />
       </HStack>
 
+      <Icon
+        as={FiMenu}
+        w={6}
+        h={6}
+        cursor="pointer"
+        opacity="0.7"
+        transition="all 0.2s"
+        _hover={{ opacity: 1 }}
+      />
+    </Flex>
+  )
+}
+
+export function Drawer() {
+  return (
+    <Box>
       <HStack as="nav" spacing={8}>
         <ActiveLink href="/">Início</ActiveLink>
         <ActiveLink href="/videos">Vídeos</ActiveLink>
@@ -45,6 +61,6 @@ export function Toolbar() {
           accentColor="red.400"
         />
       </HStack>
-    </Flex>
+    </Box>
   )
 }
