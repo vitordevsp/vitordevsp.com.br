@@ -43,6 +43,7 @@ export function TitleSection({ href, title, subTitle, ...props }: TitleSectionPr
         <Text
           fontSize="xl"
           color="gray.100"
+          whiteSpace="nowrap"
           transition="color 0.4s"
           _groupHover={{ color: 'custom.secondary' }}
         >

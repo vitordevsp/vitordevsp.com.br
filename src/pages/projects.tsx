@@ -23,7 +23,7 @@ export default function Projects({ repositories }: ProjectsProps) {
         </Text>
       </Stack>
 
-      <SimpleGrid columns={2} spacing={8}>
+      <SimpleGrid columns={[null, 1, 2]} spacing={8}>
         {repositories.items.map(repo => (
           <CardTexts
             key={repo.id}

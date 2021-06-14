@@ -23,7 +23,7 @@ export default function Posts({ posts }: PagePostsProps) {
         </Text>
       </Stack>
 
-      <SimpleGrid columns={2} spacing={8}>
+      <SimpleGrid columns={[null, 1, 2]} spacing={8}>
         {posts.items.map(post => (
           <CardTexts
             key={post.id}
