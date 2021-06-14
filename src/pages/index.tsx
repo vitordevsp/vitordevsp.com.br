@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next'
-import { Box, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Box, SimpleGrid } from '@chakra-ui/react'
 
+import { Main } from '../components/Main'
 import { CardInfo } from '../components/CardInfo'
 import { CardTexts } from '../components/CardTexts'
 import { TitleSection } from '../components/TitleSection'
@@ -17,7 +18,7 @@ interface HomeProps {
 
 export default function Home({ videos, repositories, posts }: HomeProps) {
   return (
-    <Stack as="main" my={[12, 20]} spacing={20}>
+    <Main>
       <Box as="section">
         <TitleSection
           href="/videos"
@@ -87,7 +88,7 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
           ))}
         </SimpleGrid>
       </Box>
-    </Stack>
+    </Main>
   )
 }
 

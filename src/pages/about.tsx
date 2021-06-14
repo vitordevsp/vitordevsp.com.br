@@ -1,9 +1,11 @@
 import { Heading, VStack, Stack, Text } from '@chakra-ui/react'
+
+import { Main } from '../components/Main'
 import { SectionBadgesTechs } from '../components/sectionBadgesTechs'
 
 export default function About() {
   return (
-    <Stack as="main" maxW="800px" mx="auto" my={20} spacing={20}>
+    <Main>
       <VStack as="section" spacing={6}>
         <Heading size="2xl" color="custom.primary">
           Sobre
@@ -160,6 +162,6 @@ export default function About() {
           ]}
         />
       </VStack>
-    </Stack>
+    </Main>
   )
 }

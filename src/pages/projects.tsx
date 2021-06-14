@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next'
 import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
+import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 import { getRepositoriesGitHub, RepositoriesProps } from '../services/github'
 
@@ -10,7 +11,7 @@ interface ProjectsProps {
 
 export default function Projects({ repositories }: ProjectsProps) {
   return (
-    <Stack as="main" my={20} spacing={20}>
+    <Main>
       <Stack>
         <Heading as="h1" color="custom.primary" textAlign="center" size="2xl">
           Todos os Projetos
@@ -33,7 +34,7 @@ export default function Projects({ repositories }: ProjectsProps) {
           />
         ))}
       </SimpleGrid>
-    </Stack>
+    </Main>
   )
 }
 

@@ -1,6 +1,7 @@
 import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 
+import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 import { getPostsDevTo, PostsProps } from '../services/devTo'
 
@@ -10,7 +11,7 @@ interface PagePostsProps {
 
 export default function Posts({ posts }: PagePostsProps) {
   return (
-    <Stack as="main" my={20} spacing={20}>
+    <Main>
       <Stack>
         <Heading as="h1" color="custom.primary" textAlign="center" size="2xl">
           Todos os Posts
@@ -34,7 +35,7 @@ export default function Posts({ posts }: PagePostsProps) {
           />
         ))}
       </SimpleGrid>
-    </Stack>
+    </Main>
   )
 }
 

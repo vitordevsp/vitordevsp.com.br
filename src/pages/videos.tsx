@@ -1,6 +1,7 @@
 import { Heading, Stack, Text } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 
+import { Main } from '../components/Main'
 import { CardInfoLarge } from '../components/CardInfoLarge'
 import { getVideosYoutube, VideosProps } from '../services/youtube'
 
@@ -10,7 +11,7 @@ interface PageVideosProps {
 
 export default function Videos({ videos }: PageVideosProps) {
   return (
-    <Stack as="main" my={20} spacing={20}>
+    <Main>
       <Stack>
         <Heading as="h1" color="custom.primary" textAlign="center" size="2xl">
           Todos os Vídeos
@@ -34,7 +35,7 @@ export default function Videos({ videos }: PageVideosProps) {
           />
         ))}
       </Stack>
-    </Stack>
+    </Main>
   )
 }
 
