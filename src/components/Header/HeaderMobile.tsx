@@ -1,7 +1,5 @@
 import {
   Flex,
-  Avatar,
-  Image,
   HStack,
   VStack,
   Icon,
@@ -14,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { FiYoutube, FiLinkedin, FiGithub, FiInstagram, FiMenu } from 'react-icons/fi'
 
+import { Logo } from './Logo'
 import { ActiveLink } from './ActiveLink'
 import { IconLink } from './IconLink'
 
@@ -23,10 +22,7 @@ export function HeaderMobile() {
   return (
     <>
       <Flex as="header" mt={8} justify="space-between" align="center">
-        <HStack spacing={4}>
-          <Avatar name="Vitor DevSP" src="/devsp-perfil.png" bg="black" />
-          <Image src="/devsp-logo.svg" alt="devsp" h="20px" />
-        </HStack>
+        <Logo />
 
         <Icon
           as={FiMenu}

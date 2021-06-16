@@ -1,16 +1,14 @@
-import { Flex, Avatar, Image, HStack } from '@chakra-ui/react'
+import { Flex, HStack } from '@chakra-ui/react'
 import { FiYoutube, FiLinkedin, FiGithub, FiInstagram } from 'react-icons/fi'
 
+import { Logo } from './Logo'
 import { ActiveLink } from './ActiveLink'
 import { IconLink } from './IconLink'
 
 export function HeaderDesktop() {
   return (
     <Flex as="header" mt={8} justify="space-between" align="center">
-      <HStack spacing={4}>
-        <Avatar name="Vitor DevSP" src="/devsp-perfil.png" bg="black" />
-        <Image src="/devsp-logo.svg" alt="devsp" h="20px" />
-      </HStack>
+      <Logo />
 
       <HStack as="nav" spacing={8}>
         <ActiveLink href="/">Início</ActiveLink>
