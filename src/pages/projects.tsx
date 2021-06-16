@@ -3,7 +3,9 @@ import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
+
 import { getRepositoriesGitHub, RepositoriesProps } from '../services/github'
+import { config } from '../components/config'
 
 interface ProjectsProps {
   repositories: RepositoriesProps
@@ -45,6 +47,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       repositories,
     },
-    revalidate: 60 * 60 * 6, // 6 hours
+    revalidate: config.revalidate,
   }
 }

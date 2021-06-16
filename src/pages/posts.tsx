@@ -3,7 +3,9 @@ import { GetStaticProps } from 'next'
 
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
+
 import { getPostsDevTo, PostsProps } from '../services/devTo'
+import { config } from '../components/config'
 
 interface PagePostsProps {
   posts: PostsProps
@@ -46,6 +48,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       posts,
     },
-    revalidate: 60 * 60 * 6, // 6 hours
+    revalidate: config.revalidate,
   }
 }

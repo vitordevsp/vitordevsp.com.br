@@ -3,7 +3,9 @@ import { GetStaticProps } from 'next'
 
 import { Main } from '../components/Main'
 import { CardInfoLarge } from '../components/CardInfoLarge'
+
 import { getVideosYoutube, VideosProps } from '../services/youtube'
+import { config } from '../components/config'
 
 interface PageVideosProps {
   videos: VideosProps
@@ -46,6 +48,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       videos,
     },
-    revalidate: 60 * 60 * 6, // 6 hours
+    revalidate: config.revalidate,
   }
 }

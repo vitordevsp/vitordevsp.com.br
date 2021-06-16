@@ -9,6 +9,7 @@ import { TitleSection } from '../components/TitleSection'
 import { getVideosYoutube, VideosProps } from '../services/youtube'
 import { getRepositoriesGitHub, RepositoriesProps } from '../services/github'
 import { getPostsDevTo, PostsProps } from '../services/devTo'
+import { config } from '../components/config'
 
 interface HomeProps {
   videos: VideosProps
@@ -103,6 +104,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       repositories,
       posts,
     },
-    revalidate: 60 * 60 * 6, // 6 hours
+    revalidate: config.revalidate,
   }
 }
