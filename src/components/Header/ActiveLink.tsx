@@ -1,27 +1,29 @@
 import { useRouter } from 'next/router'
-import Link, { LinkProps } from 'next/link'
-import { Link as LinkChakra } from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { Link, LinkProps } from '@chakra-ui/react'
 
 interface ActiveLinkProps extends LinkProps {
+  href: string
   children: string
 }
 
-export function ActiveLink({ children, ...rest }: ActiveLinkProps) {
+export function ActiveLink({ href, children, ...rest }: ActiveLinkProps) {
   const { asPath } = useRouter()
 
-  const isActiveLink = asPath === rest.href
+  const isActiveLink = asPath === href || asPath === ''
 
   return (
-    <Link {...rest} passHref>
-      <LinkChakra
+    <NextLink href={href} passHref>
+      <Link
         fontSize="lg"
         opacity={isActiveLink ? 1 : 0.7}
         color={isActiveLink ? 'custom.primary' : 'gray.50'}
         fontWeight={isActiveLink ? 'semibold' : 'normal'}
         _hover={{ opacity: 1 }}
+        {...rest}
       >
         {children}
-      </LinkChakra>
-    </Link>
+      </Link>
+    </NextLink>
   )
 }
