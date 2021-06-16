@@ -1,6 +1,7 @@
-import { Flex, Heading, Icon, Stack, Text } from '@chakra-ui/react'
+import { Heading, Icon, Stack, Text } from '@chakra-ui/react'
 import { FiCalendar } from 'react-icons/fi'
 
+import { FlexGap } from '../FlexGap'
 import { Badge } from '../Badge'
 
 interface CardTextsProps {
@@ -42,11 +43,11 @@ export function CardTexts({ title, date, description, badges, href }: CardTextsP
       <Text fontSize="lg" color="gray.100">{description}</Text>
 
       {badges && (
-        <Flex gridGap={2} wrap="wrap">
+        <FlexGap>
           {badges.map((badge, i) => (
             <Badge key={i} bg="gray.700">{badge}</Badge>
           ))}
-        </Flex>
+        </FlexGap>
       )}
     </Stack>
   )

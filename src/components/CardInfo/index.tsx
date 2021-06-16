@@ -1,6 +1,7 @@
 import { AspectRatio, Box, Flex, Heading, Icon, Image, Stack, Text } from '@chakra-ui/react'
 import { FiExternalLink } from 'react-icons/fi'
 
+import { FlexGap } from '../FlexGap'
 import { Badge } from '../Badge'
 
 interface CardInfoProps {
@@ -45,11 +46,11 @@ export function CardInfo({ src, badges, title, description, href }: CardInfoProp
       </AspectRatio>
 
       {badges && (
-        <Flex gridGap={2} wrap="wrap">
+        <FlexGap>
           {badges.map((badge, i) => (
             <Badge key={i}>{badge}</Badge>
           ))}
-        </Flex>
+        </FlexGap>
       )}
 
       <Stack>

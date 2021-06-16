@@ -1,4 +1,6 @@
-import { Heading, VStack, Flex } from '@chakra-ui/react'
+import { Heading, VStack } from '@chakra-ui/react'
+
+import { FlexGap } from '../FlexGap'
 import { BadgeTech } from '../BadgeTech'
 
 interface SectionBadgesTechsProps {
@@ -11,10 +13,10 @@ interface SectionBadgesTechsProps {
 
 export function SectionBadgesTechs({ title, arrayBadges }: SectionBadgesTechsProps) {
   return (
-    <VStack spacing={3}>
+    <VStack spacing={5}>
       <Heading as="h4" size="lg">{title}</Heading>
 
-      <Flex justify="center" gridGap={4} wrap="wrap">
+      <FlexGap justify="center" gap="16px">
         {arrayBadges.map(({ title, pathIcon }) => (
           <BadgeTech
             key={title}
@@ -22,7 +24,7 @@ export function SectionBadgesTechs({ title, arrayBadges }: SectionBadgesTechsPro
             pathIcon={pathIcon}
           />
         ))}
-      </Flex>
+      </FlexGap>
     </VStack>
   )
 }
