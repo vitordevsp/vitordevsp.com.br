@@ -37,7 +37,7 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
           {videos.items.map(video => (
             <CardInfo
               key={video.id}
-              src={video.thumbnails.maxres}
+              src={video.thumbnails.high}
               badges={video.tags}
               title={video.title}
               description={video.description}

@@ -52,8 +52,8 @@ export async function getVideosYoutube(maxResults: number): Promise<VideosProps>
           publishedAt: video.snippet.publishedAt,
           urlVideo: `https://www.youtube.com/watch?v=${video.id.videoId}`,
           thumbnails: {
-            high: data.items[0].snippet.thumbnails.high.url,
-            maxres: data.items[0].snippet.thumbnails.maxres.url,
+            high: `https://i.ytimg.com/vi/${video.id.videoId}/hqdefault.jpg`,
+            maxres: `https://i.ytimg.com/vi/${video.id.videoId}/maxresdefault.jpg`,
           },
         }
       })
