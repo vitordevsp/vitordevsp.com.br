@@ -1,14 +1,3 @@
-# 📌 Índice
-1. [Objetivo do Projeto](#dart-objetivo-do-projeto)
-2. [Sobre](#page_with_curl-sobre)
-3. [Tecnologias Utilizadas](#rocket-tecnologias-utilizadas)
-4. [Requisitos](#gear-requisitos)
-5. [Rodar o Projeto](#arrow_forward-rodar-o-projeto)
-6. [Resultado](#keyboard-resultado)
-7. [Redes Sociais](#man_technologist-redes-sociais)
-
----
-
 ## 🎯 Objetivo do Projeto
 
 O projeto tem como objetivo ser um ponto central do meu trabalho. No meu site listo minhas redes sociais, os vídeos que gravo para o YouTube, os artigos que escrevo no [Dev.to](http://dev.to) e os projetos open source que tenho no GitHub.
