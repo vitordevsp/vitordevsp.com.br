@@ -1,12 +1,11 @@
 # 📌 Índice
-
-1. [Objetivo do Projeto](https://www.notion.so/README-md-a04f04c218614869b12c465d3065fee8)
-2. [Sobre](https://www.notion.so/README-md-a04f04c218614869b12c465d3065fee8)
-3. [Tecnologias Utilizadas](https://www.notion.so/README-md-a04f04c218614869b12c465d3065fee8)
-4. [Requisitos](https://www.notion.so/README-md-a04f04c218614869b12c465d3065fee8)
-5. [Rodar o Projeto](https://www.notion.so/README-md-a04f04c218614869b12c465d3065fee8)
-6. [Resultado](https://www.notion.so/README-md-a04f04c218614869b12c465d3065fee8)
-7. [Redes Sociais](https://www.notion.so/README-md-a04f04c218614869b12c465d3065fee8)
+1. [Objetivo do Projeto](#dart-objetivo-do-projeto)
+2. [Sobre](#page_with_curl-sobre)
+3. [Tecnologias Utilizadas](#rocket-tecnologias-utilizadas)
+4. [Requisitos](#gear-requisitos)
+5. [Rodar o Projeto](#arrow_forward-rodar-o-projeto)
+6. [Resultado](#keyboard-resultado)
+7. [Redes Sociais](#man_technologist-redes-sociais)
 
 ---
 
@@ -40,31 +39,31 @@ O Chakra traz componentes e hooks que agilizam muito o desenvolvimento, em breve
 
 ## 🚀 Tecnologias Utilizadas
 
-- [Node.js](https://nodejs.org/en/)
-- [Next.js](https://nextjs.org/docs/getting-started)
-- [React.js](https://pt-br.reactjs.org/)
-- [ChakraUI](https://chakra-ui.com/)
-- [Typescript](https://www.typescriptlang.org/)
-- [Commitlint, Husky e Commitizen](https://dev.to/vitordevsp/padronizacao-de-commit-com-commitlint-husky-e-commitizen-3g1n) - Artigo
-- [ESLint](https://eslint.org/)
-- [React Icons](https://react-icons.github.io/react-icons/)
+* [Node.js](https://nodejs.org/en/)
+* [Next.js](https://nextjs.org/docs/getting-started)
+* [React.js](https://pt-br.reactjs.org/)
+* [ChakraUI](https://chakra-ui.com/)
+* [Typescript](https://www.typescriptlang.org/)
+* [Commitlint, Husky e Commitizen](https://dev.to/vitordevsp/padronizacao-de-commit-com-commitlint-husky-e-commitizen-3g1n) - Artigo
+* [ESLint](https://eslint.org/)
+* [React Icons](https://react-icons.github.io/react-icons/)
 
 ## ⚙️ Requisitos
 
-- [Git](https://git-scm.com/) (Para clonar, opcional)
-- [Node.js](https://nodejs.org/en/)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) OU [Npm](https://www.npmjs.com/)
+* [Git](https://git-scm.com/) (Para clonar, opcional)
+* [Node.js](https://nodejs.org/en/)
+* [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) OU [Npm](https://www.npmjs.com/)
 
 ## ▶️ Rodar o Projeto
 
-- Primeiro passo, clone o projeto em sua máquina
-- Abra a pasta do projeto no terminal
-- Instale as dependências - `yarn` ou `npm i`
-- Duplique o arquivo `.env.example` com o nome `.env.local`
-- Insira o Username do GitHub e Dev.to
-- Será necessário o ID no canal do youtube e de uma chave (que precisa ser gerada no GCP, [doc do youtube aqui](https://developers.google.com/youtube/v3/docs)), que será utilizada para fazer as buscas dos vídeos na API
-- Com as variáveis de ambiente configuradas, inicie o servidor com o comando `yarn dev` ou `npm run dev`
-- Abra uma aba no navegador e navegue para [http://localhost:3000/](http://localhost:3000/)
+* Primeiro passo, clone o projeto em sua máquina
+* Abra a pasta do projeto no terminal
+* Instale as dependências - `yarn` ou `npm i`
+* Duplique o arquivo `.env.example` com o nome `.env.local`
+* Insira o Username do GitHub e Dev.to
+* Será necessário o ID no canal do youtube e de uma chave (que precisa ser gerada no GCP, [doc do youtube aqui](https://developers.google.com/youtube/v3/docs)), que será utilizada para fazer as buscas dos vídeos na API
+* Com as variáveis de ambiente configuradas, inicie o servidor com o comando `yarn dev` ou `npm run dev`
+* Abra uma aba no navegador e navegue para [http://localhost:3000/](http://localhost:3000/)
 
 ## ⌨️ Resultado
 
@@ -72,18 +71,20 @@ O Chakra traz componentes e hooks que agilizam muito o desenvolvimento, em breve
 
 ## 🧑🏽‍💻 Redes Sociais
 
-<a href="[https://www.youtube.com/channel/UCFIHeoKduKPsE2m1oSiK9Mg](https://www.youtube.com/channel/UCFIHeoKduKPsE2m1oSiK9Mg)" target="_blank">
-<img src="[https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)" alt="youtube" />
+<a href="https://www.youtube.com/channel/UCFIHeoKduKPsE2m1oSiK9Mg" target="_blank">
+  <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="youtube" />
 </a>
 
-<a href="[https://www.linkedin.com/in/vitordevsp](https://www.linkedin.com/in/vitordevsp)" target="_blank">
-<img src="[https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)" alt="instagram" />
+<a href="https://www.linkedin.com/in/vitordevsp" target="_blank">
+  <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="instagram" />
 </a>
 
-<a href="[https://www.instagram.com/vitordevsp](https://www.instagram.com/vitordevsp)" target="_blank">
-<img src="[https://img.shields.io/badge/Instagram-e64d5a?style=for-the-badge&logo=instagram&logoColor=white](https://img.shields.io/badge/Instagram-e64d5a?style=for-the-badge&logo=instagram&logoColor=white)" alt="instagram" />
+<a href="https://www.instagram.com/vitordevsp" target="_blank">
+  <img src="https://img.shields.io/badge/Instagram-e64d5a?style=for-the-badge&logo=instagram&logoColor=white" alt="instagram" />
 </a>
 
 ---
 
-<h5 align='center' >Feito com 💙 por <a href="[https://vitordevsp.com.br](https://www.vitordevsp.com.br/)" target="_blank">Vitor DevSP</a> </h5>
+<h5 align='center' >
+  Feito com 💙 por <a href="https://vitordevsp.com.br" target="_blank">Vitor DevSP</a>
+</h5>
