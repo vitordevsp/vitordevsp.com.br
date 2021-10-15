@@ -69,7 +69,11 @@ O Chakra traz componentes e hooks que agilizam muito o desenvolvimento, em breve
 </a>
 
 <a href="https://www.instagram.com/vitordevsp" target="_blank">
-  <img src="https://img.shields.io/badge/Instagram-e64d5a?style=for-the-badge&logo=instagram&logoColor=white" alt="instagram" />
+  <img src="https://img.shields.io/badge/Instagram-DF0174?style=for-the-badge&logo=instagram&logoColor=white" alt="instagram" />
+</a>
+
+<a href="https://dev.to/vitordevsp" target="_blank">
+  <img src="https://img.shields.io/badge/dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white" alt="dev.to" />
 </a>
 
 ---
