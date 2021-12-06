@@ -1,6 +1,6 @@
 
-import { posts } from './posts'
-import { projects } from './projects'
+import { posts } from './modules/posts'
+import { projects } from './modules/projects'
 
 export const notion = {
   posts,
