@@ -7,20 +7,24 @@ import { CardTexts } from '../components/CardTexts'
 import { TitleSection } from '../components/TitleSection'
 
 import { getVideosYoutube, VideosProps } from '../services/youtube'
-import { getRepositoriesGitHub, RepositoriesProps } from '../services/github'
-import { getPostsDevTo, PostsProps } from '../services/devTo'
+import { notion } from '../services/notion'
+import { ProjectType } from '../services/notion/modules/projects/project.types'
+import { PostType } from '../services/notion/modules/posts/post.types'
 import { config } from '../components/config'
 
 interface HomeProps {
   videos: VideosProps
-  repositories: RepositoriesProps
-  posts: PostsProps
+  projects: ProjectType[]
+  posts: PostType[]
 }
 
-export default function Home({ videos, repositories, posts }: HomeProps) {
+export default function Home({ videos, projects, posts }: HomeProps) {
+  const totalProjects = projects.length
+  const totalPosts = posts.length
+
   return (
     <Main>
-      <Box as="section">
+      <Box id="section-videos" as="section">
         <TitleSection
           href="/videos"
           title="Últimos Vídeos"
@@ -47,16 +51,16 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
         </SimpleGrid>
       </Box>
 
-      <Box as="section">
+      <Box id="section-projects" as="section">
         <TitleSection
           href="/projects"
           title="Últimos Projetos"
-          subTitle={`${repositories.total} ${repositories.total > 1 ? ' Projetos' : ' Projeto'}`}
+          subTitle={`${totalProjects} ${totalProjects > 1 ? ' Projetos' : ' Projeto'}`}
           mb={8}
         />
 
-        <SimpleGrid columns={[null, 1, 3]} spacing={8}>
-          {repositories.items.map(repo => (
+        <SimpleGrid columns={[null, 1, 2]} spacing={8}>
+          {projects.map(repo => (
             <CardTexts
               key={repo.id}
               title={repo.name}
@@ -68,23 +72,23 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
         </SimpleGrid>
       </Box>
 
-      <Box as="section">
+      <Box id="section-posts" as="section">
         <TitleSection
           href="/posts"
           title="Últimos Posts"
-          subTitle={`${posts.total} ${posts.total > 1 ? 'Posts' : 'Post'}`}
+          subTitle={`${totalPosts} ${totalPosts > 1 ? 'Posts' : 'Post'}`}
           mb={8}
         />
 
         <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-          {posts.items.map(post => (
+          {posts.map(post => (
             <CardTexts
               key={post.id}
               title={post.title}
               date={post.publishedAt}
               description={post.description}
               badges={post.tags}
-              href={post.urlPost}
+              href={post.slug}
             />
           ))}
         </SimpleGrid>
@@ -95,13 +99,13 @@ export default function Home({ videos, repositories, posts }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const videos = await getVideosYoutube(3)
-  const repositories = await getRepositoriesGitHub(3)
-  const posts = await getPostsDevTo(6)
+  const projects = await notion.projects.list()
+  const posts = await notion.posts.list()
 
   return {
     props: {
       videos,
-      repositories,
+      projects,
       posts,
     },
     revalidate: config.revalidate,

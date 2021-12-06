@@ -6,7 +6,22 @@ const NOTION_DB_POSTS = process.env.NOTION_DB_POSTS || ''
 
 async function list(): Promise<PostType[]> {
   try {
-    const database = await notionClient.getDatabase<DatabaseReqType>(NOTION_DB_POSTS)
+    const database = await notionClient.getDatabase<DatabaseReqType>(NOTION_DB_POSTS, {
+      filter: {
+        or: [
+          {
+            property: 'status',
+            select: {
+              equals: 'published',
+            },
+          },
+        ],
+      },
+      sorts: [{
+        property: 'publishedAt',
+        direction: 'descending',
+      }],
+    })
 
     const posts = database.results.map(dbPost => {
       const slug = generateSlug(dbPost.url)

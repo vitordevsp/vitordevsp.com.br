@@ -4,14 +4,17 @@ import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 
-import { getRepositoriesGitHub, RepositoriesProps } from '../services/github'
+import { notion } from '../services/notion'
+import { ProjectType } from '../services/notion/modules/projects/project.types'
 import { config } from '../components/config'
 
 interface ProjectsProps {
-  repositories: RepositoriesProps
+  projects: ProjectType[]
 }
 
-export default function Projects({ repositories }: ProjectsProps) {
+export default function Projects({ projects }: ProjectsProps) {
+  const totalProjects = projects.length
+
   return (
     <Main>
       <Stack>
@@ -20,13 +23,13 @@ export default function Projects({ repositories }: ProjectsProps) {
         </Heading>
 
         <Text textAlign="center">
-          {repositories.total}
-          {repositories.total > 1 ? ' Projetos' : ' Projeto'}
+          {totalProjects}
+          {totalProjects > 1 ? ' Projetos' : ' Projeto'}
         </Text>
       </Stack>
 
       <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-        {repositories.items.map(repo => (
+        {projects.map(repo => (
           <CardTexts
             key={repo.id}
             title={repo.name}
@@ -41,11 +44,11 @@ export default function Projects({ repositories }: ProjectsProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const repositories = await getRepositoriesGitHub(3)
+  const projects = await notion.projects.list()
 
   return {
     props: {
-      repositories,
+      projects,
     },
     revalidate: config.revalidate,
   }

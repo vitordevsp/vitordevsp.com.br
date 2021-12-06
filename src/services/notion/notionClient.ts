@@ -4,9 +4,10 @@ export const client = new Client({
   auth: process.env.NOTION_KEY,
 })
 
-export async function getDatabase<T>(databaseId: string): Promise<T> {
+export async function getDatabase<T>(databaseId: string, options?: any): Promise<T> {
   const response: any = await client.databases.query({
     database_id: databaseId,
+    ...options,
   })
 
   return response

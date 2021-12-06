@@ -4,14 +4,17 @@ import { GetStaticProps } from 'next'
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 
-import { getPostsDevTo, PostsProps } from '../services/devTo'
+import { notion } from '../services/notion'
+import { PostType } from '../services/notion/modules/posts/post.types'
 import { config } from '../components/config'
 
 interface PagePostsProps {
-  posts: PostsProps
+  posts: PostType[]
 }
 
 export default function Posts({ posts }: PagePostsProps) {
+  const totalPosts = posts.length
+
   return (
     <Main>
       <Stack>
@@ -20,20 +23,20 @@ export default function Posts({ posts }: PagePostsProps) {
         </Heading>
 
         <Text textAlign="center">
-          {posts.total}
-          {posts.total > 1 ? ' Posts' : ' Post'}
+          {totalPosts}
+          {totalPosts > 1 ? ' Posts' : ' Post'}
         </Text>
       </Stack>
 
       <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-        {posts.items.map(post => (
+        {posts.map(post => (
           <CardTexts
             key={post.id}
             title={post.title}
             date={post.publishedAt}
             description={post.description}
             badges={post.tags}
-            href={post.urlPost}
+            href={post.slug}
           />
         ))}
       </SimpleGrid>
@@ -42,7 +45,7 @@ export default function Posts({ posts }: PagePostsProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const posts = await getPostsDevTo(50)
+  const posts = await notion.posts.list()
 
   return {
     props: {
