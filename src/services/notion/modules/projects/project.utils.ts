@@ -1,0 +1,16 @@
+import { ProjectPropsType, ProjectReqType } from './project.types'
+
+export const generateProperties = (dbProject: ProjectReqType): ProjectPropsType => {
+  const { name, description, urlRepo, urlSite, tags, publishedAt } = dbProject.properties
+
+  const props: ProjectPropsType = {
+    name: name.title[0]?.plain_text || '',
+    description: description.rich_text[0]?.plain_text || '',
+    urlRepo: urlRepo.rich_text[0]?.plain_text || '',
+    urlSite: urlSite.rich_text[0]?.plain_text || '',
+    tags: tags.multi_select.map(s => s.name),
+    publishedAt: publishedAt.date?.start || '',
+  }
+
+  return props
+}
