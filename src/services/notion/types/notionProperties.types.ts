@@ -13,7 +13,7 @@ export interface SelectType {
 export interface MultiSelectType {
   id: string
   type: 'multi_select'
-  multi_select: {
+  multi_select: null | {
     id: string
     name: string
     color: string

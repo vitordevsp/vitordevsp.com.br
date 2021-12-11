@@ -11,7 +11,7 @@ export const generateProperties = (dbPost: PostReqType): PostPropsType => {
   const props: PostPropsType = {
     title: title.title[0]?.plain_text || '',
     description: description.rich_text[0]?.plain_text || '',
-    tags: tags.multi_select.map(s => s.name),
+    tags: tags.multi_select?.map(s => s.name) || [],
     status: (status.select?.name as PostStatusType) || null,
     publishedAt: publishedAt.date?.start || '',
   }
