@@ -4,14 +4,17 @@ import { GetStaticProps } from 'next'
 import { Main } from '../components/Main'
 import { CardInfoLarge } from '../components/CardInfoLarge'
 
-import { getVideosYoutube, VideosProps } from '../services/youtube'
 import { config } from '../components/config'
+import { notion } from '../services/notion'
+import { VideoType } from '../services/notion/modules/videos/video.types'
 
 interface PageVideosProps {
-  videos: VideosProps
+  videos: VideoType[]
 }
 
 export default function Videos({ videos }: PageVideosProps) {
+  const totalVideos = videos.length
+
   return (
     <Main>
       <Stack>
@@ -20,16 +23,16 @@ export default function Videos({ videos }: PageVideosProps) {
         </Heading>
 
         <Text textAlign="center">
-          {videos.total}
-          {videos.total > 1 ? ' Vídeos' : ' Vídeo'}
+          {totalVideos}
+          {totalVideos > 1 ? ' Vídeos' : ' Vídeo'}
         </Text>
       </Stack>
 
       <Stack align="center" spacing={20}>
-        {videos.items.map(video => (
+        {videos.map(video => (
           <CardInfoLarge
             key={video.id}
-            src={video.thumbnails.maxres}
+            src={video.thumbnail}
             badges={video.tags}
             title={video.title}
             description={video.description}
@@ -42,7 +45,7 @@ export default function Videos({ videos }: PageVideosProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const videos = await getVideosYoutube(50)
+  const videos = await notion.videos.list()
 
   return {
     props: {

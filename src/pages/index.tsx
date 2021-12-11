@@ -6,21 +6,22 @@ import { CardInfo } from '../components/CardInfo'
 import { CardTexts } from '../components/CardTexts'
 import { TitleSection } from '../components/TitleSection'
 
-import { getVideosYoutube, VideosProps } from '../services/youtube'
 import { notion } from '../services/notion'
 import { ProjectType } from '../services/notion/modules/projects/project.types'
 import { PostType } from '../services/notion/modules/posts/post.types'
+import { VideoType } from '../services/notion/modules/videos/video.types'
 import { config } from '../components/config'
 
 interface HomeProps {
-  videos: VideosProps
+  videos: VideoType[]
   projects: ProjectType[]
   posts: PostType[]
 }
 
-export default function Home({ videos, projects, posts }: HomeProps) {
-  const totalProjects = projects.length
+export default function Home({ posts, projects, videos }: HomeProps) {
   const totalPosts = posts.length
+  const totalProjects = projects.length
+  const totalVideos = videos.length
 
   return (
     <Main>
@@ -28,7 +29,7 @@ export default function Home({ videos, projects, posts }: HomeProps) {
         <TitleSection
           href="/videos"
           title="Últimos Vídeos"
-          subTitle={`${videos.total} ${videos.total > 1 ? 'Vídeos' : 'Vídeo'}`}
+          subTitle={`${totalVideos} ${totalVideos > 1 ? 'Vídeos' : 'Vídeo'}`}
           mb={8}
         />
 
@@ -38,10 +39,10 @@ export default function Home({ videos, projects, posts }: HomeProps) {
           mx="auto"
           spacing={8}
         >
-          {videos.items.map(video => (
+          {videos.slice(0, 3).map(video => (
             <CardInfo
               key={video.id}
-              src={video.thumbnails.high}
+              src={video.thumbnail}
               badges={video.tags}
               title={video.title}
               description={video.description}
@@ -98,9 +99,11 @@ export default function Home({ videos, projects, posts }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const videos = await getVideosYoutube(3)
+  const videos = await notion.videos.list()
   const projects = await notion.projects.list()
   const posts = await notion.posts.list()
+
+  console.log('videos: ', videos)
 
   return {
     props: {
