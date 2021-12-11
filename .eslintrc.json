@@ -25,6 +25,7 @@
     "react/react-in-jsx-scope": "off",
     "space-before-function-paren": "off",
     "no-console": "warn",
+    "no-unused-vars": "warn",
     "comma-dangle": [
       "error",
       "always-multiline"
