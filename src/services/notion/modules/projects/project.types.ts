@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
 import { NotionDatabaseType, NotionPageType } from '../../types/notion.types'
-import { DateType, MultiSelectType, RichTextType, TitleType } from '../../types/notionProperties.types'
+import { DateType, MultiSelectType, RichTextType, TitleType, UrlType } from '../../types/notionProperties.types'
 
 export interface ProjectPropsType {
   name: string
@@ -21,8 +21,8 @@ export interface ProjectReqType extends NotionPageType {
     description: RichTextType
     publishedAt: DateType
     tags: MultiSelectType
-    urlSite: RichTextType
-    urlRepo: RichTextType
+    urlSite: UrlType
+    urlRepo: UrlType
     name: TitleType
   },
 }

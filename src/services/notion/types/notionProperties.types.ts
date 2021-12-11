@@ -72,3 +72,9 @@ export interface TitleType {
     href: null
   }[]
 }
+
+export interface UrlType {
+  id: string
+  type: string
+  url: string
+}
