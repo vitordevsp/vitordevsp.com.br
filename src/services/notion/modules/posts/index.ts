@@ -25,14 +25,20 @@ async function list(pageSize?: number): Promise<PostsType> {
     })
 
     const posts = database.data.map(dbPost => {
-      const slug = generateSlug(dbPost.url)
-
       const props = generateProperties(dbPost)
+      const slug = generateSlug(dbPost.url)
+      const publishedAt = new Date(props.publishedAt).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'UTC',
+      })
 
       const post: PostType = {
+        ...props,
         id: dbPost.id,
         slug,
-        ...props,
+        publishedAt,
       }
 
       return post
