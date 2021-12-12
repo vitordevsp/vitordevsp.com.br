@@ -2,6 +2,7 @@
 
 export interface NotionDatabaseType {
   object: 'list'
+  results: any[]
   next_cursor: null
   has_more: boolean
 }

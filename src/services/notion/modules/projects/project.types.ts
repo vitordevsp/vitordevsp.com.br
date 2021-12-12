@@ -16,6 +16,11 @@ export interface ProjectType extends ProjectPropsType {
   id: string
 }
 
+export interface ProjectsType {
+  totalCount: number
+  data: ProjectType[]
+}
+
 export interface ProjectReqType extends NotionPageType {
   properties: {
     description: RichTextType
@@ -25,8 +30,4 @@ export interface ProjectReqType extends NotionPageType {
     urlRepo: UrlType
     name: TitleType
   },
-}
-
-export interface DatabaseReqType extends NotionDatabaseType {
-  results: ProjectReqType[]
 }

@@ -5,15 +5,15 @@ import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 
 import { notion } from '../services/notion'
-import { PostType } from '../services/notion/modules/posts/post.types'
+import { PostsType } from '../services/notion/modules/posts/post.types'
 import { config } from '../components/config'
 
 interface PagePostsProps {
-  posts: PostType[]
+  posts: PostsType
 }
 
 export default function Posts({ posts }: PagePostsProps) {
-  const totalPosts = posts.length
+  const { totalCount, data } = posts
 
   return (
     <Main>
@@ -23,13 +23,12 @@ export default function Posts({ posts }: PagePostsProps) {
         </Heading>
 
         <Text textAlign="center">
-          {totalPosts}
-          {totalPosts > 1 ? ' Posts' : ' Post'}
+          {totalCount} {totalCount > 1 ? ' Posts' : ' Post'}
         </Text>
       </Stack>
 
       <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-        {posts.map(post => (
+        {data.map(post => (
           <CardTexts
             key={post.id}
             title={post.title}
@@ -44,7 +43,7 @@ export default function Posts({ posts }: PagePostsProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async () => {
   const posts = await notion.posts.list()
 
   return {

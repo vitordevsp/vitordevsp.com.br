@@ -5,15 +5,15 @@ import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 
 import { notion } from '../services/notion'
-import { ProjectType } from '../services/notion/modules/projects/project.types'
+import { ProjectsType } from '../services/notion/modules/projects/project.types'
 import { config } from '../components/config'
 
 interface ProjectsProps {
-  projects: ProjectType[]
+  projects: ProjectsType
 }
 
 export default function Projects({ projects }: ProjectsProps) {
-  const totalProjects = projects.length
+  const { totalCount, data } = projects
 
   return (
     <Main>
@@ -23,13 +23,12 @@ export default function Projects({ projects }: ProjectsProps) {
         </Heading>
 
         <Text textAlign="center">
-          {totalProjects}
-          {totalProjects > 1 ? ' Projetos' : ' Projeto'}
+          {totalCount} {totalCount > 1 ? ' Projetos' : ' Projeto'}
         </Text>
       </Stack>
 
       <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-        {projects.map(repo => (
+        {data.map(repo => (
           <CardTexts
             key={repo.id}
             title={repo.name}
@@ -43,7 +42,7 @@ export default function Projects({ projects }: ProjectsProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async () => {
   const projects = await notion.projects.list()
 
   return {

@@ -6,14 +6,14 @@ import { CardInfoLarge } from '../components/CardInfoLarge'
 
 import { config } from '../components/config'
 import { notion } from '../services/notion'
-import { VideoType } from '../services/notion/modules/videos/video.types'
+import { VideosType } from '../services/notion/modules/videos/video.types'
 
 interface PageVideosProps {
-  videos: VideoType[]
+  videos: VideosType
 }
 
 export default function Videos({ videos }: PageVideosProps) {
-  const totalVideos = videos.length
+  const { totalCount, data } = videos
 
   return (
     <Main>
@@ -23,13 +23,12 @@ export default function Videos({ videos }: PageVideosProps) {
         </Heading>
 
         <Text textAlign="center">
-          {totalVideos}
-          {totalVideos > 1 ? ' Vídeos' : ' Vídeo'}
+          {totalCount} {totalCount > 1 ? ' Vídeos' : ' Vídeo'}
         </Text>
       </Stack>
 
       <Stack align="center" spacing={20}>
-        {videos.map(video => (
+        {data.map(video => (
           <CardInfoLarge
             key={video.id}
             src={video.thumbnail}

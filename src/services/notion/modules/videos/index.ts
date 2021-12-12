@@ -1,12 +1,12 @@
 import { notionClient } from '../../notionClient'
-import { DatabaseReqType, VideoType } from './video.types'
+import { VideoReqType, VideosType, VideoType } from './video.types'
 import { generateProperties } from './video.utils'
 
 const NOTION_DB_VIDEOS = process.env.NOTION_DB_VIDEOS || ''
 
-async function list(): Promise<VideoType[]> {
+async function list(pageSize?: number): Promise<VideosType> {
   try {
-    const database = await notionClient.getDatabase<DatabaseReqType>(NOTION_DB_VIDEOS, {
+    const database = await notionClient.getDatabase<VideoReqType[]>(NOTION_DB_VIDEOS, {
       filter: {
         or: [
           {
@@ -21,9 +21,10 @@ async function list(): Promise<VideoType[]> {
         property: 'publishedAt',
         direction: 'descending',
       }],
+      pageSize,
     })
 
-    const videos = database.results.map(dbVideo => {
+    const videos = database.data.map(dbVideo => {
       const props = generateProperties(dbVideo)
 
       const video: VideoType = {
@@ -34,9 +35,17 @@ async function list(): Promise<VideoType[]> {
       return video
     })
 
-    return videos
+    const videosData: VideosType = {
+      totalCount: database.totalCount,
+      data: videos,
+    }
+
+    return videosData
   } catch (error) {
-    return []
+    return {
+      totalCount: 0,
+      data: [],
+    }
   }
 }
 

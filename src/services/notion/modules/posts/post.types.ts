@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import { NotionDatabaseType, NotionPageType } from '../../types/notion.types'
+import { NotionPageType } from '../../types/notion.types'
 import { DateType, MultiSelectType, RichTextType, SelectType, TitleType } from '../../types/notionProperties.types'
 
 export type PostStatusType = 'published' | 'writing'
@@ -18,6 +18,11 @@ export interface PostType extends PostPropsType {
   slug: string
 }
 
+export interface PostsType {
+  totalCount: number
+  data: PostType[]
+}
+
 export interface PostReqType extends NotionPageType {
   properties: {
     status: SelectType
@@ -26,8 +31,4 @@ export interface PostReqType extends NotionPageType {
     description: RichTextType
     title: TitleType
   }
-}
-
-export interface DatabaseReqType extends NotionDatabaseType {
-  results: PostReqType[]
 }

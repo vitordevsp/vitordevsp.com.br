@@ -7,29 +7,25 @@ import { CardTexts } from '../components/CardTexts'
 import { TitleSection } from '../components/TitleSection'
 
 import { notion } from '../services/notion'
-import { ProjectType } from '../services/notion/modules/projects/project.types'
-import { PostType } from '../services/notion/modules/posts/post.types'
-import { VideoType } from '../services/notion/modules/videos/video.types'
+import { ProjectsType } from '../services/notion/modules/projects/project.types'
+import { PostsType } from '../services/notion/modules/posts/post.types'
+import { VideosType } from '../services/notion/modules/videos/video.types'
 import { config } from '../components/config'
 
 interface HomeProps {
-  videos: VideoType[]
-  projects: ProjectType[]
-  posts: PostType[]
+  videos: VideosType
+  projects: ProjectsType
+  posts: PostsType
 }
 
 export default function Home({ posts, projects, videos }: HomeProps) {
-  const totalPosts = posts.length
-  const totalProjects = projects.length
-  const totalVideos = videos.length
-
   return (
     <Main>
       <Box id="section-videos" as="section">
         <TitleSection
           href="/videos"
           title="Últimos Vídeos"
-          subTitle={`${totalVideos} ${totalVideos > 1 ? 'Vídeos' : 'Vídeo'}`}
+          subTitle={`${videos.totalCount} ${videos.totalCount > 1 ? 'Vídeos' : 'Vídeo'}`}
           mb={8}
         />
 
@@ -39,7 +35,7 @@ export default function Home({ posts, projects, videos }: HomeProps) {
           mx="auto"
           spacing={8}
         >
-          {videos.slice(0, 3).map(video => (
+          {videos.data.map(video => (
             <CardInfo
               key={video.id}
               src={video.thumbnail}
@@ -56,12 +52,12 @@ export default function Home({ posts, projects, videos }: HomeProps) {
         <TitleSection
           href="/projects"
           title="Últimos Projetos"
-          subTitle={`${totalProjects} ${totalProjects > 1 ? ' Projetos' : ' Projeto'}`}
+          subTitle={`${projects.totalCount} ${projects.totalCount > 1 ? ' Projetos' : ' Projeto'}`}
           mb={8}
         />
 
         <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-          {projects.map(repo => (
+          {projects.data.map(repo => (
             <CardTexts
               key={repo.id}
               title={repo.name}
@@ -77,12 +73,12 @@ export default function Home({ posts, projects, videos }: HomeProps) {
         <TitleSection
           href="/posts"
           title="Últimos Posts"
-          subTitle={`${totalPosts} ${totalPosts > 1 ? 'Posts' : 'Post'}`}
+          subTitle={`${posts.totalCount} ${posts.totalCount > 1 ? 'Posts' : 'Post'}`}
           mb={8}
         />
 
         <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-          {posts.map(post => (
+          {posts.data.map(post => (
             <CardTexts
               key={post.id}
               title={post.title}
@@ -98,12 +94,10 @@ export default function Home({ posts, projects, videos }: HomeProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const videos = await notion.videos.list()
-  const projects = await notion.projects.list()
-  const posts = await notion.posts.list()
-
-  console.log('videos: ', videos)
+export const getStaticProps: GetStaticProps = async () => {
+  const videos = await notion.videos.list(3)
+  const projects = await notion.projects.list(2)
+  const posts = await notion.posts.list(6)
 
   return {
     props: {

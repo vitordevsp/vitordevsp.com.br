@@ -21,6 +21,11 @@ export interface VideoType extends VideoPropsType {
   id: string
 }
 
+export interface VideosType {
+  totalCount: number
+  data: VideoType[]
+}
+
 export interface VideoReqType extends NotionPageType {
   properties: {
     idVideoYT: RichTextType
@@ -31,8 +36,4 @@ export interface VideoReqType extends NotionPageType {
     status: SelectType
     publishedAt: DateType
   }
-}
-
-export interface DatabaseReqType extends NotionDatabaseType {
-  results: VideoReqType[]
 }

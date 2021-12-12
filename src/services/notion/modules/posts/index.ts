@@ -1,12 +1,12 @@
 import { notionClient } from '../../notionClient'
-import { DatabaseReqType, PostType } from './post.types'
+import { PostReqType, PostsType, PostType } from './post.types'
 import { generateProperties, generateSlug } from './post.utils'
 
 const NOTION_DB_POSTS = process.env.NOTION_DB_POSTS || ''
 
-async function list(): Promise<PostType[]> {
+async function list(pageSize?: number): Promise<PostsType> {
   try {
-    const database = await notionClient.getDatabase<DatabaseReqType>(NOTION_DB_POSTS, {
+    const database = await notionClient.getDatabase<PostReqType[]>(NOTION_DB_POSTS, {
       filter: {
         or: [
           {
@@ -21,9 +21,10 @@ async function list(): Promise<PostType[]> {
         property: 'publishedAt',
         direction: 'descending',
       }],
+      pageSize,
     })
 
-    const posts = database.results.map(dbPost => {
+    const posts = database.data.map(dbPost => {
       const slug = generateSlug(dbPost.url)
 
       const props = generateProperties(dbPost)
@@ -37,9 +38,17 @@ async function list(): Promise<PostType[]> {
       return post
     })
 
-    return posts
+    const postsData: PostsType = {
+      totalCount: database.totalCount,
+      data: posts,
+    }
+
+    return postsData
   } catch (error) {
-    return []
+    return {
+      totalCount: 0,
+      data: [],
+    }
   }
 }
 
