@@ -4,11 +4,25 @@ export const client = new Client({
   auth: process.env.NOTION_KEY,
 })
 
-export async function getDatabase<T>(databaseId: string, options?: any): Promise<T> {
-  const response: any = await client.databases.query({
+export async function getDatabase<T>(databaseId: string, options?: any): Promise<{
+  totalCount: number
+  data: T
+}> {
+  const { pageSize, ...rest } = options
+
+  const { results }: any = await client.databases.query({
     database_id: databaseId,
-    ...options,
+    ...rest,
   })
+
+  const response = {
+    totalCount: results.length,
+    data: results,
+  }
+
+  if (pageSize) {
+    response.data = results.slice(0, pageSize)
+  }
 
   return response
 }
