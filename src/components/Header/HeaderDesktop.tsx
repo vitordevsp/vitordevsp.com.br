@@ -12,9 +12,9 @@ export function HeaderDesktop() {
 
       <HStack as="nav" spacing={8}>
         <ActiveLink href="/">Início</ActiveLink>
-        <ActiveLink href="/videos">Vídeos</ActiveLink>
-        <ActiveLink href="/projects">Projetos</ActiveLink>
         <ActiveLink href="/posts">Posts</ActiveLink>
+        <ActiveLink href="/projects">Projetos</ActiveLink>
+        <ActiveLink href="/videos">Vídeos</ActiveLink>
         <ActiveLink href="/about">Sobre</ActiveLink>
       </HStack>
 

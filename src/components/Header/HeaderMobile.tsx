@@ -43,9 +43,9 @@ export function HeaderMobile() {
           <DrawerBody h="100vh" display="flex" flexDir="column" alignItems="center" justifyContent="center">
             <VStack as="nav" spacing={4} mb={20}>
               <ActiveLink fontSize="2xl" onClick={onClose} href="/">Início</ActiveLink>
-              <ActiveLink fontSize="2xl" onClick={onClose} href="/videos">Vídeos</ActiveLink>
-              <ActiveLink fontSize="2xl" onClick={onClose} href="/projects">Projetos</ActiveLink>
               <ActiveLink fontSize="2xl" onClick={onClose} href="/posts">Posts</ActiveLink>
+              <ActiveLink fontSize="2xl" onClick={onClose} href="/projects">Projetos</ActiveLink>
+              <ActiveLink fontSize="2xl" onClick={onClose} href="/videos">Vídeos</ActiveLink>
               <ActiveLink fontSize="2xl" onClick={onClose} href="/about">Sobre</ActiveLink>
             </VStack>
 
