@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import { NotionDatabaseType, NotionPageType } from '../../types/notion.types'
+import { NotionPageType } from '../../types/notion.types'
 import { DateType, MultiSelectType, RichTextType, SelectType, TitleType } from '../../types/notionProperties.types'
 
 export type VideoStatusType = 'published' | 'writing'
