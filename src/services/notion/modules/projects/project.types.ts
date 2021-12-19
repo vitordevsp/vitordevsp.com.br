@@ -14,6 +14,7 @@ export interface ProjectPropsType {
 
 export interface ProjectType extends ProjectPropsType {
   id: string
+  dateDisplay: string
 }
 
 export interface ProjectsType {

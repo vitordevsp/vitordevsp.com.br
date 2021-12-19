@@ -1,6 +1,7 @@
 import { notionClient } from '../../notionClient'
 import { PostReqType, PostsType, PostType } from './post.types'
 import { generateProperties, generateSlug } from './post.utils'
+import { parseDateText } from '../../../../utils/DateUtil'
 
 const NOTION_DB_POSTS = process.env.NOTION_DB_POSTS || ''
 
@@ -27,18 +28,13 @@ async function list(pageSize?: number): Promise<PostsType> {
     const posts = database.data.map(dbPost => {
       const props = generateProperties(dbPost)
       const slug = generateSlug(dbPost.url)
-      const publishedAt = new Date(props.publishedAt).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-        timeZone: 'UTC',
-      })
+      const dateDisplay = parseDateText(props.publishedAt)
 
       const post: PostType = {
-        ...props,
         id: dbPost.id,
         slug,
-        publishedAt,
+        dateDisplay,
+        ...props,
       }
 
       return post

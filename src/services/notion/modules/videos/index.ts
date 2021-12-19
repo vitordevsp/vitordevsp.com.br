@@ -1,6 +1,7 @@
 import { notionClient } from '../../notionClient'
 import { VideoReqType, VideosType, VideoType } from './video.types'
 import { generateProperties } from './video.utils'
+import { parseDateText } from '../../../../utils/DateUtil'
 
 const NOTION_DB_VIDEOS = process.env.NOTION_DB_VIDEOS || ''
 
@@ -26,9 +27,11 @@ async function list(pageSize?: number): Promise<VideosType> {
 
     const videos = database.data.map(dbVideo => {
       const props = generateProperties(dbVideo)
+      const dateDisplay = parseDateText(props.publishedAt)
 
       const video: VideoType = {
         id: dbVideo.id,
+        dateDisplay,
         ...props,
       }
 

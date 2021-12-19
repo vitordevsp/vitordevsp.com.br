@@ -1,6 +1,7 @@
 import { notionClient } from '../../notionClient'
 import { ProjectReqType, ProjectsType, ProjectType } from './project.types'
 import { generateProperties } from './project.utils'
+import { parseDateText } from '../../../../utils/DateUtil'
 
 const NOTION_DB_PROJECTS = process.env.NOTION_DB_PROJECTS || ''
 
@@ -10,8 +11,11 @@ async function list(pageSize?: number): Promise<ProjectsType> {
 
     const projects = database.data.map(dbProject => {
       const props = generateProperties(dbProject)
+      const dateDisplay = parseDateText(props.publishedAt)
+
       const project: ProjectType = {
         id: dbProject.id,
+        dateDisplay,
         ...props,
       }
 

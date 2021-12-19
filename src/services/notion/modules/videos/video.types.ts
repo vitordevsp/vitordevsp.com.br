@@ -19,6 +19,7 @@ export interface VideoPropsType {
 
 export interface VideoType extends VideoPropsType {
   id: string
+  dateDisplay: string
 }
 
 export interface VideosType {

@@ -16,6 +16,7 @@ export interface PostPropsType {
 export interface PostType extends PostPropsType {
   id: string
   slug: string
+  dateDisplay: string
 }
 
 export interface PostsType {
