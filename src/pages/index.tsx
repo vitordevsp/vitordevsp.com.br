@@ -1,109 +1,54 @@
 import { GetStaticProps } from 'next'
-import { Box, SimpleGrid } from '@chakra-ui/react'
+import { Box, Stack } from '@chakra-ui/react'
 
 import { Main } from '../components/Main'
-import { CardInfo } from '../components/CardInfo'
 import { CardTexts } from '../components/CardTexts'
 import { TitleSection } from '../components/TitleSection'
 
 import { notion } from '../services/notion'
-import { ProjectsType } from '../services/notion/modules/projects/project.types'
-import { PostsType } from '../services/notion/modules/posts/post.types'
-import { VideosType } from '../services/notion/modules/videos/video.types'
+import { ContentType } from '../services/notion/modules/contents/content.types'
 import { config } from '../components/config'
 
 interface HomeProps {
-  videos: VideosType
-  projects: ProjectsType
-  posts: PostsType
+  contents: ContentType[]
+  tags: string[]
 }
 
-export default function Home({ posts, projects, videos }: HomeProps) {
+export default function Home({ contents, tags }: HomeProps) {
   return (
     <Main>
       <Box id="section-videos" as="section">
         <TitleSection
-          href="/videos"
-          title="Últimos Vídeos"
-          subTitle={`${videos.totalCount} ${videos.totalCount > 1 ? 'Vídeos' : 'Vídeo'}`}
+          title="Publicações recentes"
           mb={8}
         />
 
-        <SimpleGrid
-          w={[null, '370px', '100%']}
-          columns={[null, 1, 3]}
-          mx="auto"
-          spacing={8}
-        >
-          {videos.data.map(video => (
-            <CardInfo
-              key={video.id}
-              src={video.thumbnail}
-              badges={video.tags}
-              title={video.title}
-              description={video.description}
-              href={video.urlVideo}
-            />
-          ))}
-        </SimpleGrid>
-      </Box>
-
-      <Box id="section-projects" as="section">
-        <TitleSection
-          href="/projects"
-          title="Últimos Projetos"
-          subTitle={`${projects.totalCount} ${projects.totalCount > 1 ? ' Projetos' : ' Projeto'}`}
-          mb={8}
-        />
-
-        <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-          {projects.data.map(repo => (
+        <Stack spacing="20px">
+          {contents.map(content => (
             <CardTexts
-              key={repo.id}
-              title={repo.name}
-              description={repo.description}
-              badges={repo.tags}
-              href={repo.urlSite || repo.urlRepo}
+              key={content.id}
+              title={content.title}
+              date={content.dateDisplay}
+              informationText={content.type}
+              description={content.description}
+              badges={content.tags}
+              href={content.link}
             />
           ))}
-        </SimpleGrid>
-      </Box>
-
-      <Box id="section-posts" as="section">
-        <TitleSection
-          href="/posts"
-          title="Últimos Posts"
-          subTitle={`${posts.totalCount} ${posts.totalCount > 1 ? 'Posts' : 'Post'}`}
-          mb={8}
-        />
-
-        <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-          {posts.data.map(post => (
-            <CardTexts
-              key={post.id}
-              title={post.title}
-              date={post.publishedAt}
-              description={post.description}
-              badges={post.tags}
-              href={post.slug}
-            />
-          ))}
-        </SimpleGrid>
+        </Stack>
       </Box>
     </Main>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const videos = await notion.videos.list(3)
-  const projects = await notion.projects.list(2)
-  const posts = await notion.posts.list(6)
+  const contents = await notion.contents.list(20)
+  const tags = await notion.contents.listTags()
 
   return {
     props: {
-      videos,
-      projects,
-      posts,
+      contents,
+      tags,
     },
     revalidate: config.revalidate,
   }
