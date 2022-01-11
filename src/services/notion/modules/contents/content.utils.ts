@@ -15,7 +15,7 @@ export const transform = {
         title,
         description,
         tags,
-        linkSocial: urlVideo,
+        link: urlVideo,
         publishedAt,
         dateDisplay,
         type: 'video',
