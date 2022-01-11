@@ -8,9 +8,10 @@ import { ContentType } from './content.types'
 export const transform = {
   videos: (videos: VideoType[]): ContentType[] => {
     return videos.map(video => {
-      const { title, description, urlVideo, tags, publishedAt, dateDisplay } = video
+      const { id, title, description, urlVideo, tags, publishedAt, dateDisplay } = video
 
       return {
+        id,
         title,
         description,
         tags,
@@ -24,9 +25,10 @@ export const transform = {
 
   projects: (projects: ProjectType[]): ContentType[] => {
     return projects.map(project => {
-      const { name, description, urlSite, urlRepo, tags, publishedAt, dateDisplay } = project
+      const { id, name, description, urlSite, urlRepo, tags, publishedAt, dateDisplay } = project
 
       return {
+        id,
         title: name,
         description,
         tags,
@@ -41,9 +43,10 @@ export const transform = {
 
   posts: (posts: PostType[]): ContentType[] => {
     return posts.map(post => {
-      const { title, description, slug, tags, publishedAt, dateDisplay } = post
+      const { id, title, description, slug, tags, publishedAt, dateDisplay } = post
 
       return {
+        id,
         title,
         description,
         tags,
