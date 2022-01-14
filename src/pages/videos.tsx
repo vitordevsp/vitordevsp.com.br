@@ -32,8 +32,9 @@ export default function Videos({ videos }: PageVideosProps) {
           <CardInfoLarge
             key={video.id}
             src={video.thumbnail}
-            badges={video.tags}
             title={video.title}
+            date={video.dateDisplay}
+            badges={video.tags}
             description={video.description}
             href={video.urlVideo}
           />

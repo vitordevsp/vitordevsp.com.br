@@ -32,7 +32,7 @@ export default function Posts({ posts }: PagePostsProps) {
           <CardTexts
             key={post.id}
             title={post.title}
-            date={post.publishedAt}
+            date={post.dateDisplay}
             description={post.description}
             badges={post.tags}
             href={post.slug}

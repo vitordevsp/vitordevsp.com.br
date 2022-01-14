@@ -32,8 +32,9 @@ export default function Projects({ projects }: ProjectsProps) {
           <CardTexts
             key={repo.id}
             title={repo.name}
-            description={repo.description}
+            date={repo.dateDisplay}
             badges={repo.tags}
+            description={repo.description}
             href={repo.urlSite || repo.urlRepo}
           />
         ))}
