@@ -55,6 +55,8 @@ async function list(pageSize?: number): Promise<PostsType> {
 }
 
 async function getPage(pageId: string) {
+  const page = await notionClient.getPage(pageId)
+  return page
 }
 
 export const posts = {
