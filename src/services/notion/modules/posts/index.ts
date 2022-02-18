@@ -40,7 +40,7 @@ async function list(pageSize?: number): Promise<PostsType> {
   }
 }
 
-async function getPage(pageId: string) {
+async function getPostProps(pageId: string) {
   const page = await notionClient.getPage<PostReqType>(pageId)
 
   const post = generateObjPost(page)
@@ -48,13 +48,26 @@ async function getPage(pageId: string) {
   return post
 }
 
-async function getPageBody(pageId: string) {
+async function getPostBody(pageId: string) {
   const pageBody = await notionClient.getBlocksFromPage(pageId)
   return pageBody
 }
 
+async function getFullPost(pageId: string) {
+  const postProps = await getPostProps(pageId)
+  const postBody = await getPostBody(pageId)
+
+  const post = {
+    ...postProps,
+    body: postBody,
+  }
+
+  return post
+}
+
 export const posts = {
   list,
-  getPage,
-  getPageBody,
+  getPostProps,
+  getPostBody,
+  getFullPost,
 }
