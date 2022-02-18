@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import { Client } from '@notionhq/client'
 import { NotionBlockType } from './types/notion.types'
 
@@ -44,16 +46,45 @@ export async function getPage<T>(pageId: string): Promise<T> {
   }
 }
 
+const notionGetBlocksResult = async (pageId: string, nextCursorId?: string): Promise<{
+  results: any[]
+  nextCursorId: string
+  hasMore: boolean
+}> => {
+  const args: any = {
+    block_id: pageId,
+    page_size: 50,
+  }
+
+  if (nextCursorId) {
+    args.start_cursor = nextCursorId
+  }
+
+  const { results, next_cursor, has_more } = await client.blocks.children.list(args)
+
+  return {
+    results,
+    nextCursorId: next_cursor || '',
+    hasMore: has_more,
+  }
+}
+
 export async function getBlocksFromPage(pageId: string): Promise<NotionBlockType[]> {
   try {
-    const notionResult: any = await client.blocks.children.list({
-      block_id: pageId,
-      page_size: 50,
-    })
+    const notionResult = await notionGetBlocksResult(pageId)
 
-    // TODO: Buscar todos os blocos de uma pagina, as requisições tem paginação em 50 blocos.
+    let hasMore = notionResult.hasMore
+    let nextCursorId = notionResult.nextCursorId
+    let pageBody = notionResult.results || []
 
-    const pageBody = notionResult.results || []
+    while (hasMore) {
+      const notionResultNext = await notionGetBlocksResult(pageId, nextCursorId)
+
+      hasMore = notionResultNext.hasMore
+      nextCursorId = notionResultNext.nextCursorId
+
+      pageBody = [...pageBody, ...notionResultNext.results]
+    }
 
     return pageBody
   } catch (error) {
