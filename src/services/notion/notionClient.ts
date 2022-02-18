@@ -1,4 +1,5 @@
 import { Client } from '@notionhq/client'
+import { NotionBlockType } from './types/notion.types'
 
 export const client = new Client({
   auth: process.env.NOTION_KEY,
@@ -43,17 +44,25 @@ export async function getPage<T>(pageId: string): Promise<T> {
   }
 }
 
-export async function getBlocks<T>(blockId: string): Promise<T> {
-  const response: any = await client.blocks.children.list({
-    block_id: blockId,
-    page_size: 50,
-  })
+export async function getBlocksFromPage(pageId: string): Promise<NotionBlockType[]> {
+  try {
+    const notionResult: any = await client.blocks.children.list({
+      block_id: pageId,
+      page_size: 50,
+    })
 
-  return response
+    // TODO: Buscar todos os blocos de uma pagina, as requisições tem paginação em 50 blocos.
+
+    const pageBody = notionResult.results || []
+
+    return pageBody
+  } catch (error) {
+    return []
+  }
 }
 
 export const notionClient = {
   getDatabase,
   getPage,
-  getBlocks,
+  getBlocksFromPage,
 }

@@ -24,3 +24,17 @@ export interface NotionPageType {
   archived: boolean
   url: string
 }
+
+// TODO: concluir a criação da tipagem
+export interface NotionBlockType {
+  object: 'block'
+  id: string
+  archived: false
+  has_children: true
+  created_time: string
+  last_edited_time: string
+  type: 'child_page'
+  child_page?: {
+    title: string
+  }
+}

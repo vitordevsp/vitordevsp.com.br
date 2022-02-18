@@ -1,7 +1,6 @@
 import { notionClient } from '../../notionClient'
-import { PostReqType, PostsType, PostType } from './post.types'
-import { generateProperties, generateSlug } from './post.utils'
-import { parseDateText } from '../../../../utils/DateUtil'
+import { PostReqType, PostsType } from './post.types'
+import { generateObjPost } from './post.utils'
 
 const NOTION_DB_POSTS = process.env.NOTION_DB_POSTS || ''
 
@@ -25,20 +24,7 @@ async function list(pageSize?: number): Promise<PostsType> {
       pageSize,
     })
 
-    const posts = database.data.map(dbPost => {
-      const props = generateProperties(dbPost)
-      const slug = generateSlug(dbPost.url)
-      const dateDisplay = parseDateText(props.publishedAt)
-
-      const post: PostType = {
-        id: dbPost.id,
-        slug,
-        dateDisplay,
-        ...props,
-      }
-
-      return post
-    })
+    const posts = database.data.map(postReq => generateObjPost(postReq))
 
     const postsData: PostsType = {
       totalCount: database.totalCount,
@@ -55,11 +41,20 @@ async function list(pageSize?: number): Promise<PostsType> {
 }
 
 async function getPage(pageId: string) {
-  const page = await notionClient.getPage(pageId)
-  return page
+  const page = await notionClient.getPage<PostReqType>(pageId)
+
+  const post = generateObjPost(page)
+
+  return post
+}
+
+async function getPageBody(pageId: string) {
+  const pageBody = await notionClient.getBlocksFromPage(pageId)
+  return pageBody
 }
 
 export const posts = {
   list,
   getPage,
+  getPageBody,
 }
