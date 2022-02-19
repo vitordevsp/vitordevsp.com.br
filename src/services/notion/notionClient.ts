@@ -75,15 +75,14 @@ export async function getBlocksFromPage(pageId: string): Promise<NotionBlockType
 
     let hasMore = notionResult.hasMore
     let nextCursorId = notionResult.nextCursorId
-    let pageBody = notionResult.results || []
+    const pageBody = notionResult.results || []
 
     while (hasMore) {
       const notionResultNext = await notionGetBlocksResult(pageId, nextCursorId)
 
       hasMore = notionResultNext.hasMore
       nextCursorId = notionResultNext.nextCursorId
-
-      pageBody = [...pageBody, ...notionResultNext.results]
+      pageBody.push(...notionResultNext.results)
     }
 
     return pageBody
