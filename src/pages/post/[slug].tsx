@@ -1,35 +1,39 @@
-import { useEffect } from 'react'
-import { GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
-
+import { GetStaticProps, GetStaticPropsContext } from 'next'
 import { notion } from '../../services/notion'
 import { config } from '../../components/config'
 
-export default function Page() {
-  const router = useRouter()
-  const { slug } = router.query
-
-  const getPageElements = async (slug: string) => {
-    const pageElements = await notion.posts.getPage(slug)
-    console.log('pageElements: ', pageElements)
-  }
-
-  useEffect(() => {
-    if (typeof slug === 'string') getPageElements(slug)
-  }, [slug])
+export default function Page({ post }: { post: any }) {
+  console.log('post: ', post)
 
   return (
-    <h1>Page</h1>
+    <>
+      <h1>{post?.title}</h1>
+      <code>{JSON.stringify(post, null, 4)}</code>
+    </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await notion.posts.list()
+export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
+  const slug = context.params?.slug
+
+  if (typeof slug === 'string') {
+    const start = slug.lastIndexOf('-') + 1
+    const end = slug.length
+
+    const pageId = slug.slice(start, end)
+
+    try {
+      const post = await notion.posts.getFullPost(pageId)
+
+      return {
+        props: { post },
+        revalidate: config.revalidate,
+      }
+    } catch { }
+  }
 
   return {
-    props: {
-      posts,
-    },
+    props: { post: {} },
     revalidate: config.revalidate,
   }
 }
