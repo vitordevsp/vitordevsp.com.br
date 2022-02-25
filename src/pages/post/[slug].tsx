@@ -9,8 +9,6 @@ import { notion } from '../../services/notion'
 import { parseBlocksToComponents } from '../../utils/NotionUtil'
 import { config } from '../../components/config'
 
-import { postsMock } from '../../json/postsMock'
-
 export default function Page({ post }: { post: any }) {
   const [componentsJSX, setComponentsJSX] = useState<ReactElement[] | null>(null)
 
@@ -56,9 +54,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 
     const pageId = slug.slice(start, end)
 
-    // const post = await notion.posts.getFullPost(pageId)
-
-    const post = postsMock
+    const post = await notion.posts.getFullPost(pageId)
 
     return {
       props: { post },
