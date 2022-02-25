@@ -28,7 +28,7 @@ export default function Page({ post }: { post: any }) {
         <Text>{post?.dateDisplay}</Text>
 
         {post?.tags && (
-          <FlexGap>
+          <FlexGap justify="center">
             {post?.tags.map((tag: string, i: number) => (
               <Badge key={i} bg="gray.700">{tag}</Badge>
             ))}
