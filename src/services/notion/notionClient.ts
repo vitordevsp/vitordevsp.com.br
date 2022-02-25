@@ -85,6 +85,14 @@ export async function getBlocksFromPage(pageId: string): Promise<NotionBlockType
       pageBody.push(...notionResultNext.results)
     }
 
+    // TODO: Se um bloco tiver filhos eles não aparecem,
+    // é importante criar uma recorrencia para buscar os filhos dos filhos
+    // const body = pageBody.filter(b => b.has_children)
+
+    // body.forEach(block => {
+    //   console.log('block: ', JSON.stringify(block, null, 2))
+    // })
+
     return pageBody
   } catch (error) {
     return []
