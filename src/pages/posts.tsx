@@ -35,7 +35,7 @@ export default function Posts({ posts }: PagePostsProps) {
             date={post.dateDisplay}
             description={post.description}
             badges={post.tags}
-            href={post.slug}
+            href={`/post/${post.slug}`}
           />
         ))}
       </SimpleGrid>
