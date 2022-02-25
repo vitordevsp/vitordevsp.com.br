@@ -1,7 +1,7 @@
 import { cloneElement, ReactElement, useEffect, useState } from 'react'
 import { GetStaticProps, GetStaticPropsContext } from 'next'
 
-import { Heading, Stack, Text } from '@chakra-ui/react'
+import { Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Badge } from '../../components/Badge'
 import { FlexGap } from '../../components/FlexGap'
 
@@ -18,6 +18,8 @@ export default function Page({ post }: { post: any }) {
       setComponentsJSX(components)
     }
   }, [post])
+
+  if (!post) return <Spinner position="absolute" top="50%" left="50%" />
 
   return (
     <Stack width="100" maxWidth="900px" margin="40px auto" spacing={10}>
