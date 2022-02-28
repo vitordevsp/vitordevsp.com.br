@@ -6,7 +6,7 @@ api/notion -> recurso do notion dentro da api
 
 * GET -> api/notion/posts -> retorna todos os posts
 
-* GET -> api/notion/posts/uuid -> retorna um unico post
+* GET -> api/notion/posts/[postId] -> retorna um unico post
   + ?body=true -> adiciona o corpo do post no obj de retorno
 
 ## projects

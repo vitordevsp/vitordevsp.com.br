@@ -1,0 +1,5 @@
+### GET -> api/notion/posts/[postId] -> retorna um unico post
+GET http://localhost:3000/api/notion/posts/4573bd95f9494a5486052d72adba9842
+
+### GET -> api/notion/posts/[postId]?body=true -> adiciona o corpo do post no obj de retorno
+GET http://localhost:3000/api/notion/posts/4573bd95f9494a5486052d72adba9842?body=true
