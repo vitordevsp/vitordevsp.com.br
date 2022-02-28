@@ -27,7 +27,7 @@ async function list(pageSize?: number): Promise<PostsType> {
     const posts = database.data.map(postReq => generateObjPost(postReq))
 
     const postsData: PostsType = {
-      totalCount: database.totalCount,
+      totalCount: posts.length,
       data: posts,
     }
 
@@ -65,6 +65,7 @@ async function getFullPost(pageId: string) {
   return post
 }
 
+// TODO: renomear para o singular
 export const postsService = {
   list,
   getPostProps,
