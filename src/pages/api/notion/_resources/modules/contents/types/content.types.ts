@@ -9,3 +9,8 @@ export interface ContentType {
   dateDisplay: string
   type: 'video' | 'project' | 'post'
 }
+
+export interface ContentsDataType {
+  totalCount: number
+  data: ContentType[]
+}

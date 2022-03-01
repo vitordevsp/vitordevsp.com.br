@@ -3,7 +3,10 @@ import { contentService } from '../services/contentService'
 
 async function list(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const contentsData = await contentService.list()
+    let pageSize = Number(req.query.pageSize)
+    if (!pageSize) pageSize = 50
+
+    const contentsData = await contentService.list(pageSize)
 
     return res.status(200).json(contentsData)
   } catch (error) {

@@ -1,15 +1,22 @@
-import { ContentType } from '../types/content.types'
+import { ContentsDataType } from '../types/content.types'
 import { getContents } from './contentService.util'
 
-async function list(pageSize?: number): Promise<ContentType[]> {
+async function list(pageSize?: number): Promise<ContentsDataType> {
   const contents = await getContents(pageSize)
 
-  // TODO: retornar um obj
+  const contentsData: ContentsDataType = {
+    totalCount: contents.length,
+    data: contents,
+  }
 
   if (pageSize) {
-    return contents.slice(0, pageSize)
+    const data = contentsData.data.slice(0, pageSize)
+    return {
+      totalCount: data.length,
+      data,
+    }
   } else {
-    return contents
+    return contentsData
   }
 }
 
