@@ -14,3 +14,8 @@ export interface ContentsDataType {
   totalCount: number
   data: ContentType[]
 }
+
+export interface ContentsTagsDataType {
+  totalCount: number
+  data: string[]
+}

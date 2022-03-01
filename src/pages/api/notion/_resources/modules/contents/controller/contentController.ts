@@ -16,9 +16,10 @@ async function list(req: NextApiRequest, res: NextApiResponse) {
 
 async function listTags(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const tags = await contentService.listTags()
+    let pageSize = Number(req.query.pageSize)
+    if (!pageSize) pageSize = 50
 
-    const tagsData = { tags }
+    const tagsData = await contentService.listTags(pageSize)
 
     return res.status(200).json(tagsData)
   } catch (error) {

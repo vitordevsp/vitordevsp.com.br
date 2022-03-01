@@ -1,4 +1,4 @@
-import { ContentsDataType } from '../types/content.types'
+import { ContentsDataType, ContentsTagsDataType } from '../types/content.types'
 import { getContents } from './contentService.util'
 
 async function list(pageSize?: number): Promise<ContentsDataType> {
@@ -20,7 +20,7 @@ async function list(pageSize?: number): Promise<ContentsDataType> {
   }
 }
 
-async function listTags(pageSize?: number): Promise<string[]> {
+async function listTags(pageSize?: number): Promise<ContentsTagsDataType> {
   const contents = await getContents(pageSize)
 
   const allTags = contents.reduce((acc, content) => {
@@ -29,12 +29,22 @@ async function listTags(pageSize?: number): Promise<string[]> {
   }, [] as string[])
 
   const tagsUniq = Array.from(new Set(allTags))
+
   const tagsOrdened = tagsUniq.sort()
 
+  const contentsTagsData: ContentsTagsDataType = {
+    totalCount: contents.length,
+    data: tagsOrdened,
+  }
+
   if (pageSize) {
-    return tagsOrdened.slice(0, pageSize)
+    const data = contentsTagsData.data.slice(0, pageSize)
+    return {
+      totalCount: data.length,
+      data,
+    }
   } else {
-    return tagsOrdened
+    return contentsTagsData
   }
 }
 
