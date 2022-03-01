@@ -1,2 +1,5 @@
 ### GET -> api/notion/posts -> retorna todos os posts
 GET http://localhost:3000/api/notion/posts
+
+### GET -> api/notion/posts?pageSize=50 -> limita o retorno
+GET http://localhost:3000/api/notion/posts?pageSize=2

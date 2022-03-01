@@ -3,8 +3,10 @@ import { postService } from '../services/postService'
 
 async function list(req: NextApiRequest, res: NextApiResponse) {
   try {
-    // TODO: implementar pageSize
-    const postsData = await postService.list()
+    let pageSize = Number(req.query.pageSize)
+    if (!pageSize) pageSize = 50
+
+    const postsData = await postService.list(pageSize)
 
     return res.status(200).json(postsData)
   } catch (error) {
