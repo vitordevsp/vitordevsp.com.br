@@ -18,7 +18,7 @@ export interface PostType extends PostPropsType {
   dateDisplay: string
 }
 
-export interface PostsType {
+export interface PostsDataType {
   totalCount: number
   data: PostType[]
 }

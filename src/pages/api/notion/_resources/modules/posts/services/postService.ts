@@ -1,10 +1,10 @@
 import { notionRepository } from '../../../notionRepository/notionRepository'
-import { PostReqType, PostsType } from '../types/post.types'
+import { PostReqType, PostsDataType, PostType } from '../types/post.types'
 import { generateObjPost } from './postService.utils'
 
 const NOTION_DB_POSTS = process.env.NOTION_DB_POSTS || ''
 
-async function list(pageSize?: number): Promise<PostsType> {
+async function list(pageSize?: number): Promise<PostsDataType> {
   try {
     const database = await notionRepository.getDatabase<PostReqType[]>(NOTION_DB_POSTS, {
       filter: {
@@ -26,7 +26,7 @@ async function list(pageSize?: number): Promise<PostsType> {
 
     const posts = database.data.map(postReq => generateObjPost(postReq))
 
-    const postsData: PostsType = {
+    const postsData: PostsDataType = {
       totalCount: posts.length,
       data: posts,
     }
@@ -39,6 +39,18 @@ async function list(pageSize?: number): Promise<PostsType> {
     }
   }
 }
+
+async function get(pageId: string, body?: boolean): Promise<PostType> {
+  const getData = body
+    ? getFullPost
+    : getPostProps
+
+  const post = await getData(pageId)
+
+  return post
+}
+
+// -------------------- util --------------------
 
 async function getPostProps(pageId: string) {
   const page = await notionRepository.getPage<PostReqType>(pageId)
@@ -65,9 +77,9 @@ async function getFullPost(pageId: string) {
   return post
 }
 
+// -------------------- export service --------------------
+
 export const postService = {
   list,
-  getPostProps,
-  getPostBody,
-  getFullPost,
+  get,
 }

@@ -16,16 +16,12 @@ async function list(req: NextApiRequest, res: NextApiResponse) {
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { id, body } = req.query
+    const { id, body: bodyParam } = req.query
 
     if (typeof id !== 'string') throw new TypeError('id is not a string')
 
-    // TODO: colocar essa implementação dentro da camana de Service
-    const getData = body === 'true'
-      ? postService.getFullPost
-      : postService.getPostProps
-
-    const post = await getData(id)
+    const body = bodyParam === 'true'
+    const post = await postService.get(id, body)
 
     const postData = { post }
 
