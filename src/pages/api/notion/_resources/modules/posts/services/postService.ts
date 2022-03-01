@@ -1,6 +1,6 @@
 import { notionRepository } from '../../../notionRepository/notionRepository'
 import { PostReqType, PostsType } from '../types/post.types'
-import { generateObjPost } from './post.utils'
+import { generateObjPost } from './postService.utils'
 
 const NOTION_DB_POSTS = process.env.NOTION_DB_POSTS || ''
 
@@ -65,8 +65,7 @@ async function getFullPost(pageId: string) {
   return post
 }
 
-// TODO: renomear para o singular
-export const postsService = {
+export const postService = {
   list,
   getPostProps,
   getPostBody,

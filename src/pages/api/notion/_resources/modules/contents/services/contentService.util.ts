@@ -1,4 +1,4 @@
-import { postsService } from '../../posts/services/postsService'
+import { postService } from '../../posts/services/postService'
 import { projectService } from '../../projects/services/projectService'
 import { videoService } from '../../videos/services/videoService'
 
@@ -66,7 +66,7 @@ export const transform = {
 export async function getContents(pageSize?: number): Promise<ContentType[]> {
   const dbVideos = await videoService.list(pageSize)
   const dbProjects = await projectService.list(pageSize)
-  const dbPosts = await postsService.list(pageSize)
+  const dbPosts = await postService.list(pageSize)
 
   const videos = transform.videos(dbVideos.data)
   const projects = transform.projects(dbProjects.data)

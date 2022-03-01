@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { postsService } from '../services/postsService'
+import { postService } from '../services/postService'
 
 async function list(req: NextApiRequest, res: NextApiResponse) {
   try {
     // TODO: implementar pageSize
-    const postsData = await postsService.list()
+    const postsData = await postService.list()
 
     return res.status(200).json(postsData)
   } catch (error) {
@@ -19,10 +19,9 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
     if (typeof id !== 'string') throw new TypeError('id is not a string')
 
     // TODO: colocar essa implementação dentro da camana de Service
-    // TODO: bug - body é uma string e não boolean, true e false em string sempre é true em um condicional
-    const getData = body
-      ? postsService.getFullPost
-      : postsService.getPostProps
+    const getData = body === 'true'
+      ? postService.getFullPost
+      : postService.getPostProps
 
     const post = await getData(id)
 
