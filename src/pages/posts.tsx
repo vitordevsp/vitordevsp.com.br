@@ -3,17 +3,17 @@ import { GetStaticProps } from 'next'
 
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
+import { api } from '../services/api'
+import { PostsDataType } from './api/notion/_resources/modules/posts/types/post.types'
 
-import { notion } from '../services/notion'
-import { PostsType } from '../services/notion/modules/posts/post.types'
 import { config } from '../components/config'
 
 interface PagePostsProps {
-  posts: PostsType
+  posts: PostsDataType | null
 }
 
 export default function Posts({ posts }: PagePostsProps) {
-  const { totalCount, data } = posts
+  const totalCount = posts?.totalCount || 0
 
   return (
     <Main>
@@ -28,7 +28,7 @@ export default function Posts({ posts }: PagePostsProps) {
       </Stack>
 
       <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-        {data.map(post => (
+        {posts?.data.map(post => (
           <CardTexts
             key={post.id}
             title={post.title}
@@ -44,12 +44,21 @@ export default function Posts({ posts }: PagePostsProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await notion.posts.list()
+  try {
+    const { data: posts } = await api.get<PostsDataType>('/notion/posts')
 
-  return {
-    props: {
-      posts,
-    },
-    revalidate: config.revalidate,
+    return {
+      props: {
+        posts,
+      },
+      revalidate: config.revalidate,
+    }
+  } catch (error) {
+    return {
+      props: {
+        projects: null,
+      },
+      revalidate: 1,
+    }
   }
 }

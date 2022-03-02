@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { postService } from '../services/postService'
+import { PostDataType } from '../types/post.types'
 
 async function list(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -23,7 +24,9 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
     const body = bodyParam === 'true'
     const post = await postService.get(id, body)
 
-    const postData = { post }
+    const postData: PostDataType = {
+      data: post,
+    }
 
     return res.status(200).json(postData)
   } catch (error) {
