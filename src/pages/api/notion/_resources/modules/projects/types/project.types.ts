@@ -3,6 +3,17 @@
 import { NotionPageType } from '../../../notionRepository/types/notion.types'
 import { DateType, MultiSelectType, RichTextType, TitleType, UrlType } from '../../../notionRepository/types/notionProperties.types'
 
+export interface ProjectReqType extends NotionPageType {
+  properties: {
+    description: RichTextType
+    publishedAt: DateType
+    tags: MultiSelectType
+    urlSite: UrlType
+    urlRepo: UrlType
+    name: TitleType
+  },
+}
+
 export interface ProjectPropsType {
   name: string
   description: string
@@ -17,18 +28,7 @@ export interface ProjectType extends ProjectPropsType {
   dateDisplay: string
 }
 
-export interface ProjectsType {
+export interface ProjectsDataType {
   totalCount: number
   data: ProjectType[]
-}
-
-export interface ProjectReqType extends NotionPageType {
-  properties: {
-    description: RichTextType
-    publishedAt: DateType
-    tags: MultiSelectType
-    urlSite: UrlType
-    urlRepo: UrlType
-    name: TitleType
-  },
 }

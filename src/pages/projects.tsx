@@ -4,16 +4,17 @@ import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 
-import { notion } from '../services/notion'
-import { ProjectsType } from '../services/notion/modules/projects/project.types'
+import { api } from '../services/api'
+import { ProjectsDataType } from './api/notion/_resources/modules/projects/types/project.types'
+
 import { config } from '../components/config'
 
 interface ProjectsProps {
-  projects: ProjectsType
+  projects: ProjectsDataType | null
 }
 
 export default function Projects({ projects }: ProjectsProps) {
-  const { totalCount, data } = projects
+  const totalCount = projects?.totalCount || 0
 
   return (
     <Main>
@@ -28,7 +29,7 @@ export default function Projects({ projects }: ProjectsProps) {
       </Stack>
 
       <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-        {data.map(repo => (
+        {projects?.data.map(repo => (
           <CardTexts
             key={repo.id}
             title={repo.name}
@@ -44,12 +45,22 @@ export default function Projects({ projects }: ProjectsProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const projects = await notion.projects.list()
+  try {
+    const { data: projects } = await api.get<ProjectsDataType>('/notion/projects')
 
-  return {
-    props: {
-      projects,
-    },
-    revalidate: config.revalidate,
+    return {
+      props: {
+        projects,
+      },
+      revalidate: config.revalidate,
+    }
+  } catch (error) {
+    console.log('error: ', error)
+    return {
+      props: {
+        projects: null,
+      },
+      revalidate: 1,
+    }
   }
 }

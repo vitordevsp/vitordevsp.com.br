@@ -3,6 +3,7 @@ import { GetStaticProps } from 'next'
 
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
+
 import { api } from '../services/api'
 import { PostsDataType } from './api/notion/_resources/modules/posts/types/post.types'
 
