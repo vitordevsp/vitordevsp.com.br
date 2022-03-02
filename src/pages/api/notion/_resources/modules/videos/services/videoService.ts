@@ -1,11 +1,11 @@
 import { notionRepository } from '../../../notionRepository/notionRepository'
 import { generateProperties } from './videoService.utils'
 import { parseDateText } from '../../../../../../../utils/DateUtil'
-import { VideoReqType, VideosType, VideoType } from '../types/video.types'
+import { VideoReqType, VideosDataType, VideoType } from '../types/video.types'
 
 const NOTION_DB_VIDEOS = process.env.NOTION_DB_VIDEOS || ''
 
-async function list(pageSize?: number): Promise<VideosType> {
+async function list(pageSize?: number): Promise<VideosDataType> {
   try {
     const database = await notionRepository.getDatabase<VideoReqType[]>(NOTION_DB_VIDEOS, {
       filter: {
@@ -38,7 +38,7 @@ async function list(pageSize?: number): Promise<VideosType> {
       return video
     })
 
-    const videosData: VideosType = {
+    const videosData: VideosDataType = {
       totalCount: videos.length,
       data: videos,
     }

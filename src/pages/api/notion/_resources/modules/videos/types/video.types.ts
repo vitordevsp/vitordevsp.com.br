@@ -2,6 +2,18 @@
 import { NotionPageType } from '../../../notionRepository/types/notion.types'
 import { DateType, MultiSelectType, RichTextType, SelectType, TitleType } from '../../../notionRepository/types/notionProperties.types'
 
+export interface VideoReqType extends NotionPageType {
+  properties: {
+    idVideoYT: RichTextType
+    title: TitleType
+    description: RichTextType
+    tags: MultiSelectType
+    playlist: SelectType
+    status: SelectType
+    publishedAt: DateType
+  }
+}
+
 export type VideoStatusType = 'published' | 'writing'
 
 export interface VideoPropsType {
@@ -21,19 +33,7 @@ export interface VideoType extends VideoPropsType {
   dateDisplay: string
 }
 
-export interface VideosType {
+export interface VideosDataType {
   totalCount: number
   data: VideoType[]
-}
-
-export interface VideoReqType extends NotionPageType {
-  properties: {
-    idVideoYT: RichTextType
-    title: TitleType
-    description: RichTextType
-    tags: MultiSelectType
-    playlist: SelectType
-    status: SelectType
-    publishedAt: DateType
-  }
 }

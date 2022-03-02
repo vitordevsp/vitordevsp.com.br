@@ -1,19 +1,20 @@
 import { Heading, Stack, Text } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetStaticPropsResult } from 'next'
 
 import { Main } from '../components/Main'
 import { CardInfoLarge } from '../components/CardInfoLarge'
 
+import { api } from '../services/api'
+import { VideosDataType } from './api/notion/_resources/modules/videos/types/video.types'
+
 import { config } from '../components/config'
-import { notion } from '../services/notion'
-import { VideosType } from '../services/notion/modules/videos/video.types'
 
 interface PageVideosProps {
-  videos: VideosType
+  videos: VideosDataType | null
 }
 
 export default function Videos({ videos }: PageVideosProps) {
-  const { totalCount, data } = videos
+  const totalCount = videos?.totalCount || 0
 
   return (
     <Main>
@@ -28,7 +29,7 @@ export default function Videos({ videos }: PageVideosProps) {
       </Stack>
 
       <Stack align="center" spacing={20}>
-        {data.map(video => (
+        {videos?.data.map(video => (
           <CardInfoLarge
             key={video.id}
             src={video.thumbnail}
@@ -44,13 +45,24 @@ export default function Videos({ videos }: PageVideosProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const videos = await notion.videos.list()
+type GetStaticPropsType = GetStaticPropsResult<{ videos: VideosDataType | null }>
 
-  return {
-    props: {
-      videos,
-    },
-    revalidate: config.revalidate,
+export const getStaticProps: GetStaticProps = async (ctx): Promise<GetStaticPropsType> => {
+  try {
+    const { data: videos } = await api.get<VideosDataType>('notion/videos')
+
+    return {
+      props: {
+        videos,
+      },
+      revalidate: config.revalidate,
+    }
+  } catch (e) {
+    return {
+      props: {
+        videos: null,
+      },
+      revalidate: 1,
+    }
   }
 }
