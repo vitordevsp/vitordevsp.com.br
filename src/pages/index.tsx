@@ -4,14 +4,14 @@ import { Box, Stack } from '@chakra-ui/react'
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 import { TitleSection } from '../components/TitleSection'
+import { api } from '../services/api'
+import { ContentsDataType, ContentsTagsDataType } from './api/notion/_resources/modules/contents/types/content.types'
 
-import { notion } from '../services/notion'
-import { ContentType } from '../services/notion/modules/contents/content.types'
 import { config } from '../components/config'
 
 interface HomeProps {
-  contents: ContentType[]
-  tags: string[]
+  contents: ContentsDataType | null
+  tags: ContentsTagsDataType | null
 }
 
 export default function Home({ contents, tags }: HomeProps) {
@@ -24,7 +24,7 @@ export default function Home({ contents, tags }: HomeProps) {
         />
 
         <Stack spacing="20px">
-          {contents.map(content => (
+          {contents?.data?.map(content => (
             <CardTexts
               key={content.id}
               title={content.title}
@@ -42,14 +42,29 @@ export default function Home({ contents, tags }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const contents = await notion.contents.list(20)
-  const tags = await notion.contents.listTags()
+  try {
+    const { data: contents } = await api.get<ContentsDataType>('notion/contents', {
+      params: {
+        pageSize: 30,
+      },
+    })
 
-  return {
-    props: {
-      contents,
-      tags,
-    },
-    revalidate: config.revalidate,
+    const { data: tags } = await api.get<ContentsTagsDataType>('notion/contents/tags')
+
+    return {
+      props: {
+        contents,
+        tags,
+      },
+      revalidate: config.revalidate,
+    }
+  } catch (e) {
+    return {
+      props: {
+        contents: null,
+        tags: null,
+      },
+      revalidate: 1,
+    }
   }
 }
