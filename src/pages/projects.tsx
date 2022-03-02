@@ -55,7 +55,6 @@ export const getStaticProps: GetStaticProps = async () => {
       revalidate: config.revalidate,
     }
   } catch (error) {
-    console.log('error: ', error)
     return {
       props: {
         projects: null,
