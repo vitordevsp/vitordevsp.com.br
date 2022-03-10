@@ -40,7 +40,6 @@ export interface NotionBlockType {
   id: string
   created_time: string
   last_edited_time: string
-  has_children: boolean
   archived: boolean
   created_by: {
     object: 'user'
@@ -50,8 +49,11 @@ export interface NotionBlockType {
     object: 'user'
     id: string
   }
-  type: PropTypeType
 
+  has_children: boolean
+  children?: NotionBlockType[]
+
+  type: PropTypeType
   paragraph?: ParagraphType
   heading_1?: H1Type
   heading_2?: H2Type
