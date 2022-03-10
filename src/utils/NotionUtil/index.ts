@@ -1,15 +1,31 @@
 import { ReactElement } from 'react'
-import { NotionBlockType } from '../../services/notion/types/notion.types'
-import { MapComponent } from './MapComponent'
+import { NotionBlockType } from '../../pages/api/notion/_resources/notionRepository/types/notion.types'
+import { MapComponent, unifyComponents } from './MapComponent'
 
 export function parseBlocksToComponents(blocks: NotionBlockType[]): ReactElement[] {
   const components = blocks.map(block => {
     try {
-      const { type } = block
+      const { type, children } = block
 
-      const mapComponent = MapComponent[type]
+      const component = MapComponent[type](block)
 
-      const component = mapComponent(block)
+      if (children) {
+        const components = children
+          .map(childrenBlock => {
+            try {
+              const { type } = childrenBlock
+
+              const component = MapComponent[type](childrenBlock)
+
+              return component
+            } catch {
+              return null
+            }
+          })
+          .filter(component => !!component)
+
+        return unifyComponents(component, components)
+      }
 
       return component
     } catch {

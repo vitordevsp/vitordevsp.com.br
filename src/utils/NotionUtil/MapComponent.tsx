@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { Heading, Text } from '@chakra-ui/react'
-import { NotionBlockType } from '../../services/notion/types/notion.types'
-import { PropTextType } from '../../services/notion/types/notionBlocks.types'
+import { PropTextType } from '../../pages/api/notion/_resources/notionRepository/types/notionBlocks.types'
+import { NotionBlockType } from '../../pages/api/notion/_resources/notionRepository/types/notion.types'
 
 const getContentByBlockTextProp = (textTypeObjs: PropTextType[]) => {
   const bodyChunks = textTypeObjs.map(textTypeObj => {
@@ -61,6 +61,15 @@ const getContentByBlockTextProp = (textTypeObjs: PropTextType[]) => {
   const body = bodyChunks.join(' ')
 
   return body
+}
+
+export const unifyComponents = (element: any, elements: any): ReactElement => {
+  return (
+    <>
+      {element}
+      {elements}
+    </>
+  )
 }
 
 export const MapComponent = {
