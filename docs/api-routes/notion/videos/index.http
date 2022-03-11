@@ -1,0 +1,2 @@
+### GET -> api/notion/videos -> retorna todos os videos
+GET http://localhost:3000/api/notion/videos

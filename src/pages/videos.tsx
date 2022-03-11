@@ -1,17 +1,21 @@
 import { Heading, Stack, Text } from '@chakra-ui/react'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetStaticPropsResult } from 'next'
 
 import { Main } from '../components/Main'
 import { CardInfoLarge } from '../components/CardInfoLarge'
 
-import { getVideosYoutube, VideosProps } from '../services/youtube'
+import { api } from '../services/api'
+import { VideosDataType } from './api/notion/_resources/modules/videos/types/video.types'
+
 import { config } from '../components/config'
 
 interface PageVideosProps {
-  videos: VideosProps
+  videos: VideosDataType | null
 }
 
 export default function Videos({ videos }: PageVideosProps) {
+  const totalCount = videos?.totalCount || 0
+
   return (
     <Main>
       <Stack>
@@ -20,18 +24,18 @@ export default function Videos({ videos }: PageVideosProps) {
         </Heading>
 
         <Text textAlign="center">
-          {videos.total}
-          {videos.total > 1 ? ' Vídeos' : ' Vídeo'}
+          {totalCount} {totalCount > 1 ? ' Vídeos' : ' Vídeo'}
         </Text>
       </Stack>
 
       <Stack align="center" spacing={20}>
-        {videos.items.map(video => (
+        {videos?.data.map(video => (
           <CardInfoLarge
             key={video.id}
-            src={video.thumbnails.maxres}
-            badges={video.tags}
+            src={video.thumbnail}
             title={video.title}
+            date={video.dateDisplay}
+            badges={video.tags}
             description={video.description}
             href={video.urlVideo}
           />
@@ -41,13 +45,24 @@ export default function Videos({ videos }: PageVideosProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const videos = await getVideosYoutube(50)
+type GetStaticPropsType = GetStaticPropsResult<{ videos: VideosDataType | null }>
 
-  return {
-    props: {
-      videos,
-    },
-    revalidate: config.revalidate,
+export const getStaticProps: GetStaticProps = async (ctx): Promise<GetStaticPropsType> => {
+  try {
+    const { data: videos } = await api.get<VideosDataType>('notion/videos')
+
+    return {
+      props: {
+        videos,
+      },
+      revalidate: config.revalidate,
+    }
+  } catch (e) {
+    return {
+      props: {
+        videos: null,
+      },
+      revalidate: 1,
+    }
   }
 }

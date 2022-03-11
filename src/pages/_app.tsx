@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Vitor DevSP</title>
       </Head>
 
-      <Box maxW="1168px" mx="auto" px={6}>
+      <Box maxW="1168px" minH="100vh" mx="auto" padding="1px 24px">
         <Header />
         <Component {...pageProps} />
       </Box>

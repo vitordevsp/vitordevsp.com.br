@@ -1,0 +1,5 @@
+### GET -> api/notion/contents/tags?pageSize=30 -> retorna todas as tags relacionadas aos conteudos
+GET http://localhost:3000/api/notion/contents/tags
+
+### GET -> api/notion/contents/tags?pageSize=30 -> limita o retorno
+GET http://localhost:3000/api/notion/contents/tags?pageSize=5

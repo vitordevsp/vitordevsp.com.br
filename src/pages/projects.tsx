@@ -4,14 +4,18 @@ import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 
-import { getRepositoriesGitHub, RepositoriesProps } from '../services/github'
+import { api } from '../services/api'
+import { ProjectsDataType } from './api/notion/_resources/modules/projects/types/project.types'
+
 import { config } from '../components/config'
 
 interface ProjectsProps {
-  repositories: RepositoriesProps
+  projects: ProjectsDataType | null
 }
 
-export default function Projects({ repositories }: ProjectsProps) {
+export default function Projects({ projects }: ProjectsProps) {
+  const totalCount = projects?.totalCount || 0
+
   return (
     <Main>
       <Stack>
@@ -20,18 +24,18 @@ export default function Projects({ repositories }: ProjectsProps) {
         </Heading>
 
         <Text textAlign="center">
-          {repositories.total}
-          {repositories.total > 1 ? ' Projetos' : ' Projeto'}
+          {totalCount} {totalCount > 1 ? ' Projetos' : ' Projeto'}
         </Text>
       </Stack>
 
       <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-        {repositories.items.map(repo => (
+        {projects?.data.map(repo => (
           <CardTexts
             key={repo.id}
             title={repo.name}
-            description={repo.description}
+            date={repo.dateDisplay}
             badges={repo.tags}
+            description={repo.description}
             href={repo.urlSite || repo.urlRepo}
           />
         ))}
@@ -40,13 +44,22 @@ export default function Projects({ repositories }: ProjectsProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const repositories = await getRepositoriesGitHub(3)
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const { data: projects } = await api.get<ProjectsDataType>('/notion/projects')
 
-  return {
-    props: {
-      repositories,
-    },
-    revalidate: config.revalidate,
+    return {
+      props: {
+        projects,
+      },
+      revalidate: config.revalidate,
+    }
+  } catch (error) {
+    return {
+      props: {
+        projects: null,
+      },
+      revalidate: 1,
+    }
   }
 }
