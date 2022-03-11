@@ -136,7 +136,17 @@ export const MapComponent = {
   },
 
   numbered_list_item(block: NotionBlockType): ReactElement | null {
-    return null
+    const textTypeObjs = block?.numbered_list_item?.text
+
+    if (!textTypeObjs) return null
+
+    const body = getContentByBlockTextProp(textTypeObjs)
+
+    const style = { marginLeft: '4px' }
+
+    return (
+      <li style={style} dangerouslySetInnerHTML={{ __html: body }} />
+    )
   },
 
   code(block: NotionBlockType): ReactElement | null {
