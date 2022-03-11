@@ -4,7 +4,6 @@ import { GetStaticProps } from 'next'
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 
-// import { api } from '../services/api'
 import { postService } from './api/notion/_resources/modules/posts/services/postService'
 import { PostsDataType } from './api/notion/_resources/modules/posts/types/post.types'
 
@@ -47,8 +46,6 @@ export default function Posts({ posts }: PagePostsProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    // const { data: posts } = await api.get<PostsDataType>('/notion/posts')
-
     const posts = await postService.list()
 
     return {
