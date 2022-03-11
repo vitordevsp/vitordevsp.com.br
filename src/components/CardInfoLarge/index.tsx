@@ -1,5 +1,5 @@
 import { AspectRatio, Box, Flex, Heading, Icon, Image, Stack, Text } from '@chakra-ui/react'
-import { FiExternalLink } from 'react-icons/fi'
+import { FiCalendar, FiExternalLink } from 'react-icons/fi'
 
 import { FlexGap } from '../FlexGap'
 import { Badge } from '../Badge'
@@ -7,12 +7,13 @@ import { Badge } from '../Badge'
 interface CardInfoLargeProps {
   src: string
   title: string
+  date?: string
   badges?: string[]
   description: string
   href?: string
 }
 
-export function CardInfoLarge({ src, title, badges, description, href }: CardInfoLargeProps) {
+export function CardInfoLarge({ src, title, date, badges, description, href }: CardInfoLargeProps) {
   return (
     <Stack
       as="a"
@@ -55,6 +56,13 @@ export function CardInfoLarge({ src, title, badges, description, href }: CardInf
         >
           {title}
         </Heading>
+
+        {date && (
+          <Stack my={3} align="center" color="gray.100" isInline>
+            <Icon as={FiCalendar} color="gray.100" />
+            <Text fontSize="sm" ml={2}>{date}</Text>
+          </Stack>
+        )}
 
         {badges && (
           <FlexGap>

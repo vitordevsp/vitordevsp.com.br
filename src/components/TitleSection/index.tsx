@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import { Flex, Heading, Icon, Spacer, Text, FlexProps } from '@chakra-ui/react'
+import { Flex, Heading, Icon, Text, FlexProps } from '@chakra-ui/react'
 import { FiArrowRight } from 'react-icons/fi'
 
 interface TitleSectionProps extends FlexProps {
   href?: string
   title: string
-  subTitle: string
+  subTitle?: string
 }
 
 export function TitleSection({ href, title, subTitle, ...props }: TitleSectionProps) {
@@ -38,17 +38,18 @@ export function TitleSection({ href, title, subTitle, ...props }: TitleSectionPr
           />
         )}
 
-        <Spacer />
-
-        <Text
-          fontSize="xl"
-          color="gray.100"
-          whiteSpace="nowrap"
-          transition="color 0.4s"
-          _groupHover={{ color: 'custom.secondary' }}
-        >
-          {subTitle}
-        </Text>
+        {subTitle && (
+          <Text
+            fontSize="xl"
+            color="gray.100"
+            whiteSpace="nowrap"
+            transition="color 0.4s"
+            ml="auto"
+            _groupHover={{ color: 'custom.secondary' }}
+          >
+            {subTitle}
+          </Text>
+        )}
       </Flex>
     </Link>
   )

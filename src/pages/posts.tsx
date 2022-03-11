@@ -4,14 +4,18 @@ import { GetStaticProps } from 'next'
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 
-import { getPostsDevTo, PostsProps } from '../services/devTo'
+import { api } from '../services/api'
+import { PostsDataType } from './api/notion/_resources/modules/posts/types/post.types'
+
 import { config } from '../components/config'
 
 interface PagePostsProps {
-  posts: PostsProps
+  posts: PostsDataType | null
 }
 
 export default function Posts({ posts }: PagePostsProps) {
+  const totalCount = posts?.totalCount || 0
+
   return (
     <Main>
       <Stack>
@@ -20,20 +24,19 @@ export default function Posts({ posts }: PagePostsProps) {
         </Heading>
 
         <Text textAlign="center">
-          {posts.total}
-          {posts.total > 1 ? ' Posts' : ' Post'}
+          {totalCount} {totalCount > 1 ? ' Posts' : ' Post'}
         </Text>
       </Stack>
 
       <SimpleGrid columns={[null, 1, 2]} spacing={8}>
-        {posts.items.map(post => (
+        {posts?.data.map(post => (
           <CardTexts
             key={post.id}
             title={post.title}
-            date={post.publishedAt}
+            date={post.dateDisplay}
             description={post.description}
             badges={post.tags}
-            href={post.urlPost}
+            href={`/post/${post.slug}`}
           />
         ))}
       </SimpleGrid>
@@ -41,13 +44,22 @@ export default function Posts({ posts }: PagePostsProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  const posts = await getPostsDevTo(50)
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const { data: posts } = await api.get<PostsDataType>('/notion/posts')
 
-  return {
-    props: {
-      posts,
-    },
-    revalidate: config.revalidate,
+    return {
+      props: {
+        posts,
+      },
+      revalidate: config.revalidate,
+    }
+  } catch (error) {
+    return {
+      props: {
+        projects: null,
+      },
+      revalidate: 1,
+    }
   }
 }
