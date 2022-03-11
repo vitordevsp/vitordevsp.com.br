@@ -33,7 +33,8 @@ export default function Post({ post }: PostProps) {
     <Stack width="100" maxWidth="900px" margin="40px auto" spacing={10}>
       <Stack as="header" align="center">
         <Heading as="h1" maxWidth="700px" textAlign="center">{post?.data.title}</Heading>
-        <Text>{post?.data.dateDisplay}</Text>
+
+        <Text>{post?.data.description}</Text>
 
         {post?.data.tags && (
           <FlexGap justify="center">
@@ -42,6 +43,8 @@ export default function Post({ post }: PostProps) {
             ))}
           </FlexGap>
         )}
+
+        <Text fontSize="sm">{post?.data.dateDisplay}</Text>
       </Stack>
 
       <Stack as="article">
