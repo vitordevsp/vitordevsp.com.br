@@ -1,11 +1,11 @@
 import { notionRepository } from '../../../notionRepository/notionRepository'
 import { generateProperties } from './projectService.util'
 import { parseDateText } from '../../../../../../../utils/DateUtil'
-import { ProjectReqType, ProjectsType, ProjectType } from '../types/project.types'
+import { ProjectReqType, ProjectsDataType, ProjectType } from '../types/project.types'
 
 const NOTION_DB_PROJECTS = process.env.NOTION_DB_PROJECTS || ''
 
-async function list(pageSize?: number): Promise<ProjectsType> {
+async function list(pageSize?: number): Promise<ProjectsDataType> {
   try {
     const database = await notionRepository.getDatabase<ProjectReqType[]>(NOTION_DB_PROJECTS, { pageSize })
 
@@ -22,7 +22,7 @@ async function list(pageSize?: number): Promise<ProjectsType> {
       return project
     })
 
-    const projectsData: ProjectsType = {
+    const projectsData: ProjectsDataType = {
       totalCount: projects.length,
       data: projects,
     }
