@@ -4,7 +4,6 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { Main } from '../components/Main'
 import { CardInfoLarge } from '../components/CardInfoLarge'
 
-// import { api } from '../services/api'
 import { videoService } from './api/notion/_resources/modules/videos/services/videoService'
 import { VideosDataType } from './api/notion/_resources/modules/videos/types/video.types'
 
@@ -50,8 +49,6 @@ type GetStaticPropsType = GetStaticPropsResult<{ videos: VideosDataType | null }
 
 export const getStaticProps: GetStaticProps = async (ctx): Promise<GetStaticPropsType> => {
   try {
-    // const { data: videos } = await api.get<VideosDataType>('notion/videos')
-
     const videos = await videoService.list()
 
     return {

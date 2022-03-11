@@ -5,7 +5,7 @@ import { Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Badge } from '../../components/Badge'
 import { FlexGap } from '../../components/FlexGap'
 
-import { api } from '../../services/api'
+import { postService } from '../api/notion/_resources/modules/posts/services/postService'
 import { parseBlocksToComponents } from '../../utils/NotionUtil'
 import { PostDataType } from '../api/notion/_resources/modules/posts/types/post.types'
 
@@ -19,13 +19,13 @@ export default function Post({ post }: PostProps) {
   const [componentsJSX, setComponentsJSX] = useState<ReactElement[] | null>(null)
 
   useEffect(() => {
-    if (post?.data.body) {
+    if (post?.data?.body) {
       const components = parseBlocksToComponents(post.data.body)
       setComponentsJSX(components)
     }
   }, [post])
 
-  if (!post?.data.body) {
+  if (!post?.data?.body) {
     return <Spinner position="absolute" top="50%" left="50%" />
   }
 
@@ -34,7 +34,7 @@ export default function Post({ post }: PostProps) {
       <Stack as="header" align="center">
         <Heading as="h1" maxWidth="700px" textAlign="center">{post?.data.title}</Heading>
 
-        <Text>{post?.data.description}</Text>
+        <Text textAlign="center">{post?.data.description}</Text>
 
         {post?.data.tags && (
           <FlexGap justify="center">
@@ -67,15 +67,13 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
 
     const pageId = slug.slice(start, end)
 
-    const { data: post } = await api.get<PostDataType>(`notion/posts/${pageId}`, {
-      params: {
-        body: true,
-      },
-    })
+    const post = await postService.get(pageId, true)
 
     return {
       props: {
-        post,
+        post: {
+          data: post,
+        },
       },
       revalidate: config.revalidate,
     }

@@ -4,7 +4,6 @@ import { Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 
-// import { api } from '../services/api'
 import { projectService } from './api/notion/_resources/modules/projects/services/projectService'
 import { ProjectsDataType } from './api/notion/_resources/modules/projects/types/project.types'
 
@@ -47,8 +46,6 @@ export default function Projects({ projects }: ProjectsProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    // const { data: projects } = await api.get<ProjectsDataType>('/notion/projects')
-
     const projects = await projectService.list()
 
     return {

@@ -5,7 +5,6 @@ import { Main } from '../components/Main'
 import { CardTexts } from '../components/CardTexts'
 import { TitleSection } from '../components/TitleSection'
 
-// import { api } from '../services/api'
 import { contentService } from './api/notion/_resources/modules/contents/services/contentService'
 import { ContentsDataType, ContentsTagsDataType } from './api/notion/_resources/modules/contents/types/content.types'
 
@@ -45,14 +44,6 @@ export default function Home({ contents, tags }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    // const { data: contents } = await api.get<ContentsDataType>('notion/contents', {
-    //   params: {
-    //     pageSize: 30,
-    //   },
-    // })
-
-    // const { data: tags } = await api.get<ContentsTagsDataType>('notion/contents/tags')
-
     const contents = await contentService.list()
     const tags = await contentService.listTags()
 
