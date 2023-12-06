@@ -1,7 +1,7 @@
-export default function HomePage() {
+export default function VideosPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Home</h1>
+      <h1>Videos</h1>
     </main>
   )
 }
