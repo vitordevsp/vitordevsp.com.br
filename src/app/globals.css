@@ -3,11 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --color: #fff;
+  --text-color-white: rgb(214, 214, 214);
+  --text-color-gray: #989898;
   --background-color: #1A1A19;
 }
 
 body {
-  color: var(--color);
+  color: var(--text-color-white);
   background-color: var(--background-color);
+}
+
+p, span {
+  cursor: default;
 }

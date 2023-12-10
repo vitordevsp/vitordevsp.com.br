@@ -23,8 +23,8 @@ const sizeObj: Record<ParagraphSize, string> = {
 }
 
 const colorObj: Record<ParagraphColor, string> = {
-  "white": "#fff",
-  "gray": "#989898",
+  "white": "var(--text-color-white)",
+  "gray": "var(--text-color-gray)",
 }
 
 export function Paragraph({ children, size, color, textBold }: ParagraphProps) {

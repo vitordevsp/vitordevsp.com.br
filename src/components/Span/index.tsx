@@ -23,8 +23,8 @@ const sizeObj: Record<SpanSize, string> = {
 }
 
 const colorObj: Record<SpanColor, string> = {
-  "white": "#fff",
-  "gray": "#989898",
+  "white": "var(--text-color-white)",
+  "gray": "var(--text-color-gray)",
 }
 
 export function Span({ children, size, color, textBold }: SpanProps) {

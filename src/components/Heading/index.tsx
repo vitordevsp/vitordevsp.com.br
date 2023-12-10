@@ -24,8 +24,8 @@ const sizeObj: Record<HeadingSize, string> = {
 }
 
 const colorObj: Record<HeadingColor, string> = {
-  "white": "#fff",
-  "gray": "#989898",
+  "white": "var(--text-color-white)",
+  "gray": "var(--text-color-gray)",
 }
 
 export function Heading({ children, as, size, color, textNormal }: HeadingProps) {
