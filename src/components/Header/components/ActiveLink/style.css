@@ -1,0 +1,10 @@
+.header-item {
+  color: #989898;
+  font-weight: 400;
+  transition: all 0.5s;
+}
+
+.header-item--active {
+  color: #fff;
+  font-weight: 700;
+}
