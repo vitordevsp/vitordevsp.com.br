@@ -1,0 +1,11 @@
+.link-with-icon {
+  padding: 4px;
+}
+
+.link-with-icon svg {
+  transition: all 0, 5s !important;
+}
+
+.link-with-icon:hover svg {
+  color: #fff !important;
+}
