@@ -1,5 +1,11 @@
+import "./style.css"
+
 export function Footer() {
   return (
-    <div></div>
+    <footer className="footer">
+      <span>
+        Devsp consultoria em tecnologia da informação LTDA ©
+      </span>
+    </footer>
   )
 }
