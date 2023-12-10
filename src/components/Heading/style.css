@@ -1,0 +1,8 @@
+.heading {
+  transition: all 0.5s;
+  cursor: default;
+}
+
+.heading:hover {
+  color: #fff !important;
+}
