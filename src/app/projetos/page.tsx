@@ -1,7 +1,9 @@
+import PageContainer from "@/components/PageContainer"
+
 export default function ProjectsPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <PageContainer>
       <h1>Projetos</h1>
-    </main>
+    </PageContainer>
   )
 }

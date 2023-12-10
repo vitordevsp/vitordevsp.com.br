@@ -1,9 +1,9 @@
 import PageContainer from "@/components/PageContainer"
 
-export default function AboutPage() {
+export default function PostsPage() {
   return (
     <PageContainer>
-      <h1>Sobre</h1>
+      <h1>Postagens</h1>
     </PageContainer>
   )
 }

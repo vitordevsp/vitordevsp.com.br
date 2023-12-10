@@ -1,7 +1,9 @@
+import PageContainer from "@/components/PageContainer"
+
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <PageContainer>
       <h1>Home</h1>
-    </main>
+    </PageContainer>
   )
 }
