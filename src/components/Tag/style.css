@@ -1,0 +1,10 @@
+.tag {
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: #252525;
+  transition: all 0.5s;
+}
+
+.tag:hover {
+  background: #2b2b2b;
+}
