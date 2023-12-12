@@ -1,4 +1,5 @@
 import {
+  BlogPostCard,
   Heading,
   LinkWithIcon,
   PageContainer,
@@ -144,6 +145,28 @@ export default function HomePage() {
           Postagens em destaque
         </Heading>
 
+        <div className="flex flex-col gap-20">
+          <BlogPostCard
+            title="Padronização de código com (ESLint e EditorConfig)"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+            date="07 de julho de 2021"
+            tags={["React JS", "React Native", "Next JS"]}
+          />
+
+          <BlogPostCard
+            title="Padronização de código com (ESLint e EditorConfig)"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+            date="07 de julho de 2021"
+            tags={["React JS", "React Nativexxx", "Next JSxxx", "Vue JS"]}
+          />
+
+          <BlogPostCard
+            title="Padronização de código com (ESLint e EditorConfig)"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+            date="07 de julho de 2021"
+            tags={["React JS", "Next JS"]}
+          />
+        </div>
       </section>
 
       <section id="services-section" className="flex flex-col items-center gap-20">
