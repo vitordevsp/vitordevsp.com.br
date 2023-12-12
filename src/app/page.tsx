@@ -3,6 +3,7 @@ import {
   LinkWithIcon,
   PageContainer,
   Paragraph,
+  SkillCard,
   Span,
   Tag,
 } from "@/components"
@@ -83,7 +84,27 @@ export default function HomePage() {
           </Paragraph>
         </div>
 
-        {/* @TODO: Grid characteristics */}
+        <div className="grid grid-rows-2 grid-flow-col gap-4">
+          <SkillCard
+            title="Habilidade X"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+          />
+
+          <SkillCard
+            title="Habilidade X"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+          />
+
+          <SkillCard
+            title="Habilidade X"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+          />
+
+          <SkillCard
+            title="Habilidade X"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+          />
+        </div>
       </section>
 
       <section id="projects-section" className="flex flex-col items-center gap-20">
