@@ -4,7 +4,7 @@ import "./style.css"
 export type ParagraphSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl"
 export type ParagraphColor = "white" | "gray"
 
-export interface ParagraphProps {
+export interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children?: React.ReactNode
   size?: ParagraphSize
   color?: ParagraphColor
@@ -27,15 +27,28 @@ const colorObj: Record<ParagraphColor, string> = {
   "gray": "var(--text-color-gray)",
 }
 
-export function Paragraph({ children, size, color, textBold }: ParagraphProps) {
-  const style: CSSProperties = {
+export function Paragraph({
+  children,
+  size,
+  color,
+  textBold,
+  className,
+  style,
+  ...rest
+}: ParagraphProps) {
+  const customStyle: CSSProperties = {
     fontSize: sizeObj[size || "md"],
     fontWeight: textBold ? "bold" : "normal",
     color: colorObj[color || "gray"],
+    ...style,
   }
 
   return (
-    <p className="paragraph" style={style}>
+    <p
+      className={`paragraph ${className}`}
+      style={customStyle}
+      {...rest}
+    >
       {children}
     </p>
   )

@@ -4,7 +4,7 @@ import "./style.css"
 type SpanSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl"
 type SpanColor = "white" | "gray"
 
-interface SpanProps {
+interface SpanProps extends React.HTMLAttributes<HTMLSpanElement> {
   children?: React.ReactNode
   size?: SpanSize
   color?: SpanColor
@@ -27,7 +27,7 @@ const colorObj: Record<SpanColor, string> = {
   "gray": "var(--text-color-gray)",
 }
 
-export function Span({ children, size, color, textBold }: SpanProps) {
+export function Span({ children, size, color, textBold, className, ...rest }: SpanProps) {
   const style: CSSProperties = {
     fontSize: sizeObj[size || "md"],
     fontWeight: textBold ? "bold" : "normal",
@@ -35,7 +35,11 @@ export function Span({ children, size, color, textBold }: SpanProps) {
   }
 
   return (
-    <span className="span" style={style}>
+    <span
+      className={`span ${className}`}
+      style={style}
+      {...rest}
+    >
       {children}
     </span>
   )

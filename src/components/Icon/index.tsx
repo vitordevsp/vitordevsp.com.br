@@ -3,10 +3,13 @@ import {
   FiYoutube,
   FiLinkedin,
   FiInstagram,
+  FiCalendar,
+  FiExternalLink,
+  FiFigma,
 } from "react-icons/fi"
 import { IconBaseProps, IconType } from "react-icons"
 
-export type IconName = "github" | "youtube" | "linkedin" | "instagram"
+export type IconName = "github" | "youtube" | "linkedin" | "instagram" | "figma" | "calendar" | "link"
 
 export interface IconProps extends IconBaseProps {
   name: IconName
@@ -17,6 +20,9 @@ const iconObj: Record<IconName, IconType> = {
   youtube: FiYoutube,
   linkedin: FiLinkedin,
   instagram: FiInstagram,
+  calendar: FiCalendar,
+  link: FiExternalLink,
+  figma: FiFigma,
 }
 
 export function Icon({ name, ...rest }: IconProps) {

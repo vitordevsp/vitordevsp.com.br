@@ -3,6 +3,7 @@ import {
   LinkWithIcon,
   PageContainer,
   Paragraph,
+  ProjectCard,
   SkillCard,
   Span,
   Tag,
@@ -84,7 +85,7 @@ export default function HomePage() {
           </Paragraph>
         </div>
 
-        <div className="grid grid-rows-2 grid-flow-col gap-4">
+        <div className="grid grid-rows-2 grid-flow-col gap-12 max-w-4xl">
           <SkillCard
             title="Habilidade X"
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
@@ -112,7 +113,29 @@ export default function HomePage() {
           Projetos autorais
         </Heading>
 
-        {/* @TODO: Card list projects */}
+        <div className="flex flex-col gap-20 max-w-4xl">
+          <ProjectCard
+            title="My Finances"
+            initialDate="2021"
+            tags={["ReactJS", "NextJS", "NodeJS", "MongoDB"]}
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+            linkSite="https://www.my-finances.app"
+            linkGithub="https://www.my-finances.app"
+            linkFigma="https://www.my-finances.app"
+            linkYoutube="https://www.my-finances.app"
+          />
+
+          <ProjectCard
+            title="My Finances"
+            initialDate="2021"
+            tags={["ReactJS", "NextJS", "NodeJS", "MongoDB"]}
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+            linkSite="https://www.my-finances.app"
+            linkGithub="https://www.my-finances.app"
+            linkFigma="https://www.my-finances.app"
+            linkYoutube="https://www.my-finances.app"
+          />
+        </div>
       </section>
 
       <section id="posts-section" className="flex flex-col items-center gap-20">
@@ -120,7 +143,6 @@ export default function HomePage() {
           Postagens em destaque
         </Heading>
 
-        {/* @TODO: Card list projects */}
       </section>
 
       <section id="services-section" className="flex flex-col items-center gap-20">
