@@ -1,4 +1,4 @@
-import { Heading, Icon, LinkWithIcon, Paragraph, Span, Tag } from ".."
+import { Heading, Icon, LinkWithIcon, Paragraph, Span, Tags } from ".."
 import "./style.css"
 
 export interface ProjectCardProps {
@@ -39,11 +39,7 @@ export function ProjectCard({
           <Span>{initialDate} - {finalDate || "Ativo"}</Span>
         </div>
 
-        <div className="flex gap-1.5 mt-4">
-          {tags?.map(text => (
-            <Tag text={text} key={text} />
-          ))}
-        </div>
+        <Tags items={tags} />
 
         <Paragraph className="mt-2">
           {description}
