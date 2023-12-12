@@ -4,6 +4,7 @@ import {
   PageContainer,
   Paragraph,
   ProjectCard,
+  ServiceCard,
   SkillCard,
   Span,
   Tag,
@@ -156,7 +157,22 @@ export default function HomePage() {
           </Paragraph>
         </div>
 
-        {/* @TODO: services */}
+        <div className="grid grid-rows-1 grid-flow-col gap-12">
+          <ServiceCard
+            title="Habilidade X"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+          />
+
+          <ServiceCard
+            title="Habilidade X"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+          />
+
+          <ServiceCard
+            title="Habilidade X"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+          />
+        </div>
       </section>
 
       <section id="call-to-action-section" className="flex flex-col items-center gap-6 text-center max-w-2xl">
