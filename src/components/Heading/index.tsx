@@ -4,7 +4,7 @@ import "./style.css"
 export type HeadingSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl"
 export type HeadingColor = "white" | "gray"
 
-export interface HeadingProps {
+export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children?: React.ReactNode
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
   color?: HeadingColor
@@ -28,7 +28,15 @@ const colorObj: Record<HeadingColor, string> = {
   "gray": "var(--text-color-gray)",
 }
 
-export function Heading({ children, as, size, color, textNormal }: HeadingProps) {
+export function Heading({
+  children,
+  as,
+  size,
+  color,
+  textNormal,
+  className,
+  ...rest
+}: HeadingProps) {
   const Title = as || "h1"
 
   const style: CSSProperties = {
@@ -38,7 +46,11 @@ export function Heading({ children, as, size, color, textNormal }: HeadingProps)
   }
 
   return (
-    <Title className="heading" style={style}>
+    <Title
+      className={`heading ${className}`}
+      style={style}
+      {...rest}
+    >
       {children}
     </Title>
   )
