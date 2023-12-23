@@ -3,7 +3,7 @@ import { Heading, PageContainer, Paragraph } from "@/components"
 export default function AboutPage() {
   return (
     <PageContainer className="flex flex-col items-center py-20 gap-20">
-      <div className="flex flex-col gap-8 text-center max-w-3xl">
+      <section className="flex flex-col gap-8 text-center max-w-3xl">
         <Heading as="h1">
           Aprendendo, construindo e ensinando!
         </Heading>
@@ -11,7 +11,7 @@ export default function AboutPage() {
         <Paragraph>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s.
         </Paragraph>
-      </div>
+      </section>
 
       <section className="flex flex-col gap-20">
         <div className="flex gap-16">
