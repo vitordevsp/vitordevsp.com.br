@@ -1,14 +1,18 @@
 import { Tag } from ".."
+import "./styles.scss"
 
-interface TagsProps {
+interface TagsProps extends React.HTMLAttributes<HTMLDivElement> {
   items?: string[]
 }
 
-export function Tags({ items }: TagsProps) {
+export function Tags({ items, className, ...rest }: TagsProps) {
   if (!items) return
 
   return (
-    <div className="flex flex-wrap gap-1.5 mt-4">
+    <div
+      className={`tags ${className}`}
+      {...rest}
+    >
       {items.map(text => (
         <Tag text={text} key={text} />
       ))}
