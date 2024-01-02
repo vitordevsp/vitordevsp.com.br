@@ -1,0 +1,135 @@
+.homepage-container {
+  padding-top: 224px;
+  padding-bottom: 224px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 224px;
+}
+
+#hero-section {
+  display: flex;
+  gap: 80px;
+
+  .hero-section-presentation {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .tags {
+      margin-top: 12px;
+    }
+
+    .contact-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .social-media-section {
+      display: flex;
+      gap: 20px;
+    }
+  }
+
+  .hero-section-about {
+    max-width: 448px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+#characteristics-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+
+  .characteristics-section-header {
+    max-width: 672px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .characteristics-section-body {
+    max-width: 896px;
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+  }
+}
+
+#projects-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+
+  .projects-section-body {
+    max-width: 896px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+}
+
+#posts-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+
+  .posts-section {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+}
+
+#services-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+
+  .services-section-header {
+    max-width: 672px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .services-section-body {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(1, minmax(0, 1fr));
+    gap: 48px;
+  }
+}
+
+#call-to-action-section {
+  max-width: 672px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}

@@ -8,15 +8,16 @@ import {
   ServiceCard,
   SkillCard,
   Span,
-  Tag,
+  Tags,
 } from "@/components"
 import { socialMedia } from "@/resources/static"
+import "./style.scss"
 
 export default function HomePage() {
   return (
-    <PageContainer className="flex flex-col items-center py-56 gap-56">
-      <section id="hero-section" className="flex gap-20">
-        <div className="flex flex-col gap-8">
+    <PageContainer className="homepage-container">
+      <section id="hero-section">
+        <div className="hero-section-presentation">
           <div>
             <Heading as="h1" size="lg" color="gray" textNormal>
               👋 Olá! meu nome é <b>Vitor Sampaio</b> e sou um
@@ -30,15 +31,17 @@ export default function HomePage() {
               Criando experiências digitais excepcionais. Transformando Problemas Complexos em Soluções Simples
             </Paragraph>
 
-            <div className="flex gap-2 mt-3">
-              <Tag text="ReactJS" />
-              <Tag text="VueJS" />
-              <Tag text="NextJS" />
-              <Tag text="NodeJS" />
-            </div>
+            <Tags
+              items={[
+                "ReactJS",
+                "VueJS",
+                "NextJS",
+                "NodeJS",
+              ]}
+            />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="contact-section">
             <Span>
               São Paulo, SP, Brasil
             </Span>
@@ -48,7 +51,7 @@ export default function HomePage() {
             </Span>
           </div>
 
-          <div className="flex gap-5">
+          <div className="social-media-section">
             <LinkWithIcon icon="linkedin" href={socialMedia.linkedin} />
 
             <LinkWithIcon icon="github" href={socialMedia.github} />
@@ -57,7 +60,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 max-w-md">
+        <div className="hero-section-about">
           <Paragraph>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           </Paragraph>
@@ -76,8 +79,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="characteristics-section" className="flex flex-col items-center gap-20">
-        <div className="flex flex-col gap-4 text-center max-w-2xl">
+      <section id="characteristics-section">
+        <div className="characteristics-section-header">
           <Heading>
             Minhas principais habilidades
           </Heading>
@@ -87,7 +90,7 @@ export default function HomePage() {
           </Paragraph>
         </div>
 
-        <div className="grid grid-rows-2 grid-flow-col gap-12 max-w-4xl">
+        <div className="characteristics-section-body">
           <SkillCard
             title="Habilidade X"
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
@@ -110,12 +113,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="projects-section" className="flex flex-col items-center gap-20">
+      <section id="projects-section">
         <Heading>
           Projetos autorais
         </Heading>
 
-        <div className="flex flex-col gap-20 max-w-4xl">
+        <div className="projects-section-body">
           <ProjectCard
             title="My Finances"
             initialDate="2021"
@@ -140,12 +143,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="posts-section" className="flex flex-col items-center gap-20">
+      <section id="posts-section">
         <Heading>
           Postagens em destaque
         </Heading>
 
-        <div className="flex flex-col gap-20">
+        <div className="posts-section">
           <BlogPostCard
             title="Padronização de código com (ESLint e EditorConfig)"
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
@@ -169,8 +172,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="services-section" className="flex flex-col items-center gap-20">
-        <div className="flex flex-col gap-4 text-center max-w-2xl">
+      <section id="services-section">
+        <div className="services-section-header">
           <Heading>
             Serviços disponiveis
           </Heading>
@@ -180,7 +183,7 @@ export default function HomePage() {
           </Paragraph>
         </div>
 
-        <div className="grid grid-rows-1 grid-flow-col gap-12">
+        <div className="services-section-body">
           <ServiceCard
             title="Habilidade X"
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
@@ -198,7 +201,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="call-to-action-section" className="flex flex-col items-center gap-6 text-center max-w-2xl">
+      <section id="call-to-action-section">
         <Heading>
           Como eu posso te ajudar?
         </Heading>

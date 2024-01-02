@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Fira_Sans } from "next/font/google"
 import { Footer, Header } from "@/components"
-import "./globals.css"
+import "@/styles/globals.scss"
 
 const firaSans = Fira_Sans({
   weight: ["400", "500", "600", "700", "800"],
