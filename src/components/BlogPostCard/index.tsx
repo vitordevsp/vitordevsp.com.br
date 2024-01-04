@@ -1,5 +1,5 @@
 import { Heading, Icon, Paragraph, Span, Tags } from ".."
-import "./style.css"
+import "./style.scss"
 
 export interface BlogPostCardProps {
   title: string
@@ -11,8 +11,8 @@ export interface BlogPostCardProps {
 export function BlogPostCard({ title, description, date, tags }: BlogPostCardProps) {
   return (
     <div className="blog-post-card">
-      <div className="blog-post-date-col">
-        <div className="blog-post-date">
+      <div className="blog-post-card__info">
+        <div className="blog-post-card__date">
           <Icon name="calendar" size={14} />
 
           <Span>
@@ -23,7 +23,7 @@ export function BlogPostCard({ title, description, date, tags }: BlogPostCardPro
         <Tags items={tags} />
       </div>
 
-      <div>
+      <div className="blog-post-card__content">
         <Heading as="h3" size="2xl">
           {title}
         </Heading>
