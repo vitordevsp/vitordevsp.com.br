@@ -1,0 +1,30 @@
+.video-card {
+  display: flex;
+  gap: 56px;
+}
+
+.video-card__fake-img {
+  min-width: 364px;
+  min-height: 273px;
+  border-radius: 20px;
+  background: #494949;
+}
+
+.video-card__date {
+  margin-top: 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.video-card__tags {
+  margin: 16px 0 8px;
+}
+
+.video-card__links {
+  margin-top: 16px;
+
+  display: flex;
+  gap: 24px;
+}
