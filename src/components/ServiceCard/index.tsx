@@ -1,4 +1,5 @@
 import { Heading, Paragraph } from ".."
+import "./style.scss"
 
 export interface ServiceCardProps {
   title: string
@@ -7,7 +8,7 @@ export interface ServiceCardProps {
 
 export function ServiceCard({ title, description }: ServiceCardProps) {
   return (
-    <div className="skill-card flex flex-col gap-2 text-center">
+    <div className="service-card">
       <Heading as="h3" size="2xl">
         {title}
       </Heading>

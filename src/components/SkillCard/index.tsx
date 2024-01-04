@@ -1,4 +1,5 @@
 import { Heading, Paragraph } from ".."
+import "./style.scss"
 
 export interface SkillCardProps {
   icon?: string
@@ -8,7 +9,7 @@ export interface SkillCardProps {
 
 export function SkillCard({ icon, title, description }: SkillCardProps) {
   return (
-    <div className="skill-card flex flex-col gap-4">
+    <div className="skill-card">
       <div className="flex items-center gap-6">
         <div style={{ background: "#494949" }} className="w-8 h-8 rounded-full"></div>
 
