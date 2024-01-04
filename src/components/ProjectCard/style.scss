@@ -1,0 +1,31 @@
+.project-card {
+  display: flex;
+  gap: 56px;
+}
+
+.project-card__fake-img {
+  min-width: 364px;
+  min-height: 273px;
+  border-radius: 20px;
+  background: #494949;
+}
+
+.project-card__date {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 8px 0 16px;
+}
+
+.project-card__tags {
+  margin: 0 0 8px;
+}
+
+.project-card__links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  margin-top: 16px;
+}

@@ -1,5 +1,5 @@
 import { Icon, IconName, Span } from ".."
-import "./style.css"
+import "./style.scss"
 
 interface LinkWithIconProps {
   href?: string
@@ -15,7 +15,7 @@ export function LinkWithIcon({ href, icon, text }: LinkWithIconProps) {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <div className="flex items-center gap-2">
+      <div className="link-with-icon__content">
         {icon && (
           <Icon
             name={icon}
