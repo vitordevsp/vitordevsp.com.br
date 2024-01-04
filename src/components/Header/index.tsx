@@ -6,7 +6,7 @@ export function Header() {
   return (
     <header className="header">
       <nav>
-        <ul>
+        <ul className="header__list">
           <ActiveLink href="/" text="Home" />
           <ActiveLink href="/projetos" text="Projetos" />
           <ActiveLink href="/posts" text="Posts" />

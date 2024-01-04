@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import "./style.css"
+import "./style.scss"
 
 interface ActiveLinkProps {
   href?: string
@@ -14,7 +14,7 @@ export function ActiveLink({ href, text }: ActiveLinkProps) {
   const isActiveLink = pathname === href || pathname === ""
 
   return (
-    <li className={`header-item ${isActiveLink && "header-item--active"}`}>
+    <li className={`active-link ${isActiveLink && "active-link--active"}`}>
       <Link href={href || "/"}>
         {text}
       </Link>

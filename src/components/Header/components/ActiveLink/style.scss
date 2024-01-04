@@ -1,14 +1,14 @@
-.header-item {
+.active-link {
   color: #989898;
   font-weight: 400;
   transition: all 0.5s;
 }
 
-.header-item:hover {
+.active-link:hover {
   color: #fff;
 }
 
-.header-item--active {
+.active-link--active {
   color: #fff;
   font-weight: 700;
 }
