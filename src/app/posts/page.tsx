@@ -4,11 +4,12 @@ import {
   PageContainer,
   Paragraph,
 } from "@/components"
+import "./style.scss"
 
 export default function PostsPage() {
   return (
-    <PageContainer className="flex flex-col items-center py-20 gap-20">
-      <section className="flex flex-col gap-8 text-center max-w-3xl">
+    <PageContainer className="posts-page">
+      <section className="posts-page__header">
         <div>
           <Heading as="h1">
             Todas as Postagens
@@ -24,7 +25,7 @@ export default function PostsPage() {
         </Paragraph>
       </section>
 
-      <section className="flex flex-col gap-20">
+      <section className="posts-page__content">
         <BlogPostCard
           title="Padronização de código com (ESLint e EditorConfig)"
           description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
