@@ -15,10 +15,10 @@ import "./style.scss"
 
 export default function HomePage() {
   return (
-    <PageContainer className="homepage-container">
-      <section id="hero-section">
-        <div className="hero-section-presentation">
-          <div>
+    <PageContainer className="homepage">
+      <section id="hero-section" className="homepage__hero-section">
+        <div className="hero-section__presentation">
+          <div className="hero-section__hello-container">
             <Heading as="h1" size="lg" color="gray" textNormal>
               👋 Olá! meu nome é <b>Vitor Sampaio</b> e sou um
             </Heading>
@@ -41,7 +41,7 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="contact-section">
+          <div className="hero-section__contact-container">
             <Span>
               São Paulo, SP, Brasil
             </Span>
@@ -51,7 +51,7 @@ export default function HomePage() {
             </Span>
           </div>
 
-          <div className="social-media-section">
+          <div className="hero-section__social-media-container">
             <LinkWithIcon icon="linkedin" href={socialMedia.linkedin} />
 
             <LinkWithIcon icon="github" href={socialMedia.github} />
@@ -60,7 +60,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="hero-section-about">
+        <div className="hero-section__about-container">
           <Paragraph>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           </Paragraph>
@@ -79,8 +79,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="characteristics-section">
-        <div className="characteristics-section-header">
+      <section id="characteristics-section" className="homepage__characteristics-section">
+        <div className="characteristics-section__header">
           <Heading>
             Minhas principais habilidades
           </Heading>
@@ -90,7 +90,7 @@ export default function HomePage() {
           </Paragraph>
         </div>
 
-        <div className="characteristics-section-body">
+        <div className="characteristics-section__content">
           <SkillCard
             title="Habilidade X"
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
@@ -113,12 +113,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="projects-section">
+      <section id="projects-section" className="homepage__projects-section">
         <Heading>
           Projetos autorais
         </Heading>
 
-        <div className="projects-section-body">
+        <div className="projects-section__content">
           <ProjectCard
             title="My Finances"
             initialDate="2021"
@@ -143,12 +143,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="posts-section">
+      <section id="posts-section" className="homepage__posts-section">
         <Heading>
           Postagens em destaque
         </Heading>
 
-        <div className="posts-section">
+        <div className="posts-section__content">
           <BlogPostCard
             title="Padronização de código com (ESLint e EditorConfig)"
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
@@ -172,8 +172,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="services-section">
-        <div className="services-section-header">
+      <section id="services-section" className="homepage__services-section">
+        <div className="services-section__header">
           <Heading>
             Serviços disponiveis
           </Heading>
@@ -183,7 +183,7 @@ export default function HomePage() {
           </Paragraph>
         </div>
 
-        <div className="services-section-body">
+        <div className="services-section__content">
           <ServiceCard
             title="Habilidade X"
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
@@ -201,7 +201,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="call-to-action-section">
+      <section id="call-to-action-section" className="homepage__call-to-action-section">
         <Heading>
           Como eu posso te ajudar?
         </Heading>
