@@ -1,0 +1,33 @@
+.about-page {
+  padding: 80px 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+.about-page__header {
+  max-width: 768px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.about-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.about-page__content__section {
+  display: flex;
+  gap: 64px;
+}
+
+.about-page__content__section__title {
+  width: 384px;
+  min-width: 384px;
+}

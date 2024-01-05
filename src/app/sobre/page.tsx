@@ -1,9 +1,10 @@
 import { Heading, PageContainer, Paragraph } from "@/components"
+import "./style.scss"
 
 export default function AboutPage() {
   return (
-    <PageContainer className="flex flex-col items-center py-20 gap-20">
-      <section className="flex flex-col gap-8 text-center max-w-3xl">
+    <PageContainer className="about-page">
+      <section className="about-page__header">
         <Heading as="h1">
           Aprendendo, construindo e ensinando!
         </Heading>
@@ -13,9 +14,9 @@ export default function AboutPage() {
         </Paragraph>
       </section>
 
-      <section className="flex flex-col gap-20">
-        <div className="flex gap-16">
-          <div className="w-96 min-w-96">
+      <section className="about-page__content">
+        <div className="about-page__content__section">
+          <div className="about-page__content__section__title">
             <Heading
               as="h2"
               size="2xl"
@@ -35,8 +36,8 @@ export default function AboutPage() {
           </Paragraph>
         </div>
 
-        <div className="flex gap-16">
-          <div className="w-96 min-w-96">
+        <div className="about-page__content__section">
+          <div className="about-page__content__section__title">
             <Heading
               as="h2"
               size="2xl"
@@ -56,8 +57,8 @@ export default function AboutPage() {
           </Paragraph>
         </div>
 
-        <div className="flex gap-16">
-          <div className="w-96 min-w-96">
+        <div className="about-page__content__section">
+          <div className="about-page__content__section__title">
             <Heading
               as="h2"
               size="2xl"
