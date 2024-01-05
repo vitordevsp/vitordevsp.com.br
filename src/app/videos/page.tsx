@@ -4,11 +4,12 @@ import {
   Paragraph,
   VideoCard,
 } from "@/components"
+import "./style.scss"
 
 export default function VideosPage() {
   return (
-    <PageContainer className="flex flex-col items-center py-20 gap-20">
-      <section className="flex flex-col gap-8 text-center max-w-3xl">
+    <PageContainer className="videos-page">
+      <section className="videos-page__header">
         <div>
           <Heading as="h1">
             Projetos autorais
@@ -24,7 +25,7 @@ export default function VideosPage() {
         </Paragraph>
       </section>
 
-      <section className="flex flex-col gap-20 max-w-4xl">
+      <section className="videos-page__content">
         <VideoCard
           title="My Finances"
           date="30 de junho de 2021"
