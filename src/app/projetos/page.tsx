@@ -4,11 +4,12 @@ import {
   Paragraph,
   ProjectCard,
 } from "@/components"
+import "./style.scss"
 
 export default function ProjectsPage() {
   return (
-    <PageContainer className="flex flex-col items-center py-20 gap-20">
-      <section className="flex flex-col gap-8 text-center max-w-3xl">
+    <PageContainer className="projects-page">
+      <section className="projects-page__header">
         <div>
           <Heading as="h1">
             Projetos autorais
@@ -24,7 +25,7 @@ export default function ProjectsPage() {
         </Paragraph>
       </section>
 
-      <section className="flex flex-col gap-20 max-w-4xl">
+      <section className="projects-page__content">
         <ProjectCard
           title="My Finances"
           initialDate="2021"
