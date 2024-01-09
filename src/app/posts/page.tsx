@@ -1,3 +1,4 @@
+import Link from "next/link"
 import {
   BlogPostCard,
   Heading,
@@ -26,12 +27,14 @@ export default function PostsPage() {
       </section>
 
       <section className="posts-page__content">
-        <BlogPostCard
-          title="Padronização de código com (ESLint e EditorConfig)"
-          description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          date="07 de julho de 2021"
-          tags={["React JS", "React Native", "Next JS"]}
-        />
+        <Link href="posts/padronizacao-de-codigo-com-eslint-e-editorconfig">
+          <BlogPostCard
+            title="Padronização de código com (ESLint e EditorConfig)"
+            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+            date="07 de julho de 2021"
+            tags={["React JS", "React Native", "Next JS"]}
+          />
+        </Link>
 
         <BlogPostCard
           title="Padronização de código com (ESLint e EditorConfig)"
