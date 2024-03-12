@@ -1,8 +1,4 @@
-:root {
-  --text-color-white: rgb(214, 214, 214);
-  --text-color-gray: #989898;
-  --background-color: #1A1A19;
-}
+@import 'variables';
 
 * {
   box-sizing: border-box;
