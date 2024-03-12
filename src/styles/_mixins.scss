@@ -1,0 +1,11 @@
+@mixin breakpointMobile() {
+  @media ( max-width: 640px ) {
+    @content;
+  }
+}
+
+@mixin breakpointTablet() {
+  @media ( min-width: 440px ) {
+    @content;
+  }
+}
