@@ -1,16 +1,28 @@
+@import '@/styles/_mixins';
+
 .blog-post-card {
-  display: flex;
-  gap: 2.5rem;
-}
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 400px 1fr;
+  grid-template-areas:
+    "date  title"
+    "tags  description";
+  gap: 8px 24px;
 
-.blog-post-card__info {
-  margin-top: 0.75rem;
-  width: 252px;
-  min-width: 300px;
+  @include breakpointTablet() {
+    grid-template-columns: 300px 1fr;
+  }
 
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  @include breakpointMobile() {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "date"
+      "tags"
+      "description";
+  }
 }
 
 .blog-post-card__date {
@@ -19,8 +31,20 @@
   gap: 0.75rem
 }
 
-.blog-post-card__content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+// ---------- grid-area ----------
+
+.blog-post-card__date {
+  grid-area: date;
+}
+
+.blog-post-card__tags {
+  grid-area: tags;
+}
+
+.blog-post-card__title {
+  grid-area: title;
+}
+
+.blog-post-card__description {
+  grid-area: description;
 }

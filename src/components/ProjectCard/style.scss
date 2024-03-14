@@ -1,6 +1,13 @@
+@import '@/styles/_mixins';
+
 .project-card {
   display: flex;
   gap: 56px;
+
+  @include breakpointTablet() {
+    flex-direction: column;
+    gap: 24px;
+  }
 }
 
 .project-card__fake-img {
@@ -23,9 +30,14 @@
 }
 
 .project-card__links {
+  margin-top: 16px;
+
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 24px;
 
-  margin-top: 16px;
+  @include breakpointMobile() {
+    gap: 12px;
+  }
 }

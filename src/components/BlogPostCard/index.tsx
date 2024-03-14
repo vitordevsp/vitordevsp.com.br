@@ -11,27 +11,23 @@ export interface BlogPostCardProps {
 export function BlogPostCard({ title, description, date, tags }: BlogPostCardProps) {
   return (
     <div className="blog-post-card">
-      <div className="blog-post-card__info">
-        <div className="blog-post-card__date">
-          <Icon name="calendar" size={14} />
+      <div className="blog-post-card__date">
+        <Icon name="calendar" size={14} />
 
-          <Span>
-            {date}
-          </Span>
-        </div>
-
-        <Tags items={tags} />
+        <Span>
+          {date}
+        </Span>
       </div>
 
-      <div className="blog-post-card__content">
-        <Heading as="h3" size="2xl">
-          {title}
-        </Heading>
+      <Tags items={tags} className="blog-post-card__tags" />
 
-        <Paragraph className="mt-2">
-          {description}
-        </Paragraph>
-      </div>
+      <Heading as="h3" size="2xl" className="blog-post-card__title">
+        {title}
+      </Heading>
+
+      <Paragraph className="blog-post-card__description">
+        {description}
+      </Paragraph>
     </div>
   )
 }

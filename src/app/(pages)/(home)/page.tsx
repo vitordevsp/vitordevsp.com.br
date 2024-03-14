@@ -15,7 +15,7 @@ import "./style.scss"
 
 export default function HomePage() {
   return (
-    <PageContainer className="homepage">
+    <PageContainer className="homepage homepage--vars">
       <section id="hero-section" className="homepage__hero-section">
         <div className="hero-section__presentation">
           <div className="hero-section__hello-container">
