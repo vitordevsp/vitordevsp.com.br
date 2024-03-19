@@ -1,0 +1,88 @@
+@import '@/styles/_mixins';
+
+.heading {
+  transition: all 0.5s;
+  cursor: default;
+}
+
+.heading:hover {
+  color: #fff !important;
+}
+
+// --------------- font-color ---------------
+
+.heading-color--white {
+  color: var(--text-color-white);
+}
+
+.heading-color--gray {
+  color: var(--text-color-gray);
+}
+
+// --------------- font-size ---------------
+
+.heading-font-size--xs {
+  font-size: 12px;
+}
+
+.heading-font-size--sm {
+  font-size: 14px;
+}
+
+.heading-font-size--md {
+  font-size: 16px;
+}
+
+.heading-font-size--lg {
+  font-size: 18px;
+}
+
+.heading-font-size--xl {
+  font-size: 20px;
+}
+
+.heading-font-size--2xl {
+  font-size: 24px;
+}
+
+.heading-font-size--3xl {
+  font-size: 36px;
+}
+
+.heading-font-size--4xl {
+  font-size: 42px;
+}
+
+@include breakpointTablet() {
+  .heading-font-size--xs {
+    font-size: 12px;
+  }
+
+  .heading-font-size--sm {
+    font-size: 14px;
+  }
+
+  .heading-font-size--md {
+    font-size: 16px;
+  }
+
+  .heading-font-size--lg {
+    font-size: 18px;
+  }
+
+  .heading-font-size--xl {
+    font-size: 20px;
+  }
+
+  .heading-font-size--2xl {
+    font-size: 22px;
+  }
+
+  .heading-font-size--3xl {
+    font-size: 28px;
+  }
+
+  .heading-font-size--4xl {
+    font-size: 42px;
+  }
+}

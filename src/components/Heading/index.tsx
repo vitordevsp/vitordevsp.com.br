@@ -1,5 +1,4 @@
-import { CSSProperties } from "react"
-import "./style.css"
+import "./style.scss"
 
 export type HeadingSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl"
 export type HeadingColor = "white" | "gray"
@@ -10,22 +9,6 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   color?: HeadingColor
   size?: HeadingSize
   textNormal?: boolean
-}
-
-const sizeObj: Record<HeadingSize, string> = {
-  "xs": "12px",
-  "sm": "14px",
-  "md": "16px",
-  "lg": "18px",
-  "xl": "20px",
-  "2xl": "24px",
-  "3xl": "36px",
-  "4xl": "42px",
-}
-
-const colorObj: Record<HeadingColor, string> = {
-  "white": "var(--text-color-white)",
-  "gray": "var(--text-color-gray)",
 }
 
 export function Heading({
@@ -39,16 +22,13 @@ export function Heading({
 }: HeadingProps) {
   const Title = as || "h1"
 
-  const style: CSSProperties = {
-    fontSize: sizeObj[size || "3xl"],
-    fontWeight: textNormal ? "normal" : "bold",
-    color: colorObj[color || "white"],
-  }
+  const fontSizeClass = `heading-font-size--${size || "3xl"}`
+  const fontWeightClass = textNormal ? "normal" : "bold"
+  const colorClass = `heading-color--${color || "white"}`
 
   return (
     <Title
-      className={`heading ${className}`}
-      style={style}
+      className={`heading ${className} ${fontSizeClass} ${fontWeightClass} ${colorClass}`}
       {...rest}
     >
       {children}
