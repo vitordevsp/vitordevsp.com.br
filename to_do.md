@@ -1,10 +1,13 @@
-# Tasks
-* [ ] - Modificar o tamanho da font dos titulos no mobile
+## Tasks
+
+* [ ] - Bloquear a publicação na Vercel em feature branch
+
+* [x] - Modificar o tamanho da font dos titulos no mobile
 * [ ] - Ajustar o comp. Header para o mobile
 
-* [ ] - Ajustes de responsividade na pagina Projetos
-* [ ] - Ajustes de responsividade na pagina Posts
-* [ ] - Ajustes de responsividade na pagina Videos
+* [x] - Ajustes de responsividade na pagina Projetos
+* [x] - Ajustes de responsividade na pagina Posts
+* [x] - Ajustes de responsividade na pagina Videos
 
 * [ ] - Conectar a API do Notion ao Next
 * [ ] - Criar endpoint de listagens de tabela
