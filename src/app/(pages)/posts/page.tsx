@@ -5,9 +5,13 @@ import {
   PageContainer,
   Paragraph,
 } from "@/components"
+import { postService } from "@/app/api/notion/_resources/modules/posts/services/postService"
 import "./style.scss"
 
-export default function PostsPage() {
+export default async function PostsPage() {
+  const posts = await postService.list()
+  const totalCount = posts?.totalCount || 0
+
   return (
     <PageContainer className="posts-page">
       <section className="posts-page__header">
@@ -17,7 +21,7 @@ export default function PostsPage() {
           </Heading>
 
           <Paragraph>
-            3 Postagens
+            {totalCount} {totalCount > 1 ? ' Postagens' : ' Postagem'}
           </Paragraph>
         </div>
 
@@ -27,29 +31,25 @@ export default function PostsPage() {
       </section>
 
       <section className="posts-page__content">
-        <Link href="posts/padronizacao-de-codigo-com-eslint-e-editorconfig">
+        {posts.data.map((post) => (
           <BlogPostCard
-            title="Padronização de código com (ESLint e EditorConfig)"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-            date="07 de julho de 2021"
-            tags={["React JS", "React Native", "Next JS"]}
+            key={post.id}
+            title={post.title}
+            description={post.description}
+            date={post.dateDisplay}
+            tags={post.tags}
           />
-        </Link>
-
-        <BlogPostCard
-          title="Padronização de código com (ESLint e EditorConfig)"
-          description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          date="07 de julho de 2021"
-          tags={["React JS", "React Nativexxx", "Next JSxxx", "Vue JS"]}
-        />
-
-        <BlogPostCard
-          title="Padronização de código com (ESLint e EditorConfig)"
-          description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          date="07 de julho de 2021"
-          tags={["React JS", "Next JS"]}
-        />
+        ))}
       </section>
     </PageContainer>
   )
 }
+
+{/* <Link href="posts/padronizacao-de-codigo-com-eslint-e-editorconfig">
+<BlogPostCard
+  title="Padronização de código com (ESLint e EditorConfig)"
+  description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+  date="07 de julho de 2021"
+  tags={["React JS", "React Native", "Next JS"]}
+/>
+</Link> */}

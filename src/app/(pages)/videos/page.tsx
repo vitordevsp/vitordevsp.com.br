@@ -4,19 +4,23 @@ import {
   Paragraph,
   VideoCard,
 } from "@/components"
+import { videoService } from "@/app/api/notion/_resources/modules/videos/services/videoService"
 import "./style.scss"
 
-export default function VideosPage() {
+export default async function VideosPage() {
+  const videos = await videoService.list()
+  const totalCount = videos?.totalCount || 0
+
   return (
     <PageContainer className="videos-page">
       <section className="videos-page__header">
         <div>
           <Heading as="h1">
-            Projetos autorais
+            Todos os Vídeos
           </Heading>
 
           <Paragraph>
-            2 Projetos
+            {totalCount} {totalCount > 1 ? ' Vídeos' : ' Vídeo'}
           </Paragraph>
         </div>
 
@@ -26,23 +30,16 @@ export default function VideosPage() {
       </section>
 
       <section className="videos-page__content">
-        <VideoCard
-          title="My Finances"
-          date="30 de junho de 2021"
-          tags={["ReactJS", "NextJS", "NodeJS", "MongoDB"]}
-          description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          linkYoutube="https://www.my-finances.app"
-          linkPost="https://www.my-finances.app"
-        />
-
-        <VideoCard
-          title="My Finances"
-          date="30 de junho de 2021"
-          tags={["ReactJS", "NextJS", "NodeJS", "MongoDB"]}
-          description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          linkYoutube="https://www.my-finances.app"
-          linkPost="https://www.my-finances.app"
-        />
+        {videos?.data.map(video => (
+          <VideoCard
+            title={video.title}
+            date={video.dateDisplay}
+            tags={video.tags}
+            description={video.description}
+            linkYoutube={video.urlVideo}
+          // linkPost={video.}
+          />
+        ))}
       </section>
     </PageContainer>
   )

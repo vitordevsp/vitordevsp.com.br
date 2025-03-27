@@ -6,7 +6,7 @@ interface TagsProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Tags({ items, className, ...rest }: TagsProps) {
-  if (!items) return
+  if (!items) return null
 
   return (
     <div

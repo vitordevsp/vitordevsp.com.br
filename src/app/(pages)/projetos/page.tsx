@@ -4,9 +4,13 @@ import {
   Paragraph,
   ProjectCard,
 } from "@/components"
+import { projectService } from "@/app/api/notion/_resources/modules/projects/services/projectService"
 import "./style.scss"
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await projectService.list()
+  const totalCount = projects?.totalCount || 0
+
   return (
     <PageContainer className="projects-page">
       <section className="projects-page__header">
@@ -16,7 +20,7 @@ export default function ProjectsPage() {
           </Heading>
 
           <Paragraph>
-            2 Projetos
+            {totalCount} {totalCount > 1 ? ' Projetos' : ' Projeto'}
           </Paragraph>
         </div>
 
@@ -26,27 +30,18 @@ export default function ProjectsPage() {
       </section>
 
       <section className="projects-page__content">
-        <ProjectCard
-          title="My Finances"
-          initialDate="2021"
-          tags={["ReactJS", "NextJS", "NodeJS", "MongoDB"]}
-          description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          linkSite="https://www.my-finances.app"
-          linkGithub="https://www.my-finances.app"
-          linkFigma="https://www.my-finances.app"
-          linkYoutube="https://www.my-finances.app"
-        />
-
-        <ProjectCard
-          title="My Finances"
-          initialDate="2021"
-          tags={["ReactJS", "NextJS", "NodeJS", "MongoDB"]}
-          description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          linkSite="https://www.my-finances.app"
-          linkGithub="https://www.my-finances.app"
-          linkFigma="https://www.my-finances.app"
-          linkYoutube="https://www.my-finances.app"
-        />
+        {projects.data.map((project) => (
+          <ProjectCard
+            title={project.name}
+            initialDate={project.dateDisplay}
+            tags={project.tags}
+            description={project.description}
+            linkSite={project.urlSite}
+            linkGithub={project.urlRepo}
+          // linkFigma={project.url}
+          // linkYoutube={project.linkYoutube}
+          />
+        ))}
       </section>
     </PageContainer>
   )
