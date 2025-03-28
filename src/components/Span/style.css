@@ -1,8 +1,0 @@
-.span {
-  transition: all 0.5s;
-  cursor: default;
-}
-
-.span:hover {
-  color: #fff !important;
-}

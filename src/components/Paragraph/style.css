@@ -1,8 +1,0 @@
-.paragraph {
-  transition: all 0.5s;
-  cursor: default;
-}
-
-.paragraph:hover {
-  color: #fff !important;
-}

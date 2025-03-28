@@ -1,0 +1,7 @@
+.span {
+  transition: all 0.5s;
+}
+
+.span:hover {
+  color: #fff !important;
+}
