@@ -1,6 +1,6 @@
-import { ReactElement } from 'react'
-import { MapComponent, unifyComponents } from './MapComponent'
-import { NotionBlockType } from '@/app/api/notion/_resources/notionRepository/types/notion.types'
+import { ReactElement } from "react"
+import { MapComponent, unifyComponents } from "./MapComponent"
+import { NotionBlockType } from "@/app/api/notion/_resources/notionRepository/types/notion.types"
 
 export function parseBlocksToComponents(blocks: NotionBlockType[]): ReactElement[] {
   const components = blocks.map(block => {

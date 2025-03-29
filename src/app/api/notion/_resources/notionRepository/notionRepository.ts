@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { Client } from '@notionhq/client'
-import { NotionBlockType } from './types/notion.types'
+import { Client } from "@notionhq/client"
+import { NotionBlockType } from "./types/notion.types"
 
 export const client = new Client({
   auth: process.env.NOTION_KEY,
@@ -63,7 +63,7 @@ const notionGetBlocksResult = async (pageId: string, nextCursorId?: string): Pro
 
   return {
     results,
-    nextCursorId: next_cursor || '',
+    nextCursorId: next_cursor || "",
     hasMore: has_more,
   }
 }

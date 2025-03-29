@@ -1,6 +1,6 @@
-import { ReactElement } from 'react'
-import { NotionBlockType } from '@/app/api/notion/_resources/notionRepository/types/notion.types'
-import { PropTextType } from '@/app/api/notion/_resources/notionRepository/types/notionBlocks.types'
+import { ReactElement } from "react"
+import { NotionBlockType } from "@/app/api/notion/_resources/notionRepository/types/notion.types"
+import { PropTextType } from "@/app/api/notion/_resources/notionRepository/types/notionBlocks.types"
 
 const getContentByBlockTextProp = (textTypeObjs: PropTextType[]) => {
   const bodyChunks = textTypeObjs.map(textTypeObj => {
@@ -9,18 +9,18 @@ const getContentByBlockTextProp = (textTypeObjs: PropTextType[]) => {
       text: { content, link },
     } = textTypeObj
 
-    let textType: 'default' | 'link' | 'code' | 'annotation' = 'default'
-    const hasAnnotation = [bold, italic, underline, strikethrough, color !== 'default'].includes(true)
+    let textType: "default" | "link" | "code" | "annotation" = "default"
+    const hasAnnotation = [bold, italic, underline, strikethrough, color !== "default"].includes(true)
 
-    if (link) textType = 'link'
-    else if (code) textType = 'code'
-    else if (hasAnnotation) textType = 'annotation'
+    if (link) textType = "link"
+    else if (code) textType = "code"
+    else if (hasAnnotation) textType = "annotation"
 
     const textsTypes = {
       link() {
-        if (!link) return ''
+        if (!link) return ""
 
-        const style = 'color: #FF0083'
+        const style = "color: #FF0083"
         return `<a href="${link.url}" style="${style}" target="_blank">${content}</a>`
       },
 
@@ -36,13 +36,13 @@ const getContentByBlockTextProp = (textTypeObjs: PropTextType[]) => {
       },
 
       annotation() {
-        let style = ''
+        let style = ""
 
-        if (bold) style += 'font-weight: bold;'
-        if (italic) style += 'font-style: italic;'
-        if (italic) style += 'text-decoration: underline;'
-        if (strikethrough) style += 'text-decoration: line-through;'
-        if (color !== 'default') style += `color: ${color};`
+        if (bold) style += "font-weight: bold;"
+        if (italic) style += "font-style: italic;"
+        if (italic) style += "text-decoration: underline;"
+        if (strikethrough) style += "text-decoration: line-through;"
+        if (color !== "default") style += `color: ${color};`
 
         return `<span style="${style}">${content}</span>`
       },
@@ -57,7 +57,7 @@ const getContentByBlockTextProp = (textTypeObjs: PropTextType[]) => {
     return body
   })
 
-  const body = bodyChunks.join(' ')
+  const body = bodyChunks.join(" ")
 
   return body
 }
@@ -127,7 +127,7 @@ export const MapComponent = {
 
     const body = getContentByBlockTextProp(textTypeObjs)
 
-    const style = { marginLeft: '4px' }
+    const style = { marginLeft: "4px" }
 
     return (
       <li style={style} dangerouslySetInnerHTML={{ __html: body }} />
@@ -141,7 +141,7 @@ export const MapComponent = {
 
     const body = getContentByBlockTextProp(textTypeObjs)
 
-    const style = { marginLeft: '4px' }
+    const style = { marginLeft: "4px" }
 
     return (
       <li style={style} dangerouslySetInnerHTML={{ __html: body }} />
@@ -156,10 +156,10 @@ export const MapComponent = {
     const body = getContentByBlockTextProp(textTypeObjs)
 
     const style = {
-      background: 'rgba(255, 255, 255, 0.1)',
-      padding: '16px',
-      borderRadius: '6px',
-      overflow: 'auto',
+      background: "rgba(255, 255, 255, 0.1)",
+      padding: "16px",
+      borderRadius: "6px",
+      overflow: "auto",
     }
 
     return (
@@ -226,11 +226,11 @@ export const MapComponent = {
 
   divider(block: NotionBlockType): ReactElement | null {
     const style = {
-      display: 'block',
-      height: '2px',
-      background: 'rgba(255, 255, 255, 0.1)',
-      borderRadius: '6px',
-      margin: '8px 0',
+      display: "block",
+      height: "2px",
+      background: "rgba(255, 255, 255, 0.1)",
+      borderRadius: "6px",
+      margin: "8px 0",
     }
 
     return (

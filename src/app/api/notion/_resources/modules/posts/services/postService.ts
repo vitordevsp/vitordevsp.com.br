@@ -1,8 +1,8 @@
-import { notionRepository } from '../../../notionRepository/notionRepository'
-import { PostReqType, PostsDataType, PostType } from '../types/post.types'
-import { generateObjPost } from './postService.utils'
+import { notionRepository } from "../../../notionRepository/notionRepository"
+import { PostReqType, PostsDataType } from "../types/post.types"
+import { generateObjPost } from "./postService.utils"
 
-const NOTION_DB_POSTS = process.env.NOTION_DB_POSTS || ''
+const NOTION_DB_POSTS = process.env.NOTION_DB_POSTS || ""
 
 async function list(pageSize?: number): Promise<PostsDataType> {
   try {
@@ -10,16 +10,16 @@ async function list(pageSize?: number): Promise<PostsDataType> {
       filter: {
         or: [
           {
-            property: 'status',
+            property: "status",
             select: {
-              equals: 'published',
+              equals: "published",
             },
           },
         ],
       },
       sorts: [{
-        property: 'publishedAt',
-        direction: 'descending',
+        property: "publishedAt",
+        direction: "descending",
       }],
       pageSize,
     })
@@ -39,18 +39,6 @@ async function list(pageSize?: number): Promise<PostsDataType> {
     }
   }
 }
-
-async function get(pageId: string, body?: boolean): Promise<PostType> {
-  const getData = body
-    ? getFullPost
-    : getPostProps
-
-  const post = await getData(pageId)
-
-  return post
-}
-
-// -------------------- util --------------------
 
 async function getPostProps(pageId: string) {
   const page = await notionRepository.getPage<PostReqType>(pageId)
@@ -81,8 +69,6 @@ async function getFullPost(pageId: string) {
 
 export const postService = {
   list,
-  get,
-  error: () => {
-    throw new Error("Teste")
-  }
+  get: getPostProps,
+  getFull: getFullPost,
 }

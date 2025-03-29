@@ -25,7 +25,9 @@
 }
 
 .post-page__content {
+  max-width: 768px;
+
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 16px;
 }
