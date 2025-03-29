@@ -62,7 +62,7 @@ export default async function Post({ params }: PostProps) {
           </Paragraph>
         </div>
 
-        <Tags items={["ReactJS", "NextJS", "NodeJS", "MongoDB"]} />
+        <Tags items={post.tags} />
       </section>
 
       <section className="post-page__content">

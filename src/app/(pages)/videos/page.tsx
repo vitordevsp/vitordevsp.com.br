@@ -20,7 +20,7 @@ export default async function VideosPage() {
           </Heading>
 
           <Paragraph>
-            {totalCount} {totalCount > 1 ? ' Vídeos' : ' Vídeo'}
+            {totalCount} {totalCount > 1 ? " Vídeos" : " Vídeo"}
           </Paragraph>
         </div>
 
@@ -32,6 +32,7 @@ export default async function VideosPage() {
       <section className="videos-page__content">
         {videos?.data.map(video => (
           <VideoCard
+            key={video.id}
             title={video.title}
             date={video.dateDisplay}
             tags={video.tags}

@@ -20,7 +20,7 @@ export default async function ProjectsPage() {
           </Heading>
 
           <Paragraph>
-            {totalCount} {totalCount > 1 ? ' Projetos' : ' Projeto'}
+            {totalCount} {totalCount > 1 ? " Projetos" : " Projeto"}
           </Paragraph>
         </div>
 
@@ -32,6 +32,7 @@ export default async function ProjectsPage() {
       <section className="projects-page__content">
         {projects.data.map((project) => (
           <ProjectCard
+            key={project.id}
             title={project.name}
             initialDate={project.dateDisplay}
             tags={project.tags}
