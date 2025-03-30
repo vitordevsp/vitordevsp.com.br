@@ -1,11 +1,12 @@
+import { Span } from "@/components"
 import "./style.scss"
 
 export function PageFooter() {
   return (
     <footer className="page-footer">
-      <span>
+      <Span color="gray-dark" size="xs">
         Devsp consultoria em tecnologia da informação LTDA ©
-      </span>
+      </Span>
     </footer>
   )
 }

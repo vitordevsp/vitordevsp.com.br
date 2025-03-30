@@ -20,11 +20,9 @@ export default function AboutPage() {
 
           <br />
           <br />
-          <br />
 
           Iniciei minha carreira como desenvolvedor autônomo, trabalhando em projetos freelance e criando produtos. Sempre tive uma visão empreendedora e uma vontade constante de criar e inovar. Por isso, possuo um perfil intraempreendedor e estou sempre observando e analisando como posso contribuir com ideias para a melhoria do ambiente em que estou inserido.
 
-          <br />
           <br />
           <br />
 
@@ -32,11 +30,9 @@ export default function AboutPage() {
 
           <br />
           <br />
-          <br />
 
           Sou ágil em aprender novas habilidades e me adapto facilmente a novos ambientes e tarefas. Além disso, possuo conhecimentos em UI/UX e busco sempre aprender mais sobre posições como Product Owner, Tech Lead e gerenciamento de times e produtos.
 
-          <br />
           <br />
           <br />
 

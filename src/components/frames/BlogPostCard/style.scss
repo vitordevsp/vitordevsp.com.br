@@ -27,6 +27,10 @@
   }
 }
 
+.blog-post-card * {
+  transition: color 0.5s;
+}
+
 .blog-post-card:hover * {
   color: #fff !important;
 }
