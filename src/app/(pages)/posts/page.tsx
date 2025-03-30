@@ -25,9 +25,9 @@ export default async function PostsPage() {
           </Paragraph>
         </div>
 
-        <Paragraph>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s.
-        </Paragraph>
+        {/* <Paragraph>
+          Aqui vai ser um paragrafo com um sobre, uma introdução
+        </Paragraph> */}
       </section>
 
       <section className="posts-page__content">
