@@ -1,7 +1,9 @@
+import Image from "next/image"
 import { Heading, Icon, LinkWithIcon, Paragraph, Span, Tags } from "@/components"
 import "./style.scss"
 
 export interface VideoCardProps {
+  thumbnail?: string
   title: string
   description: string
   date: string
@@ -11,6 +13,7 @@ export interface VideoCardProps {
 }
 
 export function VideoCard({
+  thumbnail,
   title,
   description,
   date,
@@ -20,26 +23,36 @@ export function VideoCard({
 }: VideoCardProps) {
   return (
     <div className="video-card">
-      <div className="video-card__fake-img"></div>
+      {thumbnail && (
+        <div className="video-card__img-box">
+          {/* <Image */}
+          <img
+            src={thumbnail}
+            alt="thumbnail"
+          // style={{ objectFit: "cover" }}
+          // fill
+          />
+        </div>
+      )}
 
-      <div>
+      <div className="video-card__content">
         <Heading>
           {title}
         </Heading>
 
-        <div className="video-card__date">
+        <div className="video-card__content__date">
           <Icon name="calendar" size={14} />
 
           <Span>{date}</Span>
         </div>
 
-        <Tags className="video-card__tags" items={tags} />
+        <Tags className="video-card__content__tags" items={tags} />
 
-        <Paragraph className="mt-2">
+        <Paragraph>
           {description}
         </Paragraph>
 
-        <div className="video-card__links">
+        <div className="video-card__content__links">
           {linkYoutube && (
             <LinkWithIcon icon="youtube" href={linkYoutube} text="Link do Vídeo" />
           )}
