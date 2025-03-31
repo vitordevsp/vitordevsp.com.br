@@ -57,6 +57,8 @@ export default function HomePage() {
             <LinkWithIcon icon="github" href={socialMedia.github} />
 
             <LinkWithIcon icon="youtube" href={socialMedia.youtube} />
+
+            <LinkWithIcon icon="instagram" href={socialMedia.instagram} />
           </div>
         </div>
 

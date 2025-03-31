@@ -1,13 +1,22 @@
 :root {
+  // ---------- configs ----------
+
+  --page-header--height: 80px;
+  --page-footer--height: 42px;
+  --page-container--height: calc(100vh - 80px - 42px);
+
+  // ---------- colors ----------
+
+  --background-color: #1A1A19;
+  --text-color-white: rgb(214, 214, 214);
+  --text-color-gray: #989898;
+  --text-color-gray-dark: #2F2F2F;
+
+  // ---------- media queries ----------
+
   --scream-sm: 640px;
   --scream-md: 768px;
   --scream-lg: 1024px;
   --scream-xl: 1280px;
   --scream-2xl: 1536px;
-
-  --background-color: #1A1A19;
-
-  --text-color-white: rgb(214, 214, 214);
-  --text-color-gray: #989898;
-  --text-color-gray-dark: #2F2F2F;
 }
