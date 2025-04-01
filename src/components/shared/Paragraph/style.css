@@ -1,0 +1,8 @@
+.paragraph {
+  line-height: 1.4;
+  transition: all 0.5s;
+}
+
+.paragraph:hover {
+  color: #fff !important;
+}

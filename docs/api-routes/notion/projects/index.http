@@ -1,5 +1,0 @@
-### GET -> api/notion/projects -> retorna todos os projects
-GET http://localhost:3000/api/notion/projects
-
-### GET -> api/notion/projects?pageSize=30 -> filtra a quantidade de projects a retornar
-GET http://localhost:3000/api/notion/projects?pageSize=30

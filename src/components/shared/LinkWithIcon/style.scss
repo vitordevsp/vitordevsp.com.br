@@ -1,0 +1,18 @@
+.link-with-icon {
+  padding: 4px;
+}
+
+.link-with-icon svg {
+  transition: all 0, 5s !important;
+}
+
+.link-with-icon:hover svg, .link-with-icon:hover span {
+  color: #fff !important;
+  font-weight: 500 !important;
+}
+
+.link-with-icon__content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

@@ -1,5 +1,0 @@
-### GET -> api/notion/contents -> retorna todos os contents
-GET http://localhost:3000/api/notion/contents
-
-### GET -> api/notion/contents?pageSize=50 -> limita o retorno
-GET http://localhost:3000/api/notion/contents?pageSize=3

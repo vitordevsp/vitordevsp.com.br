@@ -1,0 +1,110 @@
+@import '@/styles/_mixins';
+
+// .project-card {
+//   display: flex;
+//   gap: 56px;
+
+//   @include breakpointTablet() {
+//     flex-direction: column;
+//     gap: 24px;
+//   }
+// }
+
+// .project-card__fake-img {
+//   min-width: 364px;
+//   min-height: 273px;
+//   border-radius: 20px;
+//   background: #494949;
+// }
+
+.project-card {
+  width: 100%;
+  padding: 24px 0;
+
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 400px 1fr;
+  grid-template-areas:
+    "date  title"
+    "tags  description"
+    "div links";
+  gap: 8px 24px;
+
+  @include breakpointTablet() {
+    grid-template-columns: 300px 1fr;
+  }
+
+  @include breakpointMobile() {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "date"
+      "tags"
+      "description"
+      "links";
+  }
+}
+
+.project-card * {
+  transition: color 0.5s;
+}
+
+.project-card:hover * {
+  color: #fff !important;
+}
+
+.project-card__date {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  @include breakpointMobile() {
+    margin: 4px 0 4px;
+  }
+}
+
+.project-card__tags {
+  @include breakpointMobile() {
+    margin: 0;
+  }
+}
+
+.project_card__container-description {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-card__links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  @include breakpointMobile() {
+    gap: 12px;
+  }
+}
+
+// ---------- grid-area ----------
+
+.project-card__date {
+  grid-area: date;
+}
+
+.project-card__tags {
+  grid-area: tags;
+}
+
+.project-card__title {
+  grid-area: title;
+}
+
+.project_card__container-description {
+  grid-area: description;
+}
+
+.project-card__links {
+  grid-area: links;
+}
