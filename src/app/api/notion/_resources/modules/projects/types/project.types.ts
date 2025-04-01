@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 
-import { NotionPageType } from '../../../notionRepository/types/notion.types'
-import { DateType, MultiSelectType, RichTextType, TitleType, UrlType } from '../../../notionRepository/types/notionProperties.types'
+import { NotionPageType } from "../../../notionRepository/types/notion.types"
+import { DateType, MultiSelectType, RichTextType, TitleType, UrlType } from "../../../notionRepository/types/notionProperties.types"
 
 export interface ProjectReqType extends NotionPageType {
   properties: {

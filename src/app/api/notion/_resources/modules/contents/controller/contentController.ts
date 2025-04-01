@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import { contentService } from '../services/contentService'
+import { NextApiRequest, NextApiResponse } from "next"
+import { contentService } from "../services/contentService"
 
 async function list(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -10,7 +10,7 @@ async function list(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(200).json(contentsData)
   } catch (error) {
-    return res.status(500).json({ message: 'internal error' })
+    return res.status(500).json({ message: "internal error" })
   }
 }
 
@@ -23,7 +23,7 @@ async function listTags(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(200).json(tagsData)
   } catch (error) {
-    return res.status(500).json({ message: 'internal error' })
+    return res.status(500).json({ message: "internal error" })
   }
 }
 

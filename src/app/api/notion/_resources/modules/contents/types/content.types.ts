@@ -7,7 +7,7 @@ export interface ContentType {
   linkSocial?: string
   publishedAt: string
   dateDisplay: string
-  type: 'video' | 'project' | 'post'
+  type: "video" | "project" | "post"
 }
 
 export interface ContentsDataType {

@@ -1,13 +1,13 @@
-import { postService } from '../../posts/services/postService'
-import { projectService } from '../../projects/services/projectService'
-import { videoService } from '../../videos/services/videoService'
+import { postService } from "../../posts/services/postService"
+import { projectService } from "../../projects/services/projectService"
+import { videoService } from "../../videos/services/videoService"
 
-import { PostType } from '../../posts/types/post.types'
-import { ProjectType } from '../../projects/types/project.types'
-import { VideoType } from '../../videos/types/video.types'
-import { ContentType } from '../types/content.types'
+import { PostType } from "../../posts/types/post.types"
+import { ProjectType } from "../../projects/types/project.types"
+import { VideoType } from "../../videos/types/video.types"
+import { ContentType } from "../types/content.types"
 
-import { parseStringToDate } from '../../../../../../../utils/DateUtil'
+import { parseStringToDate } from "../../../../../../../utils/DateUtil"
 
 export const transform = {
   videos: (videos: VideoType[]): ContentType[] => {
@@ -22,7 +22,7 @@ export const transform = {
         link: urlVideo,
         publishedAt,
         dateDisplay,
-        type: 'video',
+        type: "video",
       }
     })
   },
@@ -40,7 +40,7 @@ export const transform = {
         linkSocial: urlRepo,
         publishedAt,
         dateDisplay,
-        type: 'project',
+        type: "project",
       }
     })
   },
@@ -57,7 +57,7 @@ export const transform = {
         link: `post/${slug}`,
         publishedAt,
         dateDisplay,
-        type: 'post',
+        type: "post",
       }
     })
   },

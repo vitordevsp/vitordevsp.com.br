@@ -1,9 +1,9 @@
-import { notionRepository } from '../../../notionRepository/notionRepository'
-import { generateProperties } from './projectService.util'
-import { parseDateText } from '../../../../../../../utils/DateUtil'
-import { ProjectReqType, ProjectsDataType, ProjectType } from '../types/project.types'
+import { notionRepository } from "../../../notionRepository/notionRepository"
+import { generateProperties } from "./projectService.util"
+import { parseDateText } from "../../../../../../../utils/DateUtil"
+import { ProjectReqType, ProjectsDataType, ProjectType } from "../types/project.types"
 
-const NOTION_DB_PROJECTS = process.env.NOTION_DB_PROJECTS || ''
+const NOTION_DB_PROJECTS = process.env.NOTION_DB_PROJECTS || ""
 
 async function list(pageSize?: number): Promise<ProjectsDataType> {
   try {

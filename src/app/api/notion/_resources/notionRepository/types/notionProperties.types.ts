@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 export interface SelectType {
   id: string
-  type: 'select'
+  type: "select"
   select: null | {
     id: string
     name: string
@@ -11,7 +11,7 @@ export interface SelectType {
 
 export interface MultiSelectType {
   id: string
-  type: 'multi_select'
+  type: "multi_select"
   multi_select: null | {
     id: string
     name: string
@@ -21,7 +21,7 @@ export interface MultiSelectType {
 
 export interface DateType {
   id: string
-  type: 'date'
+  type: "date"
   date: null | {
     start: null | string
     end: null | string
@@ -30,9 +30,9 @@ export interface DateType {
 
 export interface RichTextType {
   id: string
-  type: 'rich_text'
+  type: "rich_text"
   rich_text: {
-    type: 'text'
+    type: "text"
     text: {
       content: string
       link: null
@@ -52,9 +52,9 @@ export interface RichTextType {
 
 export interface TitleType {
   id: string
-  type: 'title'
+  type: "title"
   title: {
-    type: 'text'
+    type: "text"
     text: {
       content: string
       link: null

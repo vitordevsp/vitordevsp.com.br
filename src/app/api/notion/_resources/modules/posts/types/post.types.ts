@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { NotionBlockType, NotionPageType } from '../../../notionRepository/types/notion.types'
-import { DateType, MultiSelectType, RichTextType, SelectType, TitleType } from '../../../notionRepository/types/notionProperties.types'
+import { NotionBlockType, NotionPageType } from "../../../notionRepository/types/notion.types"
+import { DateType, MultiSelectType, RichTextType, SelectType, TitleType } from "../../../notionRepository/types/notionProperties.types"
 
 export interface PostReqType extends NotionPageType {
   properties: {
@@ -12,7 +12,7 @@ export interface PostReqType extends NotionPageType {
   }
 }
 
-export type PostStatusType = 'published' | 'writing'
+export type PostStatusType = "published" | "writing"
 
 export interface PostPropsType {
   title: string
