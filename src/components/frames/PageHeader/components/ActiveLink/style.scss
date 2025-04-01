@@ -1,0 +1,14 @@
+.active-link {
+  color: #989898;
+  font-weight: 400;
+  transition: all 0.5s;
+}
+
+.active-link:hover {
+  color: #fff;
+}
+
+.active-link--active {
+  color: #fff;
+  font-weight: 700;
+}

@@ -1,0 +1,25 @@
+.projects-page {
+  padding: 80px 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+.projects-page__header {
+  max-width: 768px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.projects-page__content {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
