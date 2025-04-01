@@ -1,0 +1,61 @@
+@import '@/styles/_mixins';
+
+.video-card {
+  display: flex;
+  gap: 56px;
+
+  @include breakpointMobile() {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.video-card * {
+  transition: color 0.5s;
+}
+
+.video-card:hover * {
+  color: #fff !important;
+}
+
+.video-card__img-box {
+  max-width: 360px;
+  width: 100%;
+  height: min-content;
+
+  border-radius: 20px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  @include breakpointMobile() {
+    max-width: 100%;
+  }
+}
+
+.video-card__content {
+  width: fit-content;
+}
+
+.video-card__content__date {
+  margin-top: 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.video-card__content__tags {
+  margin: 16px 0 8px;
+}
+
+.video-card__content__links {
+  margin-top: 16px;
+
+  display: flex;
+  gap: 24px;
+}

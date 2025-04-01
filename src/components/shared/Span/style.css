@@ -1,0 +1,8 @@
+.span {
+  line-height: 1.4;
+  transition: all 0.5s;
+}
+
+.span:hover {
+  color: #fff !important;
+}

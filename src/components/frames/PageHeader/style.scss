@@ -1,0 +1,13 @@
+.page-header__list {
+  width: fit-content;
+  max-width: 100%;
+  height: var(--page-header--height);
+  padding-inline: 24px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}

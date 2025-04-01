@@ -1,0 +1,15 @@
+@import '@/styles/_mixins';
+
+.page-footer {
+  height: var(--page-footer--height);
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+
+  @include breakpointMobile() {
+    gap: 24px;
+  }
+}

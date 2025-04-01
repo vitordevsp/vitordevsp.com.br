@@ -1,38 +1,71 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
-  },
-  "extends": [
-    "plugin:react/recommended",
-    "standard"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module"
-  },
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
+  "extends": "next/core-web-vitals",
   "rules": {
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off",
-    "space-before-function-paren": "off",
-    "no-console": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-empty-function": "warn",
     "no-unused-vars": "warn",
-    "comma-dangle": [
-      "error",
-      "always-multiline"
+    "no-trailing-spaces": "warn",
+    "semi": [
+      "warn",
+      "never"
+    ],
+    "quotes": [
+      "warn",
+      "double"
     ],
     "jsx-quotes": [
-      "error",
+      "warn",
       "prefer-double"
+    ],
+    "object-curly-spacing": [
+      "warn",
+      "always"
+    ],
+    "eol-last": [
+      "warn",
+      "always"
+    ],
+    "array-bracket-spacing": [
+      "warn",
+      "never"
+    ],
+    "computed-property-spacing": [
+      "warn",
+      "never"
+    ],
+    "comma-dangle": [
+      "warn",
+      "always-multiline"
+    ],
+    "comma-spacing": [
+      "warn",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "no-multiple-empty-lines": [
+      "warn",
+      {
+        "max": 1,
+        "maxEOF": 0
+      }
+    ],
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
+    "keyword-spacing": [
+      "warn",
+      {
+        "before": true,
+        "after": true
+      }
     ]
   }
 }
