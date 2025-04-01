@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import { postService } from '../services/postService'
-import { PostDataType } from '../types/post.types'
+import { NextApiRequest, NextApiResponse } from "next"
+import { postService } from "../services/postService"
+import { PostDataType } from "../types/post.types"
 
 async function list(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -11,18 +11,17 @@ async function list(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(200).json(postsData)
   } catch (error) {
-    return res.status(500).json({ message: 'internal error' })
+    return res.status(500).json({ message: "internal error" })
   }
 }
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { id, body: bodyParam } = req.query
+    const { id } = req.query
 
-    if (typeof id !== 'string') throw new TypeError('id is not a string')
+    if (typeof id !== "string") throw new TypeError("id is not a string")
 
-    const body = bodyParam === 'true'
-    const post = await postService.get(id, body)
+    const post = await postService.get(id)
 
     const postData: PostDataType = {
       data: post,
@@ -30,7 +29,7 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(200).json(postData)
   } catch (error) {
-    return res.status(500).json({ message: 'internal error' })
+    return res.status(500).json({ message: "internal error" })
   }
 }
 

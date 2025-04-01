@@ -2,40 +2,40 @@
 
 /* -------------------- Props -------------------- */
 
-export type PropTypeType = 'paragraph'
-  | 'heading_1'
-  | 'heading_2'
-  | 'heading_3'
-  | 'bulleted_list_item'
-  | 'numbered_list_item'
-  | 'code'
-  | 'to_do'
-  | 'toggle'
-  | 'child_page'
-  | 'child_database'
-  | 'embed'
-  | 'image'
-  | 'video'
-  | 'file'
-  | 'pdf'
-  | 'bookmark'
-  | 'callout'
-  | 'quote'
-  | 'equation'
-  | 'divider'
-  | 'table_of_contents'
-  | 'column'
-  | 'column_list'
-  | 'link_preview'
-  | 'synced_block'
-  | 'template'
-  | 'link_to_page'
-  | 'table'
-  | 'table_row'
-  | 'unsupported'
+export type PropTypeType = "paragraph"
+  | "heading_1"
+  | "heading_2"
+  | "heading_3"
+  | "bulleted_list_item"
+  | "numbered_list_item"
+  | "code"
+  | "to_do"
+  | "toggle"
+  | "child_page"
+  | "child_database"
+  | "embed"
+  | "image"
+  | "video"
+  | "file"
+  | "pdf"
+  | "bookmark"
+  | "callout"
+  | "quote"
+  | "equation"
+  | "divider"
+  | "table_of_contents"
+  | "column"
+  | "column_list"
+  | "link_preview"
+  | "synced_block"
+  | "template"
+  | "link_to_page"
+  | "table"
+  | "table_row"
+  | "unsupported"
 
 export interface PropTextType {
-  type: 'text'
+  type: "text"
   text: {
     content: string
     link: null | {
@@ -48,7 +48,7 @@ export interface PropTextType {
     strikethrough: boolean
     underline: boolean
     code: boolean
-    color: 'default'
+    color: "default"
   }
   plain_text: string
   href: string | null
@@ -80,7 +80,7 @@ export interface BulletedListItemType {
 
 export interface CodeType {
   caption: any[]
-  language: 'plain text'
+  language: "plain text"
   text: PropTextType[]
 }
 
@@ -97,7 +97,7 @@ export interface CodeType {
 // 'image'
 export interface ImageType {
   caption: []
-  type: 'file'
+  type: "file"
   file: {
     url: string
     expiry_time: string

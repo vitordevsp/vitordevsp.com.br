@@ -1,5 +1,5 @@
-import { ContentsDataType, ContentsTagsDataType } from '../types/content.types'
-import { getContents } from './contentService.util'
+import { ContentsDataType, ContentsTagsDataType } from "../types/content.types"
+import { getContents } from "./contentService.util"
 
 async function list(pageSize?: number): Promise<ContentsDataType> {
   const contents = await getContents(pageSize)

@@ -8,27 +8,27 @@ import {
   ImageType,
   ParagraphType,
   PropTypeType,
-} from './notionBlocks.types'
+} from "./notionBlocks.types"
 
 export interface NotionDatabaseType {
-  object: 'list'
+  object: "list"
   results: any[]
   next_cursor: null
   has_more: boolean
 }
 
 export interface NotionPageType {
-  object: 'page'
+  object: "page"
   id: string
   created_time: string
   last_edited_time: string
   cover: null
   icon: null | {
-    type: 'emoji' | string
+    type: "emoji" | string
     emoji?: string
   }
   parent: {
-    type: 'database_id' | string
+    type: "database_id" | string
     database_id: string
   }
   archived: boolean
@@ -36,17 +36,17 @@ export interface NotionPageType {
 }
 
 export interface NotionBlockType {
-  object: 'block'
+  object: "block"
   id: string
   created_time: string
   last_edited_time: string
   archived: boolean
   created_by: {
-    object: 'user'
+    object: "user"
     id: string
   }
   last_edited_by: {
-    object: 'user'
+    object: "user"
     id: string
   }
 

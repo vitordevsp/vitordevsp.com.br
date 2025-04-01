@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import { videoService } from '../services/videoService'
+import { NextApiRequest, NextApiResponse } from "next"
+import { videoService } from "../services/videoService"
 
 async function list(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -10,7 +10,7 @@ async function list(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(200).json(videosData)
   } catch (error) {
-    return res.status(500).json({ message: 'internal error' })
+    return res.status(500).json({ message: "internal error" })
   }
 }
 

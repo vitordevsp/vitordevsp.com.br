@@ -1,9 +1,9 @@
-import { notionRepository } from '../../../notionRepository/notionRepository'
-import { generateProperties } from './videoService.utils'
-import { parseDateText } from '../../../../../../../utils/DateUtil'
-import { VideoReqType, VideosDataType, VideoType } from '../types/video.types'
+import { notionRepository } from "../../../notionRepository/notionRepository"
+import { generateProperties } from "./videoService.utils"
+import { parseDateText } from "../../../../../../../utils/DateUtil"
+import { VideoReqType, VideosDataType, VideoType } from "../types/video.types"
 
-const NOTION_DB_VIDEOS = process.env.NOTION_DB_VIDEOS || ''
+const NOTION_DB_VIDEOS = process.env.NOTION_DB_VIDEOS || ""
 
 async function list(pageSize?: number): Promise<VideosDataType> {
   try {
@@ -11,16 +11,16 @@ async function list(pageSize?: number): Promise<VideosDataType> {
       filter: {
         or: [
           {
-            property: 'status',
+            property: "status",
             select: {
-              equals: 'published',
+              equals: "published",
             },
           },
         ],
       },
       sorts: [{
-        property: 'publishedAt',
-        direction: 'descending',
+        property: "publishedAt",
+        direction: "descending",
       }],
       pageSize,
     })
