@@ -1,3 +1,4 @@
+import Link from "next/link"
 import {
   BlogPostCard,
   Heading,
@@ -10,10 +11,15 @@ import {
   Span,
   Tags,
 } from "@/components"
+import { projectService } from "@/app/api/notion/_resources/modules/projects/services/projectService"
+import { postService } from "@/app/api/notion/_resources/modules/posts/services/postService"
 import { socialMedia } from "@/resources/static"
 import "./style.scss"
 
-export default function HomePage() {
+export default async function HomePage() {
+  const projects = await projectService.list(3)
+  const posts = await postService.list(3)
+
   return (
     <PageContainer className="homepage homepage--vars">
       <section id="hero-section" className="homepage__hero-section">
@@ -28,7 +34,7 @@ export default function HomePage() {
             </Heading>
 
             <Paragraph>
-              Criando experiências digitais excepcionais. Transformando Problemas Complexos em Soluções Simples
+              Transformando desafios da educação digital em soluções inovadoras, com foco no desenvolvimento frontend e no impacto da inteligência artificial.
             </Paragraph>
 
             <Tags
@@ -42,6 +48,10 @@ export default function HomePage() {
           </div>
 
           <div className="hero-section__contact-container">
+            <Span>
+              Analista Sênior | <a href="https://www.einstein.br/" target="_blank" rel="noopener noreferrer">Hospital Israelita Albert Einstein</a>
+            </Span>
+
             <Span>
               São Paulo, SP, Brasil
             </Span>
@@ -64,24 +74,22 @@ export default function HomePage() {
 
         <div className="hero-section__about-container">
           <Paragraph>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          </Paragraph>
+            Atualmente, atuo como analista sênior no Hospital Israelita Albert Einstein, integrando a equipe de Inovação Tecnológica do Ensino Digital como desenvolvedor frontend. Criamos soluções digitais inovadoras com o uso de inteligência artificial voltadas para a área da educação.
 
-          <Paragraph>
-            Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-          </Paragraph>
+            <br />
+            <br />
 
-          <Paragraph>
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s.
-          </Paragraph>
+            Tenho muito interesse no processo de concepção de soluções digitais e sempre tive uma forte conexão com o produto, muito por ter começado minha carreira tentando construir alguns. Minha curiosidade me ajudou a aprender mais sobre outras áreas e a desenvolver um olhar mais clínico para o produto, resultando em ideias promissoras para o time e para os projetos.
 
-          <Paragraph>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            <br />
+            <br />
+
+            Hoje, o que mais gosto de fazer longe do computador — e que me ajuda a manter a sanidade — é correr e treinar musculação. Essas atividades me desafiam a superar limites e manter a saúde física e mental em equilíbrio.
           </Paragraph>
         </div>
       </section>
 
-      <section id="characteristics-section" className="homepage__characteristics-section">
+      {/* <section id="characteristics-section" className="homepage__characteristics-section">
         <div className="characteristics-section__header">
           <Heading>
             Minhas principais habilidades
@@ -113,35 +121,27 @@ export default function HomePage() {
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
           />
         </div>
-      </section>
+      </section> */}
 
       <section id="projects-section" className="homepage__projects-section">
         <Heading>
-          Projetos autorais
+          Projetos em destaque
         </Heading>
 
         <div className="projects-section__content">
-          <ProjectCard
-            title="My Finances"
-            initialDate="2021"
-            tags={["ReactJS", "NextJS", "NodeJS", "MongoDB"]}
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-            linkSite="https://www.my-finances.app"
-            linkGithub="https://www.my-finances.app"
-            linkFigma="https://www.my-finances.app"
-            linkYoutube="https://www.my-finances.app"
-          />
-
-          <ProjectCard
-            title="My Finances"
-            initialDate="2021"
-            tags={["ReactJS", "NextJS", "NodeJS", "MongoDB"]}
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-            linkSite="https://www.my-finances.app"
-            linkGithub="https://www.my-finances.app"
-            linkFigma="https://www.my-finances.app"
-            linkYoutube="https://www.my-finances.app"
-          />
+          {projects.data.map((project) => (
+            <ProjectCard
+              key={project.id}
+              title={project.name}
+              initialDate={project.dateDisplay}
+              tags={project.tags}
+              description={project.description}
+              linkSite={project.urlSite}
+              linkGithub={project.urlRepo}
+            // linkFigma={project.url}
+            // linkYoutube={project.linkYoutube}
+            />
+          ))}
         </div>
       </section>
 
@@ -151,30 +151,20 @@ export default function HomePage() {
         </Heading>
 
         <div className="posts-section__content">
-          <BlogPostCard
-            title="Padronização de código com (ESLint e EditorConfig)"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-            date="07 de julho de 2021"
-            tags={["React JS", "React Native", "Next JS"]}
-          />
-
-          <BlogPostCard
-            title="Padronização de código com (ESLint e EditorConfig)"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-            date="07 de julho de 2021"
-            tags={["React JS", "React Nativexxx", "Next JSxxx", "Vue JS"]}
-          />
-
-          <BlogPostCard
-            title="Padronização de código com (ESLint e EditorConfig)"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-            date="07 de julho de 2021"
-            tags={["React JS", "Next JS"]}
-          />
+          {posts.data.map((post) => (
+            <Link key={post.id} href={`posts/${post.slug}`}>
+              <BlogPostCard
+                title={post.title}
+                description={post.description}
+                date={post.dateDisplay}
+                tags={post.tags}
+              />
+            </Link>
+          ))}
         </div>
       </section>
 
-      <section id="services-section" className="homepage__services-section">
+      {/* <section id="services-section" className="homepage__services-section">
         <div className="services-section__header">
           <Heading>
             Serviços disponiveis
@@ -201,7 +191,7 @@ export default function HomePage() {
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
           />
         </div>
-      </section>
+      </section> */}
 
       <section id="call-to-action-section" className="homepage__call-to-action-section">
         <Heading>
@@ -209,7 +199,7 @@ export default function HomePage() {
         </Heading>
 
         <Paragraph>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s.
+          Se você vê uma maneira de eu contribuir com seu projeto ou quer bater um papo sobre tecnologia, fique à vontade para entrar em contato!
         </Paragraph>
 
         <Paragraph>

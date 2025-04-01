@@ -2,9 +2,11 @@
 
 .homepage--vars {
   --section-gap: 80px;
+  --section-gap-items: 40px;
 
   @include breakpointMobile() {
-    --section-gap: 40px;
+    --section-gap: 48px;
+    --section-gap-items: 16px;
   }
 }
 
@@ -19,15 +21,15 @@
   gap: 224px;
 
   @include breakpointMobile() {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 80px;
+    padding-bottom: 80px;
     gap: 80px;
   }
 }
 
 .homepage__hero-section {
   display: flex;
-  gap: var(--section-gap);
+  gap: 80px;
 
   @include breakpointMobile() {
     flex-direction: column;
@@ -113,7 +115,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: var(--section-gap);
+    gap: var(--section-gap-items);
   }
 }
 
@@ -127,7 +129,7 @@
   .posts-section__content {
     display: flex;
     flex-direction: column;
-    gap: var(--section-gap);
+    gap: var(--section-gap-items);
   }
 }
 
