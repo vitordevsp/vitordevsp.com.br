@@ -11,13 +11,13 @@ import { parseBlocksToComponents } from "@/utils/NotionUtil"
 import "./style.scss"
 
 interface PostProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default async function Post({ params }: PostProps) {
-  const slug = params?.slug
+  const { slug } = await params
 
   if (typeof slug !== "string") {
     return (
