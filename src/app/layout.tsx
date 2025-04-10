@@ -1,7 +1,10 @@
 import type { Metadata } from "next"
 import { Fira_Sans } from "next/font/google"
+import { GoogleAnalytics } from "@next/third-parties/google"
 import { PageFooter, PageHeader } from "@/components"
 import "@/styles/globals.scss"
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 const firaSans = Fira_Sans({
   weight: ["400", "500", "600", "700", "800"],
@@ -25,6 +28,10 @@ export default function RootLayout({
         {children}
         <PageFooter />
       </body>
+
+      {GA_ID && (
+        <GoogleAnalytics gaId={GA_ID} />
+      )}
     </html>
   )
 }
