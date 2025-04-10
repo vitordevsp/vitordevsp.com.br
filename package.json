@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "^15.3.0",
     "@notionhq/client": "^0.4.13",
-    "next": "14.0.3",
+    "next": "^15.3.0",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.12.0"
