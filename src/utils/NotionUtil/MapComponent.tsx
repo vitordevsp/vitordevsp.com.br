@@ -80,7 +80,7 @@ export const MapComponent = {
     const body = getContentByBlockTextProp(textTypeObjs)
 
     return (
-      <p dangerouslySetInnerHTML={{ __html: body }} />
+      <p dangerouslySetInnerHTML={{ __html: body }} style={{ lineHeight: 1.4 }} />
     )
   },
 

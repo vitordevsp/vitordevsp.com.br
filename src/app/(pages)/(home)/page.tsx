@@ -75,15 +75,13 @@ export default async function HomePage() {
         <div className="hero-section__about-container">
           <Paragraph>
             Atualmente, atuo como analista sênior no Hospital Israelita Albert Einstein, integrando a equipe de Inovação Tecnológica do Ensino Digital como desenvolvedor frontend. Criamos soluções digitais inovadoras com o uso de inteligência artificial voltadas para a área da educação.
+          </Paragraph>
 
-            <br />
-            <br />
-
+          <Paragraph>
             Tenho muito interesse no processo de concepção de soluções digitais e sempre tive uma forte conexão com o produto, muito por ter começado minha carreira tentando construir alguns. Minha curiosidade me ajudou a aprender mais sobre outras áreas e a desenvolver um olhar mais clínico para o produto, resultando em ideias promissoras para o time e para os projetos.
+          </Paragraph>
 
-            <br />
-            <br />
-
+          <Paragraph>
             Hoje, o que mais gosto de fazer longe do computador — e que me ajuda a manter a sanidade — é correr e treinar musculação. Essas atividades me desafiam a superar limites e manter a saúde física e mental em equilíbrio.
           </Paragraph>
         </div>
