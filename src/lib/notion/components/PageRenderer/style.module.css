@@ -1,0 +1,225 @@
+/* Wrapper opcional para escopo (use <div class="notion"> ... ) */
+.rendered {
+  --nt-text: white;
+  --nt-muted: #6b6f76;
+  --nt-border: rgb(55, 55, 55);
+  --nt-code-bg: rgb(45, 45, 45);
+  --nt-quote-bg: rgb(45, 45, 45);
+
+  --nt-gray: #9b9a97;
+  --nt-brown: #7a5a41;
+  --nt-orange: #d9730d;
+  --nt-yellow: #dfab01;
+  --nt-green: #0f7b6c;
+  --nt-blue: #12b8ff;
+  --nt-purple: #6940a5;
+  --nt-pink: #ad1a72;
+  --nt-red: #e03e3e;
+
+  --nt-gray-bg: #f1f1ef;
+  --nt-brown-bg: #f4eeee;
+  --nt-orange-bg: #fbefe3;
+  --nt-yellow-bg: #fbf3db;
+  --nt-green-bg: #e6f4f1;
+  --nt-blue-bg: #e7f3f8;
+  --nt-purple-bg: #f4ecfb;
+  --nt-pink-bg: #fbe4f0;
+  --nt-red-bg: #fdebec;
+}
+
+.rendered {
+  color: var(--nt-text);
+  line-height: 1.6;
+
+  display: flex;
+  flex-direction: column;
+  /* gap: 16px; */
+}
+
+/* ------ */
+
+/* Tipografia básica */
+.rendered h1 {
+  font-size: 1.8rem;
+  line-height: 1.25;
+  margin: 1em 0 .5em;
+}
+
+.rendered h2 {
+  font-size: 1.4rem;
+  line-height: 1.25;
+  margin: 1em 0 .5em;
+}
+
+.rendered h3 {
+  font-size: 1.15rem;
+  line-height: 1.25;
+  margin: .75em 0 .4em;
+}
+
+.rendered p {
+  margin: .2em 0;
+}
+
+/* Listas */
+.rendered ul, .rendered ol {
+  margin: .4em 0 .4em 1.3em;
+  padding: 0;
+}
+
+.rendered li {
+  margin: .25em 0;
+}
+
+/* Blockquote */
+.rendered blockquote {
+  margin: 1em 0;
+  padding: .5em .9em;
+  border-left: 3px solid var(--nt-border);
+  background: var(--nt-quote-bg);
+  color: var(--nt-text);
+}
+
+/* Divider */
+.rendered hr {
+  border: 0;
+  border-top: 1px solid var(--nt-border);
+  margin: 1.25em 0;
+}
+
+/* Code inline & block */
+.rendered code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: .95em;
+  background: var(--nt-code-bg);
+  padding: .15em .5em;
+  border-radius: .5rem;
+}
+
+.rendered pre {
+  overflow-x: auto;
+  padding: 1.5em;
+  background: var(--nt-code-bg);
+  border: 1px solid var(--nt-border);
+  border-radius: .75rem;
+}
+
+/* Imagens */
+.rendered figure {
+  margin: 1em 0;
+}
+
+.rendered img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.rendered figcaption {
+  color: var(--nt-muted);
+  font-size: .9em;
+  margin-top: .4em;
+}
+
+/* Callout */
+.rendered [role="note"] {
+  padding: .7em .9em;
+  border: 1px solid var(--nt-border);
+  border-left: 4px solid currentColor;
+  border-radius: .5rem;
+  background: #fff;
+  margin: 1em 0;
+}
+
+/* Toggle (details) */
+.rendered details {
+  margin: .6em 0;
+}
+
+.rendered summary {
+  cursor: pointer;
+}
+
+/* Links */
+.rendered a {
+  color: var(--nt-blue);
+  text-decoration: none;
+}
+
+.rendered a:hover {
+  text-decoration: underline;
+}
+
+/* Cores de texto */
+.rendered .rendered-color-gray {
+  color: var(--nt-gray);
+}
+
+.rendered .rendered-color-brown {
+  color: var(--nt-brown);
+}
+
+.rendered .rendered-color-orange {
+  color: var(--nt-orange);
+}
+
+.rendered .rendered-color-yellow {
+  color: var(--nt-yellow);
+}
+
+.rendered .rendered-color-green {
+  color: var(--nt-green);
+}
+
+.rendered .rendered-color-blue {
+  color: var(--nt-blue);
+}
+
+.rendered .rendered-color-purple {
+  color: var(--nt-purple);
+}
+
+.rendered .rendered-color-pink {
+  color: var(--nt-pink);
+}
+
+.rendered .rendered-color-red {
+  color: var(--nt-red);
+}
+
+/* Cores de background */
+.rendered .rendered-bg-gray {
+  background: var(--nt-gray-bg);
+}
+
+.rendered .rendered-bg-brown {
+  background: var(--nt-brown-bg);
+}
+
+.rendered .rendered-bg-orange {
+  background: var(--nt-orange-bg);
+}
+
+.rendered .rendered-bg-yellow {
+  background: var(--nt-yellow-bg);
+}
+
+.rendered .rendered-bg-green {
+  background: var(--nt-green-bg);
+}
+
+.rendered .rendered-bg-blue {
+  background: var(--nt-blue-bg);
+}
+
+.rendered .rendered-bg-purple {
+  background: var(--nt-purple-bg);
+}
+
+.rendered .rendered-bg-pink {
+  background: var(--nt-pink-bg);
+}
+
+.rendered .rendered-bg-red {
+  background: var(--nt-red-bg);
+}
