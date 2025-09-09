@@ -49,7 +49,7 @@ export default async function HomePage() {
 
           <div className="hero-section__contact-container">
             <Span>
-              Analista Sênior | <a href="https://www.einstein.br/" target="_blank" rel="noopener noreferrer">Hospital Israelita Albert Einstein</a>
+              Analista Sênior | <a href="https://www.einstein.br/" target="_blank" rel="noopener noreferrer">Einstein Hospital Israelita</a>
             </Span>
 
             <Span>
