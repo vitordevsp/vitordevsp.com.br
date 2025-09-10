@@ -3,13 +3,9 @@ import { QueryFilter } from "./types"
 export function toNotionFilter(input?: QueryFilter | QueryFilter[]): any | undefined {
   if (!input) return undefined
   const node = Array.isArray(input) ? { and: input } : input
-  console.log("node: ", node)
   const built = build(node)
-  console.log("built: ", built)
   const flattened = flattenSameOps(built)
-  console.log("flattened: ", flattened)
   const collapsed = collapseShallow(flattened)
-  console.log("collapsed: ", collapsed)
   return collapsed
 }
 

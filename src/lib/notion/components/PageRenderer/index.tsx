@@ -271,7 +271,7 @@ function Block({ block, ctx, overrides }: { block: BaseBlock; ctx: Ctx; override
             : ""
       const alt = caption?.length ? plainText(caption) : ""
       return (
-        <figure>
+        <figure style={{ marginInline: "auto", borderRadius: "12px", overflow: "hidden" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={src} alt={alt} />
           {caption?.length ? <figcaption>{ctx.richTextRender(caption)}</figcaption> : null}

@@ -14,8 +14,6 @@ export async function getDatabaseItems<T extends NotionPropertiesSchema>(
 ): Promise<DatabaseItemsResponse<NotionPage<T>>> {
   const filter = toNotionFilter(where)
 
-  console.log("filter: ", filter)
-
   const res = await notion.databases.query({
     database_id: databaseId,
     start_cursor: startCursor,
