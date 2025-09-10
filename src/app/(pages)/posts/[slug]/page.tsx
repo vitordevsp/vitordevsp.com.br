@@ -1,4 +1,3 @@
-import { cloneElement } from "react"
 import {
   Heading,
   PageContainer,
@@ -6,17 +5,24 @@ import {
   Span,
   Tags,
 } from "@/components"
-import { postService } from "@/app/api/notion/_resources/modules/posts/services/postService"
-import { parseBlocksToComponents } from "@/utils/NotionUtil"
+import {
+  PageRenderer,
+  generateNotionPageID,
+  getAllBlockChildren,
+  getPageById,
+  parseDateDisplay,
+  richTextRender,
+} from "@/lib/notion"
 import "./style.scss"
+import type { PostProps } from "@/types/notion.type"
 
-interface PostProps {
+interface PostPageProps {
   params: Promise<{
     slug: string
   }>
 }
 
-export default async function Post({ params }: PostProps) {
+export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params
 
   if (typeof slug !== "string") {
@@ -37,38 +43,58 @@ export default async function Post({ params }: PostProps) {
     )
   }
 
-  const start = slug.lastIndexOf("-") + 1
-  const end = slug.length
-  const pageId = slug.slice(start, end)
+  const pageId = generateNotionPageID(slug)
 
-  const post = await postService.getFull(pageId)
+  const page = await getPageById<PostProps>(pageId)
 
-  const components = parseBlocksToComponents(post.body)
+  if (!page) {
+    return (
+      <PageContainer className="post-page">
+        <section className="post-page__header">
+          <div className="post-page__header__title">
+            <Heading as="h1">
+              Ops!
+            </Heading>
+
+            <Paragraph>
+              Não foi possível carregar a página
+            </Paragraph>
+          </div>
+        </section>
+      </PageContainer>
+    )
+  }
+
+  const title = richTextRender(page.properties.Nome.title)
+  const description = richTextRender(page.properties.Descricao.rich_text)
+  const tags = page.properties.Tags.multi_select
+  const publishedIn = page.properties["Publicado Em"].date?.start
+  const dateDisplay = parseDateDisplay(publishedIn)
+
+  const blocks = await getAllBlockChildren(pageId, { deep: true })
 
   return (
     <PageContainer className="post-page">
       <section className="post-page__header">
         <Span>
-          {post.dateDisplay}
+          {dateDisplay}
         </Span>
 
         <div className="post-page__header__title">
           <Heading as="h1">
-            {post.title}
+            {title}
           </Heading>
 
           <Paragraph>
-            {post.description}
+            {description}
           </Paragraph>
         </div>
 
-        <Tags items={post.tags} />
+        <Tags items={tags.map(t => t.name)} />
       </section>
 
       <section className="post-page__content">
-        {components?.map((Comp, idx) => {
-          return cloneElement(Comp, { key: idx })
-        })}
+        <PageRenderer blocks={blocks} />
       </section>
     </PageContainer>
   )

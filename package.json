@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@next/third-parties": "^15.3.0",
-    "@notionhq/client": "^0.4.13",
+    "@notionhq/client": "^4.0.2",
     "next": "^15.3.0",
     "react": "^18",
     "react-dom": "^18",

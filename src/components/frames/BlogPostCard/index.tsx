@@ -2,10 +2,14 @@ import { Heading, Icon, Paragraph, Span, Tags } from "@/components"
 import "./style.scss"
 
 export interface BlogPostCardProps {
-  title: string
-  description: string
-  date: string
-  tags?: string[]
+  title: string | React.ReactNode
+  description: string | React.ReactNode
+  date?: string
+  tags?: {
+    id: string
+    name: string
+    color: string
+  }[]
 }
 
 export function BlogPostCard({ title, description, date, tags }: BlogPostCardProps) {
@@ -19,7 +23,10 @@ export function BlogPostCard({ title, description, date, tags }: BlogPostCardPro
         </Span>
       </div>
 
-      <Tags items={tags} className="blog-post-card__tags" />
+      <Tags
+        items={tags?.map(t => t.name)}
+        className="blog-post-card__tags"
+      />
 
       <Heading as="h3" size="2xl" className="blog-post-card__title">
         {title}

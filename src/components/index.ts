@@ -9,6 +9,7 @@ export * from "./frames/PageHeader"
 export * from "./frames/PageContainer"
 export * from "./frames/PageFooter"
 
+export * from "./shared/Flexbox"
 export * from "./shared/Heading"
 export * from "./shared/Icon"
 export * from "./shared/LinkWithIcon"
