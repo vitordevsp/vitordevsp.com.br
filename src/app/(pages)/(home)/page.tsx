@@ -6,19 +6,30 @@ import {
   PageContainer,
   Paragraph,
   ProjectCard,
-  ServiceCard,
-  SkillCard,
   Span,
   Tags,
 } from "@/components"
+import { generateNotionPageSlug, getDatabaseItems, parseDateDisplay, richTextRender } from "@/lib/notion"
 import { projectService } from "@/app/api/notion/_resources/modules/projects/services/projectService"
-import { postService } from "@/app/api/notion/_resources/modules/posts/services/postService"
 import { socialMedia } from "@/resources/static"
 import "./style.scss"
+import type { PostProps } from "@/types/notion.type"
 
 export default async function HomePage() {
   const projects = await projectService.list(3)
-  const posts = await postService.list(3)
+
+  const { results } = await getDatabaseItems<PostProps>({
+    pageSize: 3,
+    sorts: [
+      { property: "Publicado Em", direction: "descending" },
+      { property: "Criado Em", direction: "descending" },
+    ],
+    where: {
+      and: [
+        { property: "Publicado Em", type: "date", op: "is_not_empty" },
+      ],
+    },
+  })
 
   return (
     <PageContainer className="homepage homepage--vars">
@@ -87,40 +98,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* <section id="characteristics-section" className="homepage__characteristics-section">
-        <div className="characteristics-section__header">
-          <Heading>
-            Minhas principais habilidades
-          </Heading>
-
-          <Paragraph>
-            Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-          </Paragraph>
-        </div>
-
-        <div className="characteristics-section__content">
-          <SkillCard
-            title="Habilidade X"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          />
-
-          <SkillCard
-            title="Habilidade X"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          />
-
-          <SkillCard
-            title="Habilidade X"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          />
-
-          <SkillCard
-            title="Habilidade X"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          />
-        </div>
-      </section> */}
-
       <section id="projects-section" className="homepage__projects-section">
         <Heading>
           Projetos em destaque
@@ -149,47 +126,28 @@ export default async function HomePage() {
         </Heading>
 
         <div className="posts-section__content">
-          {posts.data.map((post) => (
-            <Link key={post.id} href={`posts/${post.slug}`}>
-              <BlogPostCard
-                title={post.title}
-                description={post.description}
-                date={post.dateDisplay}
-                tags={post.tags}
-              />
-            </Link>
-          ))}
+          {results.map((item) => {
+            const title = richTextRender(item.properties.Nome.title)
+            const description = richTextRender(item.properties.Descricao.rich_text)
+            const tags = item.properties.Tags.multi_select
+            const publishedIn = item.properties["Publicado Em"].date?.start as string
+
+            const slug = generateNotionPageSlug(item.url)
+            const dateDisplay = parseDateDisplay(publishedIn)
+
+            return (
+              <Link key={item.id} href={`posts/${slug}`}>
+                <BlogPostCard
+                  title={title}
+                  description={description}
+                  date={dateDisplay}
+                  tags={tags}
+                />
+              </Link>
+            )
+          })}
         </div>
       </section>
-
-      {/* <section id="services-section" className="homepage__services-section">
-        <div className="services-section__header">
-          <Heading>
-            Serviços disponiveis
-          </Heading>
-
-          <Paragraph>
-            Criando experiências digitais excepcionais. Transformando Problemas Complexos em Soluções Simples
-          </Paragraph>
-        </div>
-
-        <div className="services-section__content">
-          <ServiceCard
-            title="Habilidade X"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          />
-
-          <ServiceCard
-            title="Habilidade X"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          />
-
-          <ServiceCard
-            title="Habilidade X"
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-          />
-        </div>
-      </section> */}
 
       <section id="call-to-action-section" className="homepage__call-to-action-section">
         <Heading>
