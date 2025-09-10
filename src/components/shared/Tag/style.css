@@ -10,3 +10,7 @@
 .tag:hover {
   background: #2b2b2b;
 }
+
+.tag:hover * {
+  color: #fff !important;
+}

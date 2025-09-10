@@ -3,14 +3,28 @@ import {
   BlogPostCard,
   Heading,
   PageContainer,
-  Paragraph,
 } from "@/components"
-import { postService } from "@/app/api/notion/_resources/modules/posts/services/postService"
+import {
+  generateNotionPageSlug,
+  getDatabaseItems,
+  parseDateDisplay,
+  richTextRender,
+} from "@/lib/notion"
 import "./style.scss"
+import type { PostProps } from "@/types/notion.type"
 
 export default async function PostsPage() {
-  const posts = await postService.list()
-  const totalCount = posts?.totalCount || 0
+  const { results } = await getDatabaseItems<PostProps>({
+    sorts: [
+      { property: "Publicado Em", direction: "descending" },
+      { property: "Criado Em", direction: "descending" },
+    ],
+    where: {
+      and: [
+        { property: "Publicado Em", type: "date", op: "is_not_empty" },
+      ],
+    },
+  })
 
   return (
     <PageContainer className="posts-page">
@@ -20,9 +34,9 @@ export default async function PostsPage() {
             Todas as Postagens
           </Heading>
 
-          <Paragraph>
-            {totalCount} {totalCount > 1 ? " Postagens" : " Postagem"}
-          </Paragraph>
+          {/* <Paragraph>
+            0 Postagens
+          </Paragraph> */}
         </div>
 
         {/* <Paragraph>
@@ -31,16 +45,26 @@ export default async function PostsPage() {
       </section>
 
       <section className="posts-page__content">
-        {posts.data.map((post) => (
-          <Link key={post.id} href={`posts/${post.slug}`}>
-            <BlogPostCard
-              title={post.title}
-              description={post.description}
-              date={post.dateDisplay}
-              tags={post.tags}
-            />
-          </Link>
-        ))}
+        {results.map((item) => {
+          const title = richTextRender(item.properties.Nome.title)
+          const description = richTextRender(item.properties.Descricao.rich_text)
+          const tags = item.properties.Tags.multi_select
+          const publishedIn = item.properties["Publicado Em"].date?.start as string
+
+          const slug = generateNotionPageSlug(item.url)
+          const dateDisplay = parseDateDisplay(publishedIn)
+
+          return (
+            <Link key={item.id} href={`posts/${slug}`}>
+              <BlogPostCard
+                title={title}
+                description={description}
+                date={dateDisplay}
+                tags={tags}
+              />
+            </Link>
+          )
+        })}
       </section>
     </PageContainer>
   )
