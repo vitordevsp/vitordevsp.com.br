@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Fira_Sans } from "next/font/google"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { PageFooter, PageHeader } from "@/components"
 import "@/styles/globals.scss"
 
@@ -30,6 +31,7 @@ export default function RootLayout({
         <PageFooter />
 
         <Analytics />
+        <SpeedInsights />
         {GA_ID && (
           <GoogleAnalytics gaId={GA_ID} />
         )}
