@@ -2,100 +2,104 @@
 
 ## Status
 
-| Campo        | Valor      |
-|--------------|------------|
-| Status       | pendente |
-| Criado em    | 2025-01-18 |
+| Campo | Valor |
+|------|------|
+| Status | pendente |
+| Criado em | 2026-04-19 |
+| Atualizado em | 2026-04-19 |
 | Concluído em | — |
-
----
 
 ## Objetivo
 
-Criar a seção `/jardim` com suas subpáginas (Marcos, Ensaios, Trilha, Vídeos, Posts, Padrões), implementar o sistema de estágios de nota (semente → broto → muda → planta → árvore), cards de destaque para notas iniciais e filtros básicos por ano e ordem.
-
----
+Criar a base do jardim digital do site: uma seção `/jardim`, modelo editorial de estágios de nota, filtros simples e subpáginas iniciais que organizem conteúdos existentes sem prometer uma plataforma editorial completa no primeiro ciclo.
 
 ## Contexto
 
-O site está sendo transformado em um jardim digital — um espaço de build in public onde o conteúdo é compartilhado progressivamente. A inspiração principal é maggieappleton.com. O jardim substitui o blog tradicional: não há posts "prontos", há notas em diferentes estágios de maturidade.
+O site está sendo transformado em um jardim digital alimentado pelo Notion. A intenção é publicar ideias de forma progressiva, com sinalização clara de maturidade:
 
-Os estágios refletem o quanto uma ideia foi desenvolvida:
-- **Semente** — ideia bruta, mal formada
-- **Broto** — ideia com algum desenvolvimento
-- **Muda** — ideia estruturada mas incompleta
-- **Planta** — ideia desenvolvida
-- **Árvore** — ideia madura e consolidada
+- **Semente** — ideia bruta ou rascunho inicial;
+- **Broto** — ideia com algum desenvolvimento;
+- **Muda** — ideia estruturada, mas ainda incompleta;
+- **Planta** — ideia desenvolvida;
+- **Árvore** — ideia madura e consolidada.
 
-Para estágios iniciais (semente, broto, muda), exibir um card de aviso destacado linkando para um texto explicando como o jardim funciona.
+O plano original tentava resolver muitas subpáginas, filtros e componentes de uma vez. A versão revisada separa primeiro o contrato de conteúdo e depois a UI.
 
----
+## Escopo
 
-## Arquivos Afetados
+- definir o schema mínimo do jardim no Notion;
+- criar domínio `src/lib/notion/domains/jardim/` depois da base do PLAN-002;
+- criar rota `/jardim` e subpáginas iniciais com navegação clara;
+- implementar indicativo visual de estágio e card explicativo para notas iniciais;
+- implementar filtros simples por ano e ordem via `searchParams`;
+- criar suporte inicial para subpáginas "Padrões" e "Trilha" quando o schema permitir.
 
-| Arquivo | Ação | Descrição |
-|---------|------|-----------|
-| `src/app/(pages)/jardim/` | criar | Diretório da seção jardim |
-| `src/app/(pages)/jardim/page.tsx` | criar | Página principal do jardim |
-| `src/app/(pages)/jardim/marcos/page.tsx` | criar | Subpágina marcos |
-| `src/app/(pages)/jardim/ensaios/page.tsx` | criar | Subpágina ensaios |
-| `src/app/(pages)/jardim/trilha/page.tsx` | criar | Subpágina trilha (sequência de leitura) |
-| `src/app/(pages)/jardim/videos/page.tsx` | criar | Subpágina vídeos |
-| `src/app/(pages)/jardim/posts/page.tsx` | criar | Subpágina posts |
-| `src/app/(pages)/jardim/padroes/page.tsx` | criar | Subpágina padrões (prompts, skills, agents, dev) |
-| `src/components/frames/EstagioNota/` | criar | Indicativo visual do estágio da nota |
-| `src/components/frames/CardAvisoEstagio/` | criar | Card de destaque para notas em estágio inicial |
-| `src/components/shared/FiltroJardim/` | criar | Filtros por ano e ordem |
-| `src/lib/notion/domains/jardim/` | criar | Types e queries para as notas do jardim |
-| `src/components/index.ts` | modificar | Exportar novos componentes |
+## Fora do escopo
 
----
+- busca full-text;
+- tags cruzadas avançadas;
+- edição de notas pelo site;
+- página individual de leitura — coberta pelo PLAN-004;
+- galeria de livros, viagens, músicas e fotos.
 
-## Critério de Conclusão
+## Áreas afetadas
 
-- [ ] Rota `/jardim` funcionando com todas as subpáginas acessíveis
-- [ ] Sistema de estágios implementado com indicativo visual para cada nota
-- [ ] Card de aviso exibido para notas em estágio semente, broto ou muda
-- [ ] Texto explicativo sobre o jardim criado e linkado no card de aviso
-- [ ] Filtro por ano funcional
-- [ ] Filtro de inversão de ordem funcional
-- [ ] Dados vindos do Notion via `src/lib/notion/domains/jardim/`
-- [ ] Subpágina "Padrões" com suporte a categorias: prompts, skills, agents, dev
-- [ ] Subpágina "Trilha" com leitura em sequência específica
-- [ ] `pnpm lint` sem erros
+| Área | Ação | Observação |
+|------|------|------------|
+| `src/app/(pages)/jardim/` | criar | rota principal e subpáginas iniciais |
+| `src/lib/notion/domains/jardim/` | criar | types e queries do jardim |
+| `src/components/frames/EstagioNota/` | criar | indicativo visual do estágio |
+| `src/components/frames/CardAvisoEstagio/` | criar | aviso para notas em estágio inicial |
+| `src/components/shared/FiltroJardim/` | criar | filtros simples, se não houver componente existente melhor |
+| `src/components/index.ts` | modificar | exportar componentes novos quando existirem |
+| `docs/product/notion/data-sources.md` | atualizar | registrar schema do jardim quando definido |
 
----
+## Backlog
 
-## Fora do Escopo
+- [ ] Definir schema mínimo do jardim e domínio Notion.
+- [ ] Criar shell de `/jardim` e navegação entre subpáginas iniciais.
+- [ ] Implementar estágios de nota e texto explicativo do jardim.
+- [ ] Implementar filtros por ano e ordem nas listagens.
+- [ ] Implementar tratamento específico de "Padrões" e "Trilha" quando houver dados.
+- [ ] Validar rotas, responsividade e build.
 
-- Busca full-text dentro do jardim
-- Sistema de tags cruzadas entre subpáginas
-- Edição de notas pelo site
-- Página de leitura individual (coberta pelo PLAN-004)
-
----
-
-## Riscos e Dependências
+## Riscos e dependências
 
 | Tipo | Descrição |
 |------|-----------|
-| Dependência de plano | PLAN-002 (refactor Notion) deve estar concluído |
-| Dependência externa | Bancos de dados do Notion para cada subpágina precisam existir e ter a propriedade de estágio configurada |
-| Risco | Cada subpágina pode ter estrutura de dados diferente no Notion — avaliar se um único domínio cobre tudo ou se cada um precisa do seu |
+| Dependência de plano | PLAN-002 deve definir a organização por domínios antes do domínio `jardim`. |
+| Dependência externa | O Notion precisa ter propriedades estáveis para estágio, ano, categoria e ordem. |
+| Risco | Cada subpágina pode querer schema próprio; forçar um único modelo cedo demais pode criar retrabalho. |
+| Risco | O conceito de jardim pode virar texto explicativo demais na UI; a página precisa ser navegável antes de ser didática. |
 
----
+## Notas de implementação
 
-## Notas de Implementação
+- Começar pelo menor schema útil: título, status/publicação, estágio, ano, categoria/tipo, data e ordem opcional.
+- Preferir filtros por `searchParams` para URLs compartilháveis.
+- `CardAvisoEstagio` deve aparecer apenas para `semente`, `broto` e `muda`.
+- "Padrões" e "Trilha" dependem de propriedades específicas (`categoria`, `order` ou equivalente).
+- A navegação wiki da página de leitura pode consumir esse domínio em uma etapa posterior.
 
-- Estágios: implementar como propriedade `select` no Notion com os 5 valores
-- Indicativo visual: considerar ícone + label + cor por estágio (ex: verde escuro para árvore, verde claro para semente)
-- Card de aviso: exibir apenas quando `estágio ∈ {semente, broto, muda}`, com link para `/jardim/sobre` ou similar
-- Filtros: implementar no cliente com estado React ou via searchParams na URL para permitir compartilhamento de filtro
+## Conhecimentos consolidados
 
----
+- Jardim digital é uma frente de produto e conteúdo, não só uma página nova.
+- O schema do Notion precisa vir antes das subpáginas especiais.
+- A navegação wiki do PLAN-004 depende deste plano, mas não deve bloquear a primeira melhoria da leitura.
 
-## Log de Execução
+## Perguntas para evoluir este plano
+
+- O jardim será um banco único no Notion ou várias bases por tipo de conteúdo?
+- Quais subpáginas são realmente MVP: marcos, ensaios, trilha, vídeos, posts e padrões ou só um subconjunto inicial?
+- O texto explicativo do jardim será uma página estática do site ou uma nota vinda do Notion?
+
+## Referências
+
+- [`docs/plans/notes.md`](../notes.md)
+- [`docs/product/notion/data-sources.md`](../../product/notion/data-sources.md)
+- [`docs/patterns/pages.md`](../../patterns/pages.md)
+
+## Log de execução
 
 | Data | O que foi feito |
 |------|-----------------|
-| — | — |
+| 2026-04-19 | Plano revisado para priorizar schema/domínio antes de subpáginas específicas. |

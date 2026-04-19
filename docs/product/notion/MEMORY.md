@@ -23,6 +23,6 @@ Registrar memoria especifica da camada `docs/product/notion/`, preservando conve
 
 - O banco de Posts e o unico totalmente migrado para o sistema moderno.
 - Videos e Projetos ainda dependem do sistema legacy por conta do `databaseId` hardcoded em `features/databases/index.ts`.
-- A migracao para o sistema moderno para Videos e Projetos esta planejada em `docs/plans/PLAN-001-migracao-notion-legacy/`.
+- A migracao para o sistema moderno para Videos e Projetos esta planejada em `docs/plans/PLAN-001-migracao-notion-legado/`.
 - O slug de posts no formato `titulo-do-post-{notionId}` usa `lastIndexOf("-")` para extrair o ID — fragil, mas funcional enquanto todos os posts tiverem hifen no titulo.
 - `getAllBlockChildren` com `deep: true` faz fetches sequenciais — paralelizar com `Promise.all` e uma das melhorias planejadas.

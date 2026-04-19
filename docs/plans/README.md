@@ -52,7 +52,9 @@ Planos nascem sempre como pasta:
 
 ```text
 PLAN-NNN-descricao-curta/
-  README.md
+  README.md        ← objetivo, contexto, escopo, riscos, log de execucao
+  board.md         ← tabela resumida das tasks (id, descricao, status, dependencias)
+  tasks/           ← tarefas atomicas do plano, uma por arquivo
   logs.md          ← opcional
   conhecimentos.md ← opcional
 ```
@@ -60,7 +62,7 @@ PLAN-NNN-descricao-curta/
 Exemplos:
 
 - `PLAN-001-migracao-notion-legado/README.md`
-- `PLAN-000-bloco-de-notas-dos-planos/README.md`
+- `PLAN-000-board/README.md`
 
 Regras:
 
@@ -201,11 +203,72 @@ Resuma o estado atual, os riscos e o próximo passo seguro antes de implementar.
 - atualizar o plano com o estado final;
 - garantir que as referências continuem úteis para a próxima sessão.
 
+## Tasks e board
+
+Cada plano tem uma pasta `tasks/` com tarefas atomicas e um arquivo `board.md` com visao resumida.
+
+Cada task e um arquivo markdown com frontmatter:
+
+```markdown
+---
+id: P001-T001
+title: Titulo da tarefa
+status: todo
+plan: PLAN-001
+created_at: AAAA-MM-DD
+updated_at: AAAA-MM-DD
+description: Resumo em uma linha do que a task entrega
+---
+
+Detalhes de implementacao, referencias e dependencias.
+```
+
+### Formato do ID
+
+`P{NNN}-T{NNN}` onde:
+
+- `P{NNN}` e o numero do plano com 3 digitos (ex: P001, P006)
+- `T{NNN}` e a sequencia dentro do plano com 3 digitos (ex: T001, T015)
+
+Exemplos: `P001-T001`, `P006-T003`
+
+O formato migra limpo para Linear (P001 vira projeto/epico) ou Notion (campo ID simples).
+
+### Status validos
+
+| Status    | Significado                        |
+|-----------|------------------------------------|
+| `todo`    | ainda nao iniciada                 |
+| `doing`   | em andamento na sessao atual       |
+| `done`    | concluida                          |
+| `blocked` | bloqueada por dependencia ou duvida|
+
+### Dependencias
+
+Quando uma task depende de outra, registrar no corpo do arquivo com `Depende de: P001-T004`.
+
+### board.md
+
+O `board.md` e a visao consolidada do plano: uma tabela com id, descricao, status e dependencias de todas as tasks.
+
+```markdown
+| ID        | Descricao                        | Status | Depende de |
+|-----------|----------------------------------|--------|------------|
+| P001-T001 | Confirmar variaveis de ambiente  | todo   | —          |
+| P001-T002 | Corrigir databaseId hardcoded    | todo   | —          |
+```
+
+Regras do board:
+
+- manter sempre sincronizado com os arquivos de task;
+- atualizar o status no board ao mesmo tempo que no arquivo da task;
+- nao e necessario repetir detalhes — apenas o resumo da coluna `Descricao`.
+
 ## Status dos planos
 
 O painel rápido de status dos planos fica em:
 
-- [`PLAN-000-bloco-de-notas-dos-planos`](./PLAN-000-bloco-de-notas-dos-planos/)
+- [`PLAN-000-board`](./PLAN-000-board/)
 
 ## Regra importante
 

@@ -24,7 +24,7 @@ aninhadas antes de resolver a paralelizacao com `Promise.all` (PLAN-002).
 
 ## Dois tokens, dois sistemas
 
-| Sistema | Token | Localicacao |
+| Sistema | Token | Localizacao |
 |---------|-------|-------------|
 | Moderno | `NOTION_TOKEN` | `src/lib/notion/` |
 | Legacy  | `NOTION_KEY`   | `src/app/api/notion/_resources/` |
@@ -35,5 +35,5 @@ Nao misturar. O legacy sera removido apos o PLAN-001.
 
 ## Estado atual dos planos
 
-PLAN-001 e desbloqueante — nenhum outro plano pode comecar antes.
-Ver painel em `docs/plans/PLAN-000-bloco-de-notas-dos-planos/README.md`.
+PLAN-001 e desbloqueante — nenhum outro plano que dependa de Notion moderno deve comecar antes.
+Ver painel em `docs/plans/PLAN-000-board/README.md`.

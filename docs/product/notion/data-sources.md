@@ -108,6 +108,6 @@ export type PostProps = EnsureNotionPropertiesSchema<{
 
 ## Notas de migracao
 
-Os bancos de Videos e Projetos ainda sao consumidos pelo sistema legacy. A migracao para `getDatabaseItems<T>()` esta planejada em [`docs/plans/PLAN-001-migracao-notion-legacy/`](../plans/PLAN-001-migracao-notion-legacy/README.md).
+Os bancos de Videos e Projetos ainda sao consumidos pelo sistema legacy. A migracao para `getDatabaseItems<T>()` esta planejada em [`PLAN-001-migracao-notion-legado`](../../plans/PLAN-001-migracao-notion-legado/README.md).
 
 Apos a migracao, cada banco tera seu schema TypeScript em `src/types/notion.type.ts` e usara `NOTION_TOKEN` em vez de `NOTION_KEY`.

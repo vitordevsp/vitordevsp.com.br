@@ -115,7 +115,7 @@ Converte array de `NotionRichTextNode[]` em React elements com anotacoes (bold, 
 
 ## Sistema legacy — `src/app/api/notion/_resources/`
 
-O sistema legacy ainda esta ativo para videos e projetos. Esta em processo de migracao para o sistema moderno (ver `docs/plans/PLAN-001-migracao-notion-legacy/`).
+O sistema legacy ainda esta ativo para videos e projetos. Esta em processo de migracao para o sistema moderno (ver `docs/plans/PLAN-001-migracao-notion-legado/`).
 
 ### Estrutura
 

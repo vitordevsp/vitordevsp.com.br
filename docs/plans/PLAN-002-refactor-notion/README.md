@@ -2,153 +2,118 @@
 
 ## Status
 
-| Campo        | Valor      |
-|--------------|------------|
-| Status       | pendente |
-| Criado em    | 2025-01-18 |
+| Campo | Valor |
+|------|------|
+| Status | pendente |
+| Criado em | 2026-04-19 |
+| Atualizado em | 2026-04-19 |
 | Concluído em | — |
-
----
 
 ## Objetivo
 
-Refatorar `src/lib/notion/` para garantir organização por domínio, cobertura de tipos consistente e uma API interna limpa que suporte todas as páginas planejadas para o jardim digital.
-
----
+Fortalecer `src/lib/notion/` para virar a base única de integração com o Notion: menos casts frágeis, melhor performance em blocos aninhados, extração de ID de página mais robusta e organização por domínios depois da migração do legacy.
 
 ## Contexto
 
-Após a migração do PLAN-001, a lib moderna será a única fonte de dados do projeto. Antes de criar novas páginas (Jardim, Galeria, Cursos), é importante garantir que a lib esteja bem estruturada — domínios isolados, tipos reutilizáveis e queries consistentes.
+O PLAN-001 remove a dependência prática do sistema legacy. Depois disso, a lib moderna precisa suportar posts, vídeos, projetos e novas frentes como jardim digital e cursos sem acumular lógica solta dentro das pages.
 
----
+Algumas melhorias são independentes e podem acontecer antes do fim do PLAN-001. A organização por domínio depende de vídeos e projetos já estarem migrados.
 
-## Arquivos Afetados
+## Escopo
 
-| Arquivo | Ação | Descrição |
-|---------|------|-----------|
-| `src/lib/notion/` | modificar | Reorganização geral por domínio |
-| `src/lib/notion/domains/` | criar | Pasta de domínios se ainda não existir |
-| `src/lib/notion/domains/posts/` | criar/ajustar | Types e queries de posts |
-| `src/lib/notion/domains/projetos/` | criar/ajustar | Types e queries de projetos |
-| `src/lib/notion/domains/videos/` | criar/ajustar | Types e queries de vídeos |
-| `src/lib/notion/types.ts` | modificar | Consolidar tipos compartilhados |
+- paralelizar o trecho `deep: true` de `getAllBlockChildren`;
+- tipar `__children` de forma explícita;
+- tornar `generateNotionPageID` robusto para slugs sem hífen;
+- reduzir casts inseguros nos wrappers do SDK quando isso não piorar a legibilidade;
+- criar `src/lib/notion/domains/` e mover queries/types de posts, vídeos e projetos após PLAN-001.
 
----
+## Fora do escopo
 
-## Arquivos Afetados
+- criar domínios de jardim ou cursos — cada frente define seu próprio schema;
+- mudar visual ou comportamento das páginas;
+- reescrever o renderer de blocos do Notion;
+- perseguir `any` interno da DSL de filtros se isso exigir refactor maior que o plano.
 
-| Arquivo | Ação | Descrição |
-|---------|------|-----------|
-| `src/lib/notion/features/blocks/index.ts` | modificar | Paralelizar fetches com `Promise.all` no `deep: true` |
-| `src/lib/notion/features/blocks/types.ts` | modificar | Adicionar `AnyNotionBlockWithChildren` e type guard `hasChildren` |
-| `src/lib/notion/features/databases/index.ts` | modificar | Remover `as any` no retorno do SDK |
-| `src/lib/notion/features/pages/index.ts` | modificar | Remover `as any` no retorno do SDK |
-| `src/lib/notion/helpers/utils.ts` | modificar | Tornar `generateNotionPageID` robusto para slugs sem hífen |
-| `src/lib/notion/domains/` | criar | Pasta de domínios se não existir |
-| `src/lib/notion/domains/posts/` | criar/ajustar | Types e queries específicos de posts |
-| `src/lib/notion/domains/videos/` | criar/ajustar | Types e queries de vídeos (pós PLAN-001) |
-| `src/lib/notion/domains/projetos/` | criar/ajustar | Types e queries de projetos (pós PLAN-001) |
+## Áreas afetadas
 
-## Critério de Conclusão
+| Área | Ação | Observação |
+|------|------|------------|
+| `src/lib/notion/features/blocks/index.ts` | modificar | paralelizar recursão e usar tipo de bloco com filhos |
+| `src/lib/notion/features/blocks/types.ts` | modificar | adicionar tipo/guard para `__children` |
+| `src/lib/notion/helpers/utils.ts` | modificar | corrigir extração de ID Notion em slug |
+| `src/lib/notion/features/databases/index.ts` | revisar | reduzir casts no wrapper de database |
+| `src/lib/notion/features/pages/index.ts` | revisar | reduzir casts no wrapper de page |
+| `src/lib/notion/domains/` | criar | organizar queries e types por domínio |
+| `src/types/notion.type.ts` | revisar | decidir o que fica global e o que migra para domínios |
 
-### Correções de qualidade (independentes do PLAN-001)
-- [ ] Paralelizar fetches em `getAllBlockChildren` com `deep: true` usando `Promise.all`
-- [ ] Criar `AnyNotionBlockWithChildren` em `blocks/types.ts` e type guard `hasChildren`
-- [ ] Corrigir `generateNotionPageID` para extrair ID por tamanho fixo (32 chars hex) em vez de `lastIndexOf`
-- [ ] Remover `as any` em `databases/index.ts`, `pages/index.ts` e `blocks/index.ts`
+## Backlog
 
-### Organização por domínio (pós PLAN-001)
-- [ ] Lib organizada por domínio em `src/lib/notion/domains/`
-- [ ] Cada domínio tem seu próprio arquivo de types usando `EnsureNotionPropertiesSchema`
-- [ ] `getDatabaseItems`, `getPageById` e `getAllBlockChildren` com tipos corretos em todos os usos
-- [ ] Nenhum `any` ou cast inseguro nas queries do Notion
-- [ ] `pnpm build` sem erros de TypeScript
-- [ ] `pnpm lint` sem warnings
+- [ ] Paralelizar e tipar `getAllBlockChildren` com `deep: true`.
+- [ ] Corrigir `generateNotionPageID` para extrair ID por regex/tamanho fixo.
+- [ ] Revisar casts nos wrappers de database/page sem criar abstração maior que o problema.
+- [ ] Criar domínios de posts, vídeos e projetos após PLAN-001.
+- [ ] Validar build, rotas de posts e rotas migradas do Notion.
 
----
-
-## Fora do Escopo
-
-- Criação de domínios para páginas ainda não existentes (Jardim, Galeria, Cursos) — isso ficará em cada plano respectivo
-- Alterações visuais ou de comportamento das páginas
-
----
-
-## Riscos e Dependências
+## Riscos e dependências
 
 | Tipo | Descrição |
 |------|-----------|
-| Dependência de plano | PLAN-001 deve estar concluído antes |
-| Risco | Refactor de tipos pode quebrar inferências em páginas existentes |
+| Dependência parcial | A etapa de domínios depende do PLAN-001 concluído. |
+| Risco | Tipagem do SDK Notion mistura `PageObjectResponse` e respostas parciais; remover casts sem cuidado pode piorar a API local. |
+| Risco | Paralelizar blocos aninhados aumenta requests simultâneos ao Notion; observar limites da API. |
 
----
+## Notas de implementação
 
-## Notas de Implementação
+### Fetches sequenciais em `getAllBlockChildren`
 
-- Usar `EnsureNotionPropertiesSchema` como padrão para todos os tipos de propriedades
-- Avaliar se faz sentido criar um helper para propriedades comuns (ex: `Status`, `Title`) reutilizadas entre domínios
-
-### Fetches sequenciais em `getAllBlockChildren` (`deep: true`)
+O trecho atual faz um request por vez quando `deep: true`. A direção é trocar o loop sequencial por `Promise.all` mantendo o mesmo shape de retorno.
 
 ```ts
-// atual — sequencial, 1 request por vez
-for (const parent of withChildren) {
-  const children = await getAllBlockChildren(parent.id, { deep: true })
-  ;(parent as any).__children = children
-}
-
-// corrigido
 await Promise.all(
   withChildren.map(async parent => {
-    ;(parent as any).__children = await getAllBlockChildren(parent.id, { deep: true })
-  })
+    parent.__children = await getAllBlockChildren(parent.id, { deep: true })
+  }),
 )
 ```
 
-### `__children` sem tipo (`blocks/types.ts`)
+### Tipo para `__children`
+
+O plano deve preferir um tipo explícito em `blocks/types.ts`:
 
 ```ts
-// adicionar em blocks/types.ts
 export type AnyNotionBlockWithChildren = AnyNotionBlock & {
   __children?: AnyNotionBlock[]
 }
-
-export function hasChildren(block: AnyNotionBlock): block is AnyNotionBlockWithChildren {
-  return "__children" in block && Array.isArray((block as any).__children)
-}
 ```
 
-### `generateNotionPageID` frágil (`helpers/utils.ts`)
+### `generateNotionPageID`
+
+A função atual depende do último hífen do slug. O caminho mais seguro é extrair os últimos 32 caracteres hexadecimais, aceitando slugs com ou sem hífens.
 
 ```ts
-// atual — lastIndexOf quebra se o título não tiver hífen
-export const generateNotionPageID = (slug: string) => {
-  const start = slug.lastIndexOf("-") + 1
-  return slug.slice(start, slug.length)
-}
-
-// corrigido — extrai os últimos 32 chars hexadecimais (tamanho fixo do ID Notion)
-const UUID_REGEX = /[0-9a-f]{8}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{12}$/i
-export const generateNotionPageID = (slug: string) => {
-  const match = slug.replace(/-/g, "").match(UUID_REGEX)
-  return match?.[0] ?? slug
-}
+const NOTION_ID_REGEX = /[0-9a-f]{32}$/i
 ```
 
-### `as any` em três pontos distintos
+## Conhecimentos consolidados
 
-| Arquivo | Linha problemática |
-|---------|-------------------|
-| `features/databases/index.ts` | `const res = await notion.databases.query({ ... }) as any` |
-| `features/pages/index.ts` | `const page = await notion.pages.retrieve({ ... }) as any` |
-| `features/blocks/index.ts` | `res.results as unknown as T[]` |
+- O refactor por domínio é útil, mas só fica limpo depois que vídeos e projetos saírem do legacy.
+- Nem todo `as any` deve virar task isolada; a unidade útil é o contrato do wrapper.
+- `getAllBlockChildren` é ponto sensível porque afeta diretamente a página de leitura.
 
-O SDK retorna `PageObjectResponse | PartialPageObjectResponse`. O cast para `any` descarta essa distinção. Tipar o retorno do SDK e fazer a conversão apenas onde o shape realmente diverge. Baixa prioridade — fazer na etapa final do checklist.
+## Perguntas para evoluir este plano
 
----
+- Os tipos de `PostProps`, `VideoProps` e `ProjectProps` devem morar em `src/types/notion.type.ts` ou dentro de cada domínio?
+- O domínio deve exportar apenas queries prontas ou também helpers de parsing para componentes?
+- Vale criar teste unitário para `generateNotionPageID` antes de mexer no comportamento?
 
-## Log de Execução
+## Referências
+
+- [`docs/patterns/services.md`](../../patterns/services.md)
+- [`docs/patterns/tipagem.md`](../../patterns/tipagem.md)
+- [`docs/product/notion/framework.md`](../../product/notion/framework.md)
+
+## Log de execução
 
 | Data | O que foi feito |
 |------|-----------------|
-| — | — |
+| 2026-04-19 | Plano revisado para separar melhorias independentes da reorganização por domínio pós-PLAN-001. |

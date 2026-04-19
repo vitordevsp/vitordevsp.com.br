@@ -70,7 +70,7 @@ Em ordem de dependencia:
 5. **PLAN-005** — Jardim digital (sistema de estagios de nota, subpaginas, filtros)
 6. **PLAN-006** — Pagina de cursos com lista de espera por e-mail
 
-Ver status atual em `docs/plans/PLAN-000-bloco-de-notas-dos-planos/`.
+Ver status atual em `docs/plans/PLAN-000-board/`.
 
 ## Dependencias e limites
 
@@ -97,7 +97,7 @@ Ver status atual em `docs/plans/PLAN-000-bloco-de-notas-dos-planos/`.
 
 ## Referencias
 
-- `docs/plans/PLAN-002-refactor-notion.md` — problemas tecnicos detalhados e sugestoes de correcao
+- `docs/plans/PLAN-002-refactor-notion/README.md` — problemas tecnicos detalhados e sugestoes de correcao
 - `docs/patterns/services.md` — padrao de integracao Notion
 - `docs/patterns/aplicacao.md` — regras de composicao de pages
 - `docs/product/notion/data-sources.md` — propriedades dos bancos Posts, Videos, Projetos

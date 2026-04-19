@@ -2,82 +2,93 @@
 
 ## Status
 
-| Campo        | Valor      |
-|--------------|------------|
-| Status       | pendente |
-| Criado em    | 2025-01-18 |
+| Campo | Valor |
+|------|------|
+| Status | pendente |
+| Criado em | 2026-04-19 |
+| Atualizado em | 2026-04-19 |
 | Concluído em | — |
-
----
 
 ## Objetivo
 
-Melhorar a experiência de leitura em `/posts/[slug]`: tipografia, contraste, sidebar direita com índice de navegação por seção e sidebar esquerda com navegação wiki entre notas relacionadas.
-
----
+Melhorar a experiência de leitura em `/posts/[slug]` com tipografia mais confortável, layout preparado para navegação lateral e índice de seções gerado a partir dos blocos do Notion.
 
 ## Contexto
 
-A leitura é a ação central do jardim digital. A página atual é funcional mas não oferece orientação ao leitor — sem índice, sem contexto de onde aquela nota se encaixa no jardim. A referência é o padrão de wikis e ferramentas como Obsidian Publish.
+A página de post já renderiza conteúdo do Notion, mas ainda lê como uma página simples. Para o jardim digital, a leitura precisa ganhar orientação: o leitor deve entender onde está no texto e navegar por seções sem depender só da rolagem.
 
----
+O plano original colocava também uma navegação wiki à esquerda. Essa parte depende do modelo real do jardim digital, então fica registrada como evolução futura ligada ao PLAN-005, não como entrega obrigatória deste plano.
 
-## Arquivos Afetados
+## Escopo
 
-| Arquivo | Ação | Descrição |
-|---------|------|-----------|
-| `src/app/(pages)/posts/[slug]/page.tsx` | modificar | Adicionar layout com sidebars |
-| `src/components/frames/PostLayout/` | criar | Layout de 3 colunas: wiki / conteúdo / índice |
-| `src/components/frames/TableOfContents/` | criar | Índice gerado a partir dos headings do post |
-| `src/components/frames/WikiNav/` | criar | Navegação lateral esquerda com notas relacionadas |
-| `src/lib/notion/` | modificar | Extrair headings dos blocos para gerar o índice |
-| `src/styles/` | modificar | Tipografia e contraste da área de leitura |
-| `src/components/index.ts` | modificar | Exportar novos componentes |
+- revisar tipografia, espaçamento e contraste da área de leitura;
+- criar um layout de leitura que suporte conteúdo principal e sidebar de índice em desktop;
+- extrair headings dos blocos do Notion e gerar âncoras;
+- implementar índice lateral com estado ativo durante a leitura, se o custo client-side for aceitável;
+- definir comportamento mobile sem exigir a navegação wiki ainda.
 
----
+## Fora do escopo
 
-## Critério de Conclusão
+- navegação wiki entre notas do jardim — depende do PLAN-005;
+- busca dentro do jardim;
+- comentários, reações ou edição inline;
+- mudança do schema dos posts no Notion.
 
-- [ ] Tipografia da área de leitura revisada (font, tamanho, line-height, contraste)
-- [ ] Layout de 3 colunas implementado em desktop
-- [ ] Sidebar direita com índice gerado automaticamente a partir dos headings do post
-- [ ] Índice com scroll spy (destaca a seção atual durante a leitura)
-- [ ] Sidebar esquerda com navegação wiki (notas relacionadas ou todas as notas do jardim)
-- [ ] Layout colapsado corretamente em mobile (sidebars ocultadas ou em drawer)
-- [ ] `pnpm lint` sem erros
+## Áreas afetadas
 
----
+| Área | Ação | Observação |
+|------|------|------------|
+| `src/app/(pages)/posts/[slug]/page.tsx` | modificar | passar headings/anchors para o layout |
+| `src/app/(pages)/posts/[slug]/style.scss` | modificar | tipografia e responsividade |
+| `src/components/frames/PostLayout/` | criar | layout de leitura, se fizer sentido extrair |
+| `src/components/frames/TableOfContents/` | criar | índice a partir dos headings |
+| `src/lib/notion/components/PageRenderer/` | revisar | garantir IDs/âncoras em headings |
+| `src/components/index.ts` | modificar | exportar componentes novos quando existirem |
 
-## Fora do Escopo
+## Backlog
 
-- Sistema de busca dentro do jardim
-- Comentários ou interações na página
-- Edição inline de conteúdo
+- [ ] Revisar tipografia e espaçamento da área de leitura.
+- [ ] Criar layout de leitura com conteúdo e índice lateral.
+- [ ] Gerar âncoras e índice a partir de `heading_1`, `heading_2` e `heading_3`.
+- [ ] Adicionar estado ativo no índice durante a rolagem, se couber bem no modelo de componentes.
+- [ ] Validar mobile, acessibilidade do índice e build.
 
----
-
-## Riscos e Dependências
+## Riscos e dependências
 
 | Tipo | Descrição |
 |------|-----------|
-| Dependência de plano | PLAN-002 (refactor Notion) facilita extração de headings |
-| Dependência de plano | PLAN-006 (jardim digital) define quais notas aparecem na wiki nav |
-| Risco | Scroll spy pode ter comportamento irregular com blocos do Notion renderizados dinamicamente |
-| Risco | Layout 3 colunas pode ser pesado em telas menores — precisa de estratégia clara de responsividade |
+| Dependência parcial | PLAN-002 ajuda se a extração de blocos/headings precisar de tipos melhores. |
+| Risco | Scroll spy exige client-side e deve ficar isolado para não transformar a page inteira em client component. |
+| Risco | Headings vindos do Notion podem ter textos repetidos; anchors precisam lidar com colisão. |
+| Risco | Layout com sidebar pode ficar pesado em mobile se não houver estratégia simples. |
 
----
+## Notas de implementação
 
-## Notas de Implementação
+- Gerar anchors estáveis a partir do texto do heading e resolver colisões com sufixo incremental.
+- O índice pode ser server-rendered; apenas o destaque ativo precisa de client-side.
+- No mobile, preferir índice colapsado ou link de navegação simples antes de drawer complexo.
+- Wiki nav à esquerda só deve voltar quando o PLAN-005 definir o domínio de notas e estágios.
 
-- Índice: extrair blocos do tipo `heading_1`, `heading_2`, `heading_3` do retorno do Notion e gerar âncoras
-- Scroll spy: `IntersectionObserver` com threshold nos headings
-- Wiki nav: a princípio listar todas as notas do jardim com título e estágio (semente, broto, etc.)
-- Considerar sticky nas sidebars com `position: sticky; top: Xrem`
+## Conhecimentos consolidados
 
----
+- A página de leitura é uma frente própria, mas não deve assumir o modelo completo do jardim antes do PLAN-005.
+- `TableOfContents` é uma entrega real; `WikiNav` ainda é uma decisão dependente de produto/dados.
+- Validação de responsividade é critério de fechamento, não task isolada por si só.
 
-## Log de Execução
+## Perguntas para evoluir este plano
+
+- O índice deve mostrar apenas H2/H3 ou também H1?
+- O destaque ativo por scroll é indispensável no MVP ou pode vir depois?
+- Quando o PLAN-005 existir, a navegação wiki deve aparecer neste layout ou em uma página de jardim separada?
+
+## Referências
+
+- [`docs/patterns/pages.md`](../../patterns/pages.md)
+- [`docs/patterns/componentes.md`](../../patterns/componentes.md)
+- [`docs/product/notion/framework.md`](../../product/notion/framework.md)
+
+## Log de execução
 
 | Data | O que foi feito |
 |------|-----------------|
-| — | — |
+| 2026-04-19 | Plano revisado para remover dependência incorreta do PLAN-006 e adiar WikiNav para depois do PLAN-005. |

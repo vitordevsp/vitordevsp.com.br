@@ -2,80 +2,96 @@
 
 ## Status
 
-| Campo        | Valor      |
-|--------------|------------|
-| Status       | pendente |
-| Criado em    | 2025-01-18 |
+| Campo | Valor |
+|------|------|
+| Status | pendente |
+| Criado em | 2026-04-19 |
+| Atualizado em | 2026-04-19 |
 | Concluído em | — |
-
----
 
 ## Objetivo
 
-Criar a página `/cursos` listando os cursos disponíveis, com suporte a lista de espera por e-mail para cursos ainda não lançados.
-
----
+Criar `/cursos` para listar cursos disponíveis e permitir lista de espera para cursos ainda não lançados, depois de decidir de forma explícita onde os emails serão armazenados.
 
 ## Contexto
 
-Alguns cursos estarão disponíveis para acesso direto, outros ainda em desenvolvimento. Para os segundos, o visitante deve poder deixar o e-mail para ser notificado quando o curso abrir — sem precisar de uma plataforma externa de e-mail nesse primeiro momento, apenas coletar e armazenar o interesse.
+As notas originais pedem uma página de cursos com lista de espera por email. A parte visual é simples, mas o armazenamento de emails cria responsabilidade nova: validação, abuso, privacidade e destino dos dados.
 
----
+Por isso, o plano começa com a decisão de modelo de dados e armazenamento antes de implementar o route handler.
 
-## Arquivos Afetados
+## Escopo
 
-| Arquivo | Ação | Descrição |
-|---------|------|-----------|
-| `src/app/(pages)/cursos/page.tsx` | criar | Página principal de cursos |
-| `src/app/(pages)/cursos/[slug]/page.tsx` | criar | Página individual do curso (se necessário) |
-| `src/components/frames/CardCurso/` | criar | Card de curso com status e CTA |
-| `src/components/frames/ListaEspera/` | criar | Formulário de lista de espera por e-mail |
-| `src/app/api/lista-espera/route.ts` | criar | Route handler para salvar o e-mail |
-| `src/lib/notion/domains/cursos/` | criar | Types e queries para cursos do Notion |
-| `src/components/index.ts` | modificar | Exportar novos componentes |
+- definir schema de cursos e lista de espera;
+- criar domínio Notion de cursos quando a base de domínios estiver pronta;
+- criar `/cursos` com cards de cursos disponíveis e em breve;
+- criar UI de lista de espera com estados de sucesso/erro;
+- implementar route handler somente depois de escolhido o destino dos emails;
+- validar responsividade, acessibilidade básica do formulário e build.
 
----
+## Fora do escopo
 
-## Critério de Conclusão
+- plataforma de pagamento;
+- área do aluno;
+- autenticação;
+- envio de email de confirmação;
+- automação de marketing ou newsletter.
 
-- [ ] Página `/cursos` listando todos os cursos com dados do Notion
-- [ ] Card de curso exibindo: título, descrição, status (disponível / em breve)
-- [ ] Para cursos "em breve": formulário de lista de espera com campo de e-mail
-- [ ] Route handler salvando os e-mails (definir destino: Notion, arquivo, serviço externo)
-- [ ] Feedback visual após submissão do formulário (sucesso / erro)
-- [ ] Responsivo nos breakpoints do projeto
-- [ ] `pnpm lint` sem erros
+## Áreas afetadas
 
----
+| Área | Ação | Observação |
+|------|------|------------|
+| `src/app/(pages)/cursos/page.tsx` | criar | página principal |
+| `src/app/(pages)/cursos/[slug]/page.tsx` | opcional | só criar se houver detalhe real de curso |
+| `src/components/frames/CardCurso/` | criar | card com status e CTA |
+| `src/components/frames/ListaEspera/` | criar | formulário de email |
+| `src/app/api/lista-espera/route.ts` | criar | apenas depois da decisão de armazenamento |
+| `src/lib/notion/domains/cursos/` | criar | types e queries de cursos |
+| `docs/product/notion/data-sources.md` | atualizar | registrar schema de cursos/lista |
 
-## Fora do Escopo
+## Backlog
 
-- Plataforma de pagamento ou acesso ao conteúdo do curso
-- Envio de e-mail de confirmação (apenas coleta por enquanto)
-- Área do aluno ou autenticação
+- [ ] Definir schema de cursos, status e armazenamento da lista de espera.
+- [ ] Criar domínio de cursos e página `/cursos` com cards.
+- [ ] Criar formulário de lista de espera com estados de envio.
+- [ ] Implementar route handler com validação e proteção mínima contra abuso.
+- [ ] Validar responsividade, acessibilidade do formulário e build.
 
----
-
-## Riscos e Dependências
+## Riscos e dependências
 
 | Tipo | Descrição |
 |------|-----------|
-| Dependência de plano | PLAN-002 (refactor Notion) deve estar concluído |
-| Dependência externa | Definir onde os e-mails serão armazenados (Notion DB, planilha, Resend, etc.) |
-| Risco | Formulário de e-mail sem rate limiting pode ser abusado — avaliar proteção mínima |
+| Dependência de plano | PLAN-002 deve orientar a organização do domínio `cursos`. |
+| Decisão pendente | Destino dos emails: Notion DB, planilha, serviço externo ou outro armazenamento. |
+| Risco | Coletar email sem política mínima de armazenamento/erro cria dívida de produto e privacidade. |
+| Risco | Rate limiting em ambiente serverless precisa ser definido com ferramenta compatível com deploy. |
 
----
+## Notas de implementação
 
-## Notas de Implementação
+- Status mínimo do curso: `disponivel` e `em_breve`.
+- O formulário não deve existir como backend fake. Se não houver destino decidido, a UI pode ficar preparada mas sem submissão real.
+- Se Notion for o destino inicial, documentar o banco de lista de espera em `docs/product/notion/data-sources.md`.
+- Validar email no server, não apenas no client.
 
-- Status do curso: propriedade `select` no Notion com valores `disponivel` e `em_breve`
-- Lista de espera: a decisão de onde salvar os e-mails precisa ser tomada antes de implementar o route handler — registrar em `docs/decisions.md`
-- Considerar Notion como destino inicial (banco simples com e-mail + curso + data) para não depender de serviço externo
+## Conhecimentos consolidados
 
----
+- Página de cursos é uma frente de produto; lista de espera adiciona backend e decisão de dados.
+- O route handler não deve nascer antes da decisão de armazenamento.
+- Responsividade e lint/build são critérios de fechamento, não tasks pequenas independentes.
 
-## Log de Execução
+## Perguntas para evoluir este plano
+
+- Qual será o destino inicial dos emails da lista de espera?
+- Haverá página individual de curso já no MVP ou só cards na listagem?
+- O CTA de curso disponível aponta para onde: link externo, página interna ou contato?
+
+## Referências
+
+- [`docs/plans/notes.md`](../notes.md)
+- [`docs/patterns/pages.md`](../../patterns/pages.md)
+- [`docs/patterns/services.md`](../../patterns/services.md)
+
+## Log de execução
 
 | Data | O que foi feito |
 |------|-----------------|
-| — | — |
+| 2026-04-19 | Plano revisado para separar página visual, domínio de dados e decisão de armazenamento da lista de espera. |
