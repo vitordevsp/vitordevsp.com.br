@@ -1,9 +1,10 @@
 import { NotionRichTextNode } from "../pages/types"
 
-// ------------------------------
-// Tipos de Blocks (essenciais para blog)
-// ------------------------------
+// MARK: Block base
 
+// Base comum a todos os blocks. Os subtipos exportados abaixo cobrem o subset
+// essencial para posts de blog — tipos fora desta lista (bookmark, embed,
+// table, etc.) caem no fallback genérico do `PageRenderer`.
 type NotionBlockBase = {
   object: "block";
   id: string;
@@ -119,9 +120,7 @@ export type AnyNotionBlock =
   | DividerBlock
   | NotionBlockBase; // fallback p/ tipos não mapeados ainda
 
-// ------------------------------
-// Opções e resposta padronizada
-// ------------------------------
+// MARK: Opções e resposta
 
 export type GetBlockChildrenOptions = {
   pageSize?: number;     // paginação

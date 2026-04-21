@@ -1,8 +1,8 @@
-// ------------------------------
-// title: Properties de paginas e banco de dados
-// description: Um banco de dados ou pagina tem suas props com as possibilidades de configuração do Notion
-// cada propriedade tem um tipo específico e um valor específico que é definido no CMS
-// ------------------------------
+// MARK: Rich text e propriedades de página
+
+// Um banco de dados ou página tem suas props com as possibilidades de configuração
+// do Notion. Cada propriedade tem um tipo específico (title, rich_text, select,
+// multi_select, date, files, etc.) e um valor específico definido no CMS.
 
 export type NotionRichTextNode = {
   type: "text"
@@ -113,11 +113,9 @@ export type NotionPropertiesSchema = Record<string, NotionAnyProperty>
 // Helper de verificação de tipos (gera erro em compile-time se não bater)
 export type EnsureNotionPropertiesSchema<P extends NotionPropertiesSchema> = P
 
-// ------------------------------
-// title: NotionPage
-// description: Página do Notion com propriedades tipadas
-// ------------------------------
+// MARK: NotionPage
 
+/** Página do Notion com propriedades tipadas pelo schema `P`. */
 export type NotionPage<P extends NotionPropertiesSchema> = {
   object: "page"
   id: string

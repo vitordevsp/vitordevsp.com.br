@@ -1,5 +1,22 @@
 import { QueryFilter } from "./types"
 
+// MARK: API pública
+
+/**
+ * Converte a DSL interna de filtros em um filtro aceito pela API do Notion.
+ *
+ * Aceita três formas:
+ * - filtro único (`PropFilter`)
+ * - array de filtros (tratado como `and`)
+ * - árvore com `and`/`or` aninhados
+ *
+ * Passadas aplicadas ao input:
+ * 1. `build` — cada `PropFilter` vira o shape nativo do Notion, valores vazios viram `undefined`
+ * 2. `flattenSameOps` — grupos com mesmo operador aninhados são achatados (`and(and(a,b),c)` → `and(a,b,c)`)
+ * 3. `collapseShallow` — grupos com 0 ou 1 item viram o próprio item ou `undefined`
+ *
+ * Ver [specs](./specs.md) para o comportamento detalhado de cada tipo de operador.
+ */
 export function toNotionFilter(input?: QueryFilter | QueryFilter[]): any | undefined {
   if (!input) return undefined
   const node = Array.isArray(input) ? { and: input } : input
@@ -8,6 +25,8 @@ export function toNotionFilter(input?: QueryFilter | QueryFilter[]): any | undef
   const collapsed = collapseShallow(flattened)
   return collapsed
 }
+
+// MARK: Build recursivo
 
 function build(node: QueryFilter): any | undefined {
   if ("raw" in node) return node.raw
@@ -79,7 +98,7 @@ function build(node: QueryFilter): any | undefined {
   }
 }
 
-/* ----------------- Helpers de limpeza ----------------- */
+// MARK: Helpers de limpeza
 
 function isEmptyString(v: unknown) {
   return typeof v === "string" ? v.trim() === "" : v == undefined
@@ -145,7 +164,7 @@ function collapseShallow(v: any): any | undefined {
   return v
 }
 
-/* ----------------- mapeadores por tipo ----------------- */
+// MARK: Mapeadores por tipo
 
 function mapText(n: { op: string; value?: string }) {
   const { op, value } = n

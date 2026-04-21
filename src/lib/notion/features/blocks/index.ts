@@ -2,15 +2,18 @@ import { notion } from "@/lib/notion"
 import type { NotionRichTextNode } from "../pages/types"
 import type { AnyNotionBlock, BlockChildrenResponse, GetBlockChildrenOptions } from "./types"
 
-// ------------------------------
-// Leitura paginada de filhos de um block (ex.: pageId)
-// ------------------------------
+// MARK: Leitura paginada
 
 /**
- * Lê UM "page" de blocks (children) com paginação, tipado.
- * Use o pageId como block_id para ler o conteúdo da página.
+ * Lê uma página de children (cursor-based pagination) de um block ou page.
  *
- * Doc: Retrieve block children (cursor-based pagination).
+ * Use `blockId = pageId` para ler o conteúdo de uma página.
+ *
+ * @param blockId id do block (ou page) pai
+ * @param opts `pageSize` default 100 (max 100), `startCursor` para próximas páginas
+ * @returns `{ results, nextCursor, hasMore }` — tipado com `T` (default `AnyNotionBlock`)
+ *
+ * @see https://developers.notion.com/reference/get-block-children
  */
 export async function getBlockChildren<T extends AnyNotionBlock = AnyNotionBlock>(
   blockId: string,
@@ -29,22 +32,27 @@ export async function getBlockChildren<T extends AnyNotionBlock = AnyNotionBlock
   }
 }
 
-// ------------------------------
-// Helper para buscar TODOS os blocks (varrendo paginação)
-// ------------------------------
+// MARK: Leitura recursiva
 
 /**
- * Busca TODOS os children de um block (varre a paginação).
- * Importante: se um item tiver `has_children = true`, você pode
- * (opcionalmente) buscar também os netos recursivamente (vide `deep=true`).
+ * Busca todos os children de um block varrendo a paginação.
  *
- * Para blog, normalmente você:
- * 1) chama com pageId (page é um block pai),
- * 2) renderiza os children em ordem,
- * 3) quando `has_children` for true (listas/toggles), busca os filhos.
+ * Com `deep: true`, também busca filhos de blocks que têm `has_children: true`
+ * e anexa em `__children` — necessário para renderizar toggles, listas com
+ * sub-itens, callouts com conteúdo, etc.
  *
- * Doc: A doc ressalta que para ter a representação completa de um block,
- * pode ser necessário buscar recursivamente seus filhos.
+ * **Custo**: sem `deep`, 1 request por página de resultados. Com `deep`, N
+ * requests adicionais (um por subtree). Leitura sequencial hoje — a
+ * paralelização com limite de concorrência está planejada no PLAN-002-T001.
+ *
+ * Fluxo típico em blog:
+ * 1. Chama com o `pageId` e `{ deep: true }`.
+ * 2. Entrega os blocks em ordem ao `PageRenderer`.
+ * 3. O renderer consome `__children` nos blocks que têm `has_children: true`
+ *    (listas aninhadas, toggles, callouts com conteúdo).
+ *
+ * @param blockId id do block (ou page) pai
+ * @param opts `deep` (default false) — buscar filhos recursivamente
  */
 export async function getAllBlockChildren<T extends AnyNotionBlock = AnyNotionBlock>(
   blockId: string,
@@ -61,21 +69,23 @@ export async function getAllBlockChildren<T extends AnyNotionBlock = AnyNotionBl
 
   if (!deep) return acc
 
-  // Busca filhos de quem tem has_children = true
   const withChildren = acc.filter(b => (b as AnyNotionBlock).has_children)
   for (const parent of withChildren) {
     const children = await getAllBlockChildren<T>(parent.id, { deep: true })
-      // você pode anexar em runtime (não muda o shape da API)
+      // anexa em runtime; shape consumido pelo PageRenderer via `__children`
       ; (parent as any).__children = children
   }
 
   return acc
 }
 
-// ------------------------------
-// Utilidades para render (ex.: transformar rich_text em string)
-// ------------------------------
+// MARK: Utilidades de render
 
+/**
+ * Concatena `plain_text` de nodes de rich text em uma string única.
+ * Ignora links, annotations, equações e menções — útil para `alt`, `title`
+ * ou busca plain-text sobre conteúdo do Notion.
+ */
 export function richTextToPlain(nodes: NotionRichTextNode[]): string {
   return nodes.map(n => n.plain_text).join("")
 }

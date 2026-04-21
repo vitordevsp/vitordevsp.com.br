@@ -2,7 +2,11 @@ import * as React from "react"
 import style from "./style.module.css"
 import { richTextRender } from "../RichTextRender"
 
-// TIPOS (reaproveita sua base + fallback)
+// MARK: Tipos
+
+// Shapes mínimos consumidos pelo renderer (reaproveita a base do Notion +
+// fallback `[k: string]: any` para tipos ainda não modelados).
+
 type BaseBlock = {
   object: "block"
   id: string
@@ -43,6 +47,30 @@ type Ctx = {
   richTextRender: (nodes: RichTextNode[]) => React.ReactNode
 }
 
+// MARK: Entrypoint
+
+/**
+ * Renderiza um array de blocks do Notion em JSX, envolvido em `<article>`.
+ *
+ * Tipos suportados nativamente: paragraph, heading_1/2/3, bulleted_list_item,
+ * numbered_list_item, quote, callout, code, image, divider, to_do, toggle.
+ * Outros tipos caem em fallback silencioso (`<div data-notion-unknown="...">`).
+ *
+ * Blocks com filhos (toggles, listas com sub-itens, callouts com conteúdo,
+ * headings toggleable, to_do com sub-itens) esperam que `__children` já tenha
+ * sido populado — use `getAllBlockChildren(pageId, { deep: true })` antes.
+ *
+ * Itens de lista adjacentes do mesmo tipo são agrupados num único `<ul>`/`<ol>`.
+ *
+ * Override de tipos específicos via `overrides`:
+ * ```tsx
+ * <PageRenderer blocks={blocks} overrides={{
+ *   code: (block, ctx) => <MyPrismCode block={block} />,
+ * }} />
+ * ```
+ *
+ * Ver [specs.md](./specs.md) para o contrato completo.
+ */
 export function PageRenderer({ blocks, overrides }: PageRendererProps) {
   const ctx: Ctx = React.useMemo(
     () => ({ renderBlocks: (bs) => <BlockList blocks={bs} ctx={{ renderBlocks: (cs) => <BlockList blocks={cs} ctx={ctx} />, richTextRender }} />, richTextRender }),
@@ -55,9 +83,7 @@ export function PageRenderer({ blocks, overrides }: PageRendererProps) {
   )
 }
 
-// ------------------------------
-// Lista de blocks com agrupamento de listas
-// ------------------------------
+// MARK: Lista de blocks (com agrupamento de listas)
 
 function BlockList({
   blocks,
@@ -100,9 +126,9 @@ function BlockList({
   )
 }
 
-// ------------------------------
-// Agrupa sequências contíguas do mesmo tipo de item de lista em um único UL/OL
-// ------------------------------
+// MARK: Agrupamento de sequências de lista
+
+// Sequências contíguas do mesmo tipo viram um único UL/OL.
 
 function groupListSequences(blocks: BaseBlock[]) {
   type Single = { kind: "single"; block: BaseBlock }
@@ -129,9 +155,7 @@ function groupListSequences(blocks: BaseBlock[]) {
   return out
 }
 
-// ------------------------------
-// Render de itens de lista (li) + filhos recursivos
-// ------------------------------
+// MARK: Itens de lista (li) + filhos recursivos
 
 function ListItem({ block, ctx, overrides }: { block: BaseBlock; ctx: Ctx; overrides?: PageRendererProps["overrides"] }) {
   const childKey = block.type as keyof NonNullable<typeof overrides>
@@ -165,9 +189,10 @@ function ListItem({ block, ctx, overrides }: { block: BaseBlock; ctx: Ctx; overr
   )
 }
 
-// ------------------------------
-// Render genérico de block (switch por tipo)
-// ------------------------------
+// MARK: Render por tipo de block
+
+// Switch por `block.type` — cada case emite o JSX equivalente. Tipos fora do
+// switch caem em `<div data-notion-unknown>` (fallback silencioso).
 
 function Block({ block, ctx, overrides }: { block: BaseBlock; ctx: Ctx; overrides?: PageRendererProps["overrides"] }) {
   const key = block.type as keyof NonNullable<typeof overrides>
@@ -321,9 +346,7 @@ function Block({ block, ctx, overrides }: { block: BaseBlock; ctx: Ctx; override
   }
 }
 
-// ------------------------------
-// Helpers
-// ------------------------------
+// MARK: Helpers
 
 function plainText(nodes: RichTextNode[]) {
   return nodes.map((n) => n.plain_text).join("")

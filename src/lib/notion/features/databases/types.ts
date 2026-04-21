@@ -1,9 +1,8 @@
 import { NotionPropertiesSchema } from "@/lib/notion"
 
-// ------------------------------
-// title: Functions
-// description: tipos de entrada e saida de dados para consultas em bancos de dados do Notion
-// ------------------------------
+// MARK: Entrada e saída de query
+
+// Tipos de entrada e saída de dados para consultas em bancos de dados do Notion.
 
 export type GetDatabaseItemsOptions<P extends NotionPropertiesSchema = NotionPropertiesSchema> = {
   startCursor?: string                 // paginação
@@ -19,11 +18,10 @@ export type DatabaseItemsResponse<T> = {
   hasMore: boolean
 }
 
-// ------------------------------
-// title: Where (filter)
-// description: construção de queries para buscas no Notion
-// ------------------------------
+// MARK: Where (DSL de filtros)
 
+// Blocos para construção de queries com filtros tipados: operadores por tipo,
+// composição via `and`/`or` e variante "leve" que amarra `property` ao schema P.
 // Operadores por tipo (subset útil para blog; dá pra expandir depois)
 type TextOps =
   | { op: "contains" | "does_not_contain" | "equals" | "does_not_equal" | "starts_with" | "ends_with" }
@@ -86,11 +84,9 @@ export type WhereFor<P extends NotionPropertiesSchema> =
   | LiftPropFilterToSchema<P>
   | LiftPropFilterToSchema<P>[]
 
-// ------------------------------
-// title: Sorts
-// description: ordenar os resultados
-// ------------------------------
+// MARK: Sorts
 
+// Shapes para ordenar os resultados da query, por propriedade ou por timestamp.
 // Direção do sort (oficial Notion)
 export type NotionSortDirection = "ascending" | "descending"
 

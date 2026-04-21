@@ -16,13 +16,15 @@ export type RichTextNode = {
 }
 
 /**
- * Renderizador de rich_text do Notion.
- * - Respeita links (text.link.url ou href)
- * - Aplica anotações (bold, italic, underline, strikethrough, code)
- * - Aplica classes de cor/background (ex.: notion-color-blue, notion-bg-yellow)
+ * Converte um array de rich_text do Notion em JSX.
  *
- * Uso:
- *   <PageRenderer blocks={blocks} richTextRender={richTextRender} />
+ * - Links (via `text.link.url` ou `href`) viram `<a target="_blank" rel="noopener noreferrer">`
+ * - Annotations viram wrappers: `strong`, `em`, `s`, `u`, `code`
+ * - Cores viram classes CSS: `notion-color-<name>` e `notion-bg-<name>`
+ * - `\n` dentro do conteúdo vira `<br>` (mantém quebras de linha do Notion)
+ * - Tipos não-`text` (mention, equation, etc.) caem em fallback que só renderiza `plain_text`
+ *
+ * Consumido pelo `PageRenderer` para renderizar todo trecho inline dos blocks.
  */
 export function richTextRender(nodes: RichTextNode[]): React.ReactNode {
   if (!nodes || !nodes?.length) return null
