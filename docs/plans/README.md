@@ -54,6 +54,7 @@ Planos nascem sempre como pasta:
 PLAN-NNN-descricao-curta/
   README.md        ← objetivo, contexto, escopo, riscos, log de execucao
   board.md         ← tabela resumida das tasks (id, descricao, status, dependencias)
+  questions.md     ← perguntas em aberto; respostas migram para tasks e o item sai
   tasks/           ← tarefas atomicas do plano, uma por arquivo
   logs.md          ← opcional
   conhecimentos.md ← opcional
@@ -106,7 +107,7 @@ Cada plano deve ter, no mínimo:
 Sempre que houver aprendizado reaproveitável, incluir também:
 
 11. conhecimentos consolidados
-12. perguntas para evoluir este plano
+12. ponteiro para `questions.md` com perguntas em aberto
 
 ## Template base
 

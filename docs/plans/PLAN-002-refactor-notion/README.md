@@ -48,11 +48,13 @@ Algumas melhorias são independentes e podem acontecer antes do fim do PLAN-001.
 
 ## Backlog
 
-- [ ] Paralelizar e tipar `getAllBlockChildren` com `deep: true`.
-- [ ] Corrigir `generateNotionPageID` para extrair ID por regex/tamanho fixo.
-- [ ] Revisar casts nos wrappers de database/page sem criar abstração maior que o problema.
-- [ ] Criar domínios de posts, vídeos e projetos após PLAN-001.
-- [ ] Validar build, rotas de posts e rotas migradas do Notion.
+- [ ] P002-T001 — Melhorar concorrência e tipagem de `getAllBlockChildren` (respeitando rate limit).
+- [ ] P002-T002 — Corrigir `generateNotionPageID` para extrair ID por regex/tamanho fixo.
+- [ ] P002-T003 — Revisar casts nos wrappers de database/page sem criar abstração maior que o problema.
+- [ ] P002-T006 — Fixar `Notion-Version` explicita no client.
+- [ ] P002-T007 — Migrar wrapper de database para `data_sources.query` (2025-09-03).
+- [ ] P002-T004 — Criar domínios de posts, vídeos e projetos após PLAN-001.
+- [ ] P002-T005 — Validar build, rotas de posts e rotas migradas do Notion.
 
 ## Riscos e dependências
 
@@ -60,7 +62,8 @@ Algumas melhorias são independentes e podem acontecer antes do fim do PLAN-001.
 |------|-----------|
 | Dependência parcial | A etapa de domínios depende do PLAN-001 concluído. |
 | Risco | Tipagem do SDK Notion mistura `PageObjectResponse` e respostas parciais; remover casts sem cuidado pode piorar a API local. |
-| Risco | Paralelizar blocos aninhados aumenta requests simultâneos ao Notion; observar limites da API. |
+| Risco | Paralelizar blocos aninhados aumenta requests simultâneos ao Notion; rate limit oficial é **3 req/s em média** com burst, 429 traz `Retry-After`. Um `Promise.all` cego numa página com muitos toggles/listas pode cruzar o limite. |
+| Risco | A versão da API muda o contrato. A lib hoje não fixa `Notion-Version` e herda o default do SDK. A partir de **2025-09-03**, databases passaram a expor `data_sources`, e o endpoint canônico virou `POST /v1/data_sources/{id}/query` — `notion.databases.query` ainda funciona em alguns cenários mas não é mais o caminho principal. |
 
 ## Notas de implementação
 
@@ -99,21 +102,23 @@ const NOTION_ID_REGEX = /[0-9a-f]{32}$/i
 - O refactor por domínio é útil, mas só fica limpo depois que vídeos e projetos saírem do legacy.
 - Nem todo `as any` deve virar task isolada; a unidade útil é o contrato do wrapper.
 - `getAllBlockChildren` é ponto sensível porque afeta diretamente a página de leitura.
+- A doc oficial foi espelhada em [docs/resources/notion-docs/](../../resources/notion-docs/) (snapshot 2026-04-21). As tasks deste plano linkam direto para as páginas relevantes.
 
-## Perguntas para evoluir este plano
+## Perguntas em aberto
 
-- Os tipos de `PostProps`, `VideoProps` e `ProjectProps` devem morar em `src/types/notion.type.ts` ou dentro de cada domínio?
-- O domínio deve exportar apenas queries prontas ou também helpers de parsing para componentes?
-- Vale criar teste unitário para `generateNotionPageID` antes de mexer no comportamento?
+Perguntas, dúvidas e lacunas vivem em [`questions.md`](./questions.md). Respostas migram para as tasks ou notas de implementação e o item sai do arquivo.
+
 
 ## Referências
 
 - [`docs/patterns/services.md`](../../patterns/services.md)
 - [`docs/patterns/tipagem.md`](../../patterns/tipagem.md)
 - [`docs/product/notion/framework.md`](../../product/notion/framework.md)
+- [`docs/resources/notion-docs/`](../../resources/notion-docs/) — clone local da doc oficial (snapshot 2026-04-21)
 
 ## Log de execução
 
 | Data | O que foi feito |
 |------|-----------------|
 | 2026-04-19 | Plano revisado para separar melhorias independentes da reorganização por domínio pós-PLAN-001. |
+| 2026-04-21 | Incorporado conhecimento da doc oficial: rate limits, versão `2026-03-11`, mudança 2025-09-03 (data sources), cobertura atual de block types, endpoint `retrieve-page-markdown` como alternativa ao renderer. |

@@ -25,6 +25,8 @@ O site está sendo transformado em um jardim digital alimentado pelo Notion. A i
 
 O plano original tentava resolver muitas subpáginas, filtros e componentes de uma vez. A versão revisada separa primeiro o contrato de conteúdo e depois a UI.
 
+O mapa inicial das bases do Notion está registrado em [`docs/product/jardim-digital-notion-resume.md`](../../product/jardim-digital-notion-resume.md). Ele lista a página raiz do jardim e as bases já criadas para livros, cultura, viagens/lugares, textos, vídeos, cursos e projetos.
+
 ## Escopo
 
 - definir o schema mínimo do jardim no Notion;
@@ -56,7 +58,7 @@ O plano original tentava resolver muitas subpáginas, filtros e componentes de u
 
 ## Backlog
 
-- [ ] Definir schema mínimo do jardim e domínio Notion.
+- [ ] Definir schema mínimo do jardim e domínio Notion usando o mapa de bases do Notion como referência inicial.
 - [ ] Criar shell de `/jardim` e navegação entre subpáginas iniciais.
 - [ ] Implementar estágios de nota e texto explicativo do jardim.
 - [ ] Implementar filtros por ano e ordem nas listagens.
@@ -69,6 +71,7 @@ O plano original tentava resolver muitas subpáginas, filtros e componentes de u
 |------|-----------|
 | Dependência de plano | PLAN-002 deve definir a organização por domínios antes do domínio `jardim`. |
 | Dependência externa | O Notion precisa ter propriedades estáveis para estágio, ano, categoria e ordem. |
+| Dependência documental | `docs/product/jardim-digital-notion-resume.md` deve continuar atualizado com IDs reais das bases do jardim. |
 | Risco | Cada subpágina pode querer schema próprio; forçar um único modelo cedo demais pode criar retrabalho. |
 | Risco | O conceito de jardim pode virar texto explicativo demais na UI; a página precisa ser navegável antes de ser didática. |
 
@@ -83,18 +86,18 @@ O plano original tentava resolver muitas subpáginas, filtros e componentes de u
 ## Conhecimentos consolidados
 
 - Jardim digital é uma frente de produto e conteúdo, não só uma página nova.
-- O schema do Notion precisa vir antes das subpáginas especiais.
+- O jardim já tem uma página raiz no Notion e bases separadas para livros, cultura, viagens/lugares, textos, vídeos, cursos e projetos.
+- O schema do Notion precisa ser derivado das bases reais antes das subpáginas especiais.
+- Os IDs de database do jardim estão documentados em `docs/product/jardim-digital-notion-resume.md`; os `data_source_id` internos ainda não foram confirmados via API.
 - A navegação wiki do PLAN-004 depende deste plano, mas não deve bloquear a primeira melhoria da leitura.
 
-## Perguntas para evoluir este plano
+## Perguntas em aberto
 
-- O jardim será um banco único no Notion ou várias bases por tipo de conteúdo?
-- Quais subpáginas são realmente MVP: marcos, ensaios, trilha, vídeos, posts e padrões ou só um subconjunto inicial?
-- O texto explicativo do jardim será uma página estática do site ou uma nota vinda do Notion?
+Perguntas, dúvidas e lacunas vivem em [`questions.md`](./questions.md). Respostas migram para as tasks ou notas de implementação e o item sai do arquivo.
 
 ## Referências
 
-- [`docs/plans/notes.md`](../notes.md)
+- [`docs/product/jardim-digital-notion-resume.md`](../../product/jardim-digital-notion-resume.md)
 - [`docs/product/notion/data-sources.md`](../../product/notion/data-sources.md)
 - [`docs/patterns/pages.md`](../../patterns/pages.md)
 
@@ -103,3 +106,4 @@ O plano original tentava resolver muitas subpáginas, filtros e componentes de u
 | Data | O que foi feito |
 |------|-----------------|
 | 2026-04-19 | Plano revisado para priorizar schema/domínio antes de subpáginas específicas. |
+| 2026-04-19 | Adicionada referência ao mapa das bases do jardim digital no Notion. |

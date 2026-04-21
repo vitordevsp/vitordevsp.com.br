@@ -105,11 +105,9 @@ const videoUrl = `https://www.youtube.com/watch?v=${id}`
 - Vídeos e projetos ainda usam services legacy importados diretamente pelas pages.
 - `NOTION_DB_VIDEOS` e `NOTION_DB_PROJECTS` já aparecem em `.env.example`, mas os IDs reais precisam ser validados fora do repositório.
 
-## Perguntas para evoluir este plano
+## Perguntas em aberto
 
-- Algum consumidor externo chama `/api/notion/posts`, `/api/notion/videos`, `/api/notion/projects` ou `/api/notion/contents`?
-- `NOTION_KEY` e `NOTION_TOKEN` têm exatamente o mesmo acesso no Notion?
-- A home deve continuar exibindo apenas projetos em destaque via propriedade `Destaque`?
+Perguntas, dúvidas e lacunas vivem em [`questions.md`](./questions.md). Respostas migram para as tasks ou notas de implementação e o item sai do arquivo.
 
 ## Referências
 

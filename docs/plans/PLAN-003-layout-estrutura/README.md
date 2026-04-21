@@ -66,6 +66,9 @@ As notas originais citam a Maggie Appleton como referência de atmosfera e organ
 ## Notas de implementação
 
 - Preferir CSS Grid com fallback simples em mobile.
+- Para a seção assimétrica da home, a referência inicial é proporção 70/30 em desktop (bloco maior com grid 2x2 ou 3x3 à esquerda, lista de cards à direita, invertendo no bloco seguinte). Valor é guia visual, não contrato rígido.
+- A assimetria não é apenas geometria: ela expressa hierarquia editorial (bloco dominante = formato principal daquela seção) e passa sensação de "mapa" em vez de feed cronológico. Referência inspiradora em `docs/resources/notes-maggie-site-reference.md`; não copiar as categorias dela.
+- Para a listagem de posts em estilo wiki, a referência inicial é um grid multi-coluna em desktop (~4 colunas), colapsando em mobile.
 - Evitar transformar a home em landing page genérica; ela deve mostrar conteúdo e caminhos reais do site.
 - O campo de newsletter é visual neste plano. A integração real deve virar outro plano/tarefa quando houver destino dos emails.
 - Validar textos longos em cards e menus para não quebrar layout em mobile.
@@ -76,15 +79,12 @@ As notas originais citam a Maggie Appleton como referência de atmosfera e organ
 - A referência da Maggie Appleton serve como direção de curadoria e exploração, não como contrato de UI.
 - Responsividade e lint são critérios de fechamento do plano, não tarefas isoladas.
 
-## Perguntas para evoluir este plano
+## Perguntas em aberto
 
-- Qual foto deve ser usada na hero e na página Sobre?
-- O campo de newsletter deve ficar desabilitado, enviar para uma rota futura ou apenas apontar para contato?
-- A listagem de posts deve mostrar o campo `Wiki` do Notion já existente?
+Perguntas, dúvidas e lacunas vivem em [`questions.md`](./questions.md). Respostas migram para as tasks ou notas de implementação e o item sai do arquivo.
 
 ## Referências
 
-- [`docs/plans/notes.md`](../notes.md)
 - [`docs/patterns/componentes.md`](../../patterns/componentes.md)
 - [`docs/patterns/pages.md`](../../patterns/pages.md)
 

@@ -75,11 +75,9 @@ O plano original colocava também uma navegação wiki à esquerda. Essa parte d
 - `TableOfContents` é uma entrega real; `WikiNav` ainda é uma decisão dependente de produto/dados.
 - Validação de responsividade é critério de fechamento, não task isolada por si só.
 
-## Perguntas para evoluir este plano
+## Perguntas em aberto
 
-- O índice deve mostrar apenas H2/H3 ou também H1?
-- O destaque ativo por scroll é indispensável no MVP ou pode vir depois?
-- Quando o PLAN-005 existir, a navegação wiki deve aparecer neste layout ou em uma página de jardim separada?
+Perguntas, dúvidas e lacunas vivem em [`questions.md`](./questions.md). Respostas migram para as tasks ou notas de implementação e o item sai do arquivo.
 
 ## Referências
 

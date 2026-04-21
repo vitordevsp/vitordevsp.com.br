@@ -78,15 +78,12 @@ Por isso, o plano começa com a decisão de modelo de dados e armazenamento ante
 - O route handler não deve nascer antes da decisão de armazenamento.
 - Responsividade e lint/build são critérios de fechamento, não tasks pequenas independentes.
 
-## Perguntas para evoluir este plano
+## Perguntas em aberto
 
-- Qual será o destino inicial dos emails da lista de espera?
-- Haverá página individual de curso já no MVP ou só cards na listagem?
-- O CTA de curso disponível aponta para onde: link externo, página interna ou contato?
+Perguntas, dúvidas e lacunas vivem em [`questions.md`](./questions.md). Respostas migram para as tasks ou notas de implementação e o item sai do arquivo.
 
 ## Referências
 
-- [`docs/plans/notes.md`](../notes.md)
 - [`docs/patterns/pages.md`](../../patterns/pages.md)
 - [`docs/patterns/services.md`](../../patterns/services.md)
 
