@@ -11,3 +11,7 @@ Se no futuro o projeto ganhar contratos de API ou especificacoes funcionais mais
 - `docs/patterns/` define como o codigo deve ser estruturado.
 - `docs/product/notion/` documenta os bancos de dados do Notion como CMS.
 - `docs/team/` registra contexto de projeto e ecossistema.
+
+## Arquivos ativos
+
+- [`jardim-digital-notion-resume.md`](./jardim-digital-notion-resume.md) — mapa inicial da pagina raiz e das bases do jardim digital no Notion.
