@@ -52,10 +52,9 @@ Planos nascem sempre como pasta:
 
 ```text
 PLAN-NNN-descricao-curta/
-  README.md        ← objetivo, contexto, escopo, riscos, log de execucao
+  README.md        ← historia: contexto, objetivo, direcionamento, escopo e aceite
   board.md         ← tabela resumida das tasks (id, descricao, status, dependencias)
-  questions.md     ← perguntas em aberto; respostas migram para tasks e o item sai
-  tasks/           ← tarefas atomicas do plano, uma por arquivo
+  tasks/           ← issues autocontidas, uma por arquivo
   logs.md          ← opcional
   conhecimentos.md ← opcional
 ```
@@ -75,11 +74,9 @@ Regras:
 
 Quando o plano tratar uma abstracao do framework, preferir nome agnostico ao fornecedor.
 
-Quando o plano crescer para pasta, pode ganhar arquivos auxiliares como:
-- `perguntas.md`
-- `referencias.md`
-
 Não separar por ansiedade organizacional. Separar apenas quando o `README.md` deixar de ser a melhor forma de leitura.
+
+Perguntas pendentes não devem viver em arquivo separado por padrão. Quando existirem, entram em uma seção `## Questions` no final da história ou da task mais adequada.
 
 Também vale consolidar planos quando várias frentes pequenas passam a representar a mesma evolução estrutural. Nesse caso:
 
@@ -91,88 +88,59 @@ Também vale consolidar planos quando várias frentes pequenas passam a represen
 
 ## Estrutura recomendada
 
-Cada plano deve ter, no mínimo:
+Cada plano funciona como uma história. Ele orienta a execução macro, registra motivação e agrupa tarefas, mas não deve ser o único lugar com contexto necessário para implementar uma task.
 
-1. título
-2. status
-3. objetivo
-4. contexto
-5. escopo
-6. arquivos ou áreas afetadas
-7. checklist ou backlog do plano
-8. riscos e dependências
-9. referências
-10. log de execução
-
-Sempre que houver aprendizado reaproveitável, incluir também:
-
-11. conhecimentos consolidados
-12. ponteiro para `questions.md` com perguntas em aberto
+Cada task funciona como uma issue autocontida. Ela deve conter contexto, objetivo, escopo, detalhes técnicos, critérios de aceite e referências suficientes para uma pessoa executar sem abrir vários arquivos só para entender o problema.
 
 ## Template base
 
 ```markdown
+---
+id: PLAN-NNN
+linear_id: DEVSP-000
+title: Título da história
+status: todo
+created_at: AAAA-MM-DD
+updated_at: AAAA-MM-DD
+sync_at: "AAAA-MM-DD HH:MM:SS -0300"
+---
+
 # PLAN-NNN - Título
-
-## Status
-
-| Campo | Valor |
-|------|------|
-| Status | pendente / em andamento / concluído / cancelado |
-| Criado em | AAAA-MM-DD |
-| Atualizado em | AAAA-MM-DD |
-
-## Objetivo
-
-Descrever de forma direta o que este plano entrega.
 
 ## Contexto
 
-Explicar por que esta frente existe agora e qual problema resolve.
+Explicar o problema, motivação e cenário atual.
+
+## Objetivo
+
+Descrever o resultado esperado da história.
+
+## Direcionamento
+
+Explicar decisões macro, restrições e abordagem geral.
 
 ## Escopo
 
-- ...
-- ...
+### Inclui
 
-## Fora do escopo
+- Item incluído no escopo
 
-- ...
-- ...
+### Não inclui
 
-## Áreas afetadas
+- Item fora de escopo
 
-- `src/...`
-- `docs/...`
+## Tarefas relacionadas
 
-## Checklist
+- `PNNN-T001` — Nome da tarefa
+- `PNNN-T002` — Nome da tarefa
 
-- [ ] ...
-- [ ] ...
+## Critérios de aceite da história
 
-## Riscos e dependências
+- [ ] Critério verificável
 
-- ...
-- ...
+## Questions
 
-## Referências
-
-- ...
-- ...
-
-## Log de execução
-
-- AAAA-MM-DD - plano criado
-
-## Conhecimentos consolidados
-
-- ...
-- ...
-
-## Perguntas para evoluir este plano
-
-- ...
-- ...
+- [ ] Pergunta pendente da história, quando houver
 ```
 
 ## Como usar um plano no dia a dia
@@ -182,7 +150,7 @@ Explicar por que esta frente existe agora e qual problema resolve.
 1. ler o plano;
 2. ler os patterns da camada relevante;
 3. abrir os docs vivos do domínio quando existirem;
-4. revisar riscos, dependências e escopo.
+4. revisar direcionamento, dependências, questions e escopo.
 
 Prompt útil:
 
@@ -197,6 +165,7 @@ Resuma o estado atual, os riscos e o próximo passo seguro antes de implementar.
 - atualizar o log de execução;
 - registrar desvios relevantes sem perder o foco do plano;
 - evitar misturar no mesmo plano mudanças que merecem frente separada.
+- enriquecer a task quando uma informação necessária para execução ainda estiver apenas na história.
 
 ### Ao concluir
 
@@ -206,22 +175,56 @@ Resuma o estado atual, os riscos e o próximo passo seguro antes de implementar.
 
 ## Tasks e board
 
-Cada plano tem uma pasta `tasks/` com tarefas atomicas e um arquivo `board.md` com visao resumida.
+Cada plano tem uma pasta `tasks/` com issues autocontidas e um arquivo `board.md` com visao resumida.
 
 Cada task e um arquivo markdown com frontmatter:
 
 ```markdown
 ---
 id: P001-T001
+linear_id: DEVSP-000
 title: Titulo da tarefa
 status: todo
 plan: PLAN-001
 created_at: AAAA-MM-DD
 updated_at: AAAA-MM-DD
+sync_at: "AAAA-MM-DD HH:MM:SS -0300"
 description: Resumo em uma linha do que a task entrega
 ---
 
-Detalhes de implementacao, referencias e dependencias.
+## Contexto
+
+Explicar por que a tarefa existe e como se conecta à história.
+
+## Objetivo
+
+Descrever o resultado esperado da tarefa.
+
+## Escopo
+
+### Fazer
+
+- Item executável
+
+### Não fazer
+
+- Item fora de escopo
+
+## Detalhes técnicos
+
+Arquivos, funções, contratos, endpoints, tipos, dependências e integrações relevantes.
+
+## Critérios de aceite
+
+- [ ] Critério verificável
+
+## Referências
+
+- Caminho ou doc relevante
+
+## Questions
+
+- [ ] Pergunta pendente da tarefa, quando houver
 ```
 
 ### Formato do ID
@@ -246,7 +249,17 @@ O formato migra limpo para Linear (P001 vira projeto/epico) ou Notion (campo ID 
 
 ### Dependencias
 
-Quando uma task depende de outra, registrar no corpo do arquivo com `Depende de: P001-T004`.
+Quando uma task depende de outra, registrar em `## Detalhes técnicos` com `Depende de: P001-T004`.
+
+Quando houver perguntas pendentes, a seção `## Questions` deve ser a última seção do arquivo. Se não houver perguntas, omitir a seção.
+
+### Sincronização com Linear
+
+Quando uma história ou task for criada no Linear, registrar no frontmatter:
+
+- `linear_id`: identificador retornado pelo Linear, como `DEVSP-13`;
+- `sync_at`: data/hora da última sincronização local;
+- manter `id` como identificador local estável, independente do título usado no Linear.
 
 ### board.md
 

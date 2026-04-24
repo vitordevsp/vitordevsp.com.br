@@ -21,6 +21,7 @@ Ela existe para reduzir dependência de contexto oral e ajudar pessoas e agentes
 
 - [`project-context.md`](./project-context.md): visão do projeto dentro do produto maior.
 - [`ecosystem.md`](./ecosystem.md): sistemas, ferramentas e integrações relacionadas.
+- [`board.md`](./board.md): ponte para ferramentas externas de acompanhamento, como Linear.
 - [`ownership.md`](./ownership.md): fronteiras de responsabilidade e áreas envolvidas.
 - [`glossary.md`](./glossary.md): termos recorrentes do time, produto e arquitetura.
 

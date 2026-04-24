@@ -1,90 +1,37 @@
+---
+id: PLAN-001
+linear_id: DEVSP-13
+title: Migrar Implementação Legada do Notion
+status: todo
+created_at: 2026-04-19
+updated_at: 2026-04-24
+sync_at: "2026-04-24 04:10:00 -0300"
+---
+
 # PLAN-001 — Migrar Implementação Legada do Notion
-
-## Status
-
-| Campo | Valor |
-|------|------|
-| Status | pendente |
-| Criado em | 2026-04-19 |
-| Atualizado em | 2026-04-19 |
-| Concluído em | — |
-
-## Objetivo
-
-Migrar vídeos e projetos do sistema legacy em `src/app/api/notion/_resources/` para a lib moderna em `src/lib/notion/`, deixando o site com uma única integração principal com o Notion.
 
 ## Contexto
 
-O projeto hoje tem duas integrações com o Notion:
+O projeto mantém duas integrações com o Notion:
 
-- a moderna, em `src/lib/notion/`, usada por posts e baseada em `NOTION_TOKEN`;
-- a legacy, em `src/app/api/notion/_resources/`, usada por vídeos e projetos e baseada em `NOTION_KEY`.
+- a integração moderna em `src/lib/notion/`, usada por posts e baseada em `NOTION_TOKEN`;
+- a integração legacy em `src/app/api/notion/_resources/`, usada por vídeos e projetos e baseada em `NOTION_KEY`.
 
-Essa duplicidade cria risco de divergência de schema, comportamento e credencial. A migração precisa acontecer antes de planos que criem novas páginas baseadas em Notion.
+Essa duplicidade cria risco de divergência de schema, comportamento e credencial. Vídeos, projetos e destaques da home precisam sair do legacy antes que novas frentes baseadas em Notion, como jardim digital e cursos, cresçam sobre uma base instável.
 
-## Escopo
+## Objetivo
 
-- validar se as credenciais e bancos atuais permitem migrar sem perda de acesso;
-- corrigir `getDatabaseItems` para receber `databaseId` explicitamente;
-- migrar listagem de vídeos para `getDatabaseItems<VideoProps>()`;
-- migrar listagem de projetos e destaques da home para `getDatabaseItems<ProjectProps>()`;
-- remover `_resources/` e `NOTION_KEY` somente quando não houver consumidor externo das rotas antigas;
-- atualizar documentação afetada pelo fim do legacy.
+Migrar vídeos, projetos e destaques da home para a lib moderna do Notion, corrigindo a API de leitura para receber `databaseId` explícito e removendo o sistema legacy somente depois de validar credenciais, bancos e consumidores externos.
 
-## Fora do escopo
+## Direcionamento
 
-- reorganização por domínio em `src/lib/notion/domains/` — coberta pelo PLAN-002;
-- mudanças visuais nas páginas de vídeos, projetos ou home;
-- criação de novos bancos de dados do Notion;
-- leitura ou exposição do `.env` real nos docs.
+- Posts já usam a integração moderna e servem como referência para a migração.
+- `getDatabaseItems` deve receber o `databaseId` como argumento, sem depender de `process.env.NOTION_DATABASE_ID` internamente.
+- A migração deve preservar o contrato visual das páginas, especialmente URLs e thumbnails do YouTube.
+- `_resources/`, rotas `/api/notion/*` e `NOTION_KEY` só podem ser removidos quando não houver consumidor externo dependente.
+- Não expor valores reais de `.env` em documentação.
 
-## Áreas afetadas
-
-| Área | Ação | Observação |
-|------|------|------------|
-| `src/lib/notion/features/databases/index.ts` | modificar | `databaseId` deixa de vir de `process.env.NOTION_DATABASE_ID` internamente |
-| `src/app/(pages)/(home)/page.tsx` | modificar | posts e projetos devem usar IDs explícitos |
-| `src/app/(pages)/posts/page.tsx` | modificar | ajustar assinatura de `getDatabaseItems` |
-| `src/app/(pages)/videos/page.tsx` | modificar | remover `videoService.list()` |
-| `src/app/(pages)/projetos/page.tsx` | modificar | remover `projectService.list()` |
-| `src/types/notion.type.ts` | modificar | adicionar `VideoProps` e `ProjectProps` |
-| `src/lib/notion/helpers/` | criar/modificar | helpers de YouTube, se não houver alternativa moderna |
-| `src/app/api/notion/_resources/` | remover | só depois de validar consumidores externos |
-| `.env.example` | modificar | documentar variáveis modernas; remover `NOTION_KEY` após limpeza |
-| `docs/product/notion/` | atualizar | refletir o estado pós-migração |
-
-## Backlog
-
-- [ ] Validar credenciais, bancos e consumidores externos das rotas antigas.
-- [ ] Corrigir a API moderna para receber `databaseId` explícito e atualizar chamadas existentes.
-- [ ] Migrar vídeos para a lib moderna, preservando URLs/thumbnail do YouTube.
-- [ ] Migrar projetos para a lib moderna, incluindo destaques da home.
-- [ ] Remover o legacy e limpar variáveis/documentação obsoletas quando for seguro.
-- [ ] Validar build e rotas afetadas.
-
-## Riscos e dependências
-
-| Tipo | Descrição |
-|------|-----------|
-| Risco | `NOTION_KEY` e `NOTION_TOKEN` podem pertencer a integrations diferentes. |
-| Risco | Rotas `/api/notion/*` podem ter consumidor externo desconhecido. |
-| Risco | O legacy gera `thumbnailUrl`, `videoUrl` e `postUrl` para vídeos; a migração precisa preservar esse contrato. |
-| Dependência | É o primeiro plano da cadeia Notion. PLAN-002, PLAN-005 e PLAN-006 dependem desta base mais estável. |
-
-## Notas de implementação
-
-Antes de remover arquivos, mapear imports internos para `_resources/` e confirmar se as rotas antigas ainda precisam existir publicamente.
-
-O bloqueio técnico principal é `getDatabaseItems` usar `process.env.NOTION_DATABASE_ID` internamente:
-
-```ts
-export async function getDatabaseItems<T extends NotionPropertiesSchema>(
-  databaseId: string,
-  options?: GetDatabaseItemsOptions<T>,
-): Promise<DatabaseItemsResponse<NotionPage<T>>>
-```
-
-Uso esperado após a correção:
+Uso esperado da lib moderna:
 
 ```ts
 getDatabaseItems<PostProps>(process.env.NOTION_DB_POSTS!, { where: ... })
@@ -92,32 +39,38 @@ getDatabaseItems<VideoProps>(process.env.NOTION_DB_VIDEOS!, { where: ... })
 getDatabaseItems<ProjectProps>(process.env.NOTION_DB_PROJECTS!, { where: ... })
 ```
 
-O helper de YouTube deve preservar o comportamento do legacy:
+## Escopo
 
-```ts
-const thumbnailUrl = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
-const videoUrl = `https://www.youtube.com/watch?v=${id}`
-```
+### Inclui
 
-## Conhecimentos consolidados
+- Validar paridade de acesso entre `NOTION_KEY` e `NOTION_TOKEN`.
+- Validar `NOTION_DB_VIDEOS` e `NOTION_DB_PROJECTS`.
+- Confirmar se existem consumidores externos das rotas `/api/notion/*`.
+- Corrigir `src/lib/notion/features/databases/index.ts` para receber `databaseId` explícito.
+- Migrar vídeos, projetos e destaques da home para a lib moderna.
+- Remover o legacy e limpar documentação/variáveis obsoletas quando for seguro.
 
-- Posts já usam o sistema moderno e servem como referência de migração.
-- Vídeos e projetos ainda usam services legacy importados diretamente pelas pages.
-- `NOTION_DB_VIDEOS` e `NOTION_DB_PROJECTS` já aparecem em `.env.example`, mas os IDs reais precisam ser validados fora do repositório.
+### Não inclui
 
-## Perguntas em aberto
+- Reorganização por domínio em `src/lib/notion/domains/`, coberta pelo PLAN-002.
+- Mudanças visuais nas páginas de vídeos, projetos ou home.
+- Criação de novos bancos de dados do Notion.
+- Leitura ou exposição do `.env` real nos docs.
 
-Perguntas, dúvidas e lacunas vivem em [`questions.md`](./questions.md). Respostas migram para as tasks ou notas de implementação e o item sai do arquivo.
+## Tarefas relacionadas
 
-## Referências
+- `P001-T001` — Validar credenciais, bancos e consumidores externos do legacy
+- `P001-T002` — Corrigir getDatabaseItems para receber databaseId explicito
+- `P001-T003` — Migrar videos para a lib moderna preservando URLs do YouTube
+- `P001-T004` — Migrar projetos e destaques da home para a lib moderna
+- `P001-T005` — Remover _resources, NOTION_KEY e documentacao legacy obsoleta
+- `P001-T006` — Validar build e rotas afetadas apos a migracao
 
-- [`docs/product/notion/data-sources.md`](../../product/notion/data-sources.md)
-- [`docs/product/notion/framework.md`](../../product/notion/framework.md)
-- [`docs/patterns/services.md`](../../patterns/services.md)
-- [`docs/patterns/pages.md`](../../patterns/pages.md)
+## Critérios de aceite da história
 
-## Log de execução
-
-| Data | O que foi feito |
-|------|-----------------|
-| 2026-04-19 | Plano revisado para consolidar tarefas pequenas e separar validação, migração e limpeza. |
+- [ ] Vídeos e projetos não dependem mais de `src/app/api/notion/_resources/`.
+- [ ] Home, posts, vídeos e projetos usam `getDatabaseItems` com IDs explícitos.
+- [ ] URLs e thumbnails do YouTube preservam o comportamento do legacy.
+- [ ] Rotas e arquivos legacy só são removidos depois de validar consumidores externos.
+- [ ] `.env.example` e docs de Notion refletem a integração moderna.
+- [ ] Build e rotas públicas afetadas foram validados.

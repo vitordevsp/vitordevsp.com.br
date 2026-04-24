@@ -1,109 +1,71 @@
+---
+id: PLAN-005
+linear_id: DEVSP-17
+title: Jardim Digital
+status: todo
+created_at: 2026-04-19
+updated_at: 2026-04-24
+sync_at: "2026-04-24 04:10:00 -0300"
+---
+
 # PLAN-005 — Jardim Digital
-
-## Status
-
-| Campo | Valor |
-|------|------|
-| Status | pendente |
-| Criado em | 2026-04-19 |
-| Atualizado em | 2026-04-19 |
-| Concluído em | — |
-
-## Objetivo
-
-Criar a base do jardim digital do site: uma seção `/jardim`, modelo editorial de estágios de nota, filtros simples e subpáginas iniciais que organizem conteúdos existentes sem prometer uma plataforma editorial completa no primeiro ciclo.
 
 ## Contexto
 
-O site está sendo transformado em um jardim digital alimentado pelo Notion. A intenção é publicar ideias de forma progressiva, com sinalização clara de maturidade:
+O site está sendo transformado em um jardim digital alimentado pelo Notion. A intenção é publicar ideias de forma progressiva, com sinalização clara de maturidade: Semente, Broto, Muda, Planta e Árvore.
 
-- **Semente** — ideia bruta ou rascunho inicial;
-- **Broto** — ideia com algum desenvolvimento;
-- **Muda** — ideia estruturada, mas ainda incompleta;
-- **Planta** — ideia desenvolvida;
-- **Árvore** — ideia madura e consolidada.
+O mapa inicial das bases do Notion está em `docs/product/jardim-digital-notion-resume.md` e lista página raiz, livros, cultura, viagens/lugares, textos, vídeos, cursos e projetos. A primeira versão deve separar contrato de conteúdo e UI, sem prometer uma plataforma editorial completa.
 
-O plano original tentava resolver muitas subpáginas, filtros e componentes de uma vez. A versão revisada separa primeiro o contrato de conteúdo e depois a UI.
+## Objetivo
 
-O mapa inicial das bases do Notion está registrado em [`docs/product/jardim-digital-notion-resume.md`](../../product/jardim-digital-notion-resume.md). Ele lista a página raiz do jardim e as bases já criadas para livros, cultura, viagens/lugares, textos, vídeos, cursos e projetos.
+Criar a base de `/jardim`: domínio de dados, navegação inicial, estágios de nota, filtros simples e suporte cuidadoso a subpáginas quando o schema permitir.
+
+## Direcionamento
+
+- Jardim digital é frente de produto e conteúdo, não só uma rota nova.
+- O schema deve ser derivado das bases reais antes de especializar subpáginas.
+- `Publicado Em is_not_empty` é a hipótese de publicação pública para bases que têm esse campo; `Status` representa maturidade.
+- `Padrões`, `Trilha`, `Ensaios` e `Changelog` dependem de decisões editoriais/schema.
+- A leitura individual continua no PLAN-004; esta história organiza listagens e navegação do jardim.
 
 ## Escopo
 
-- definir o schema mínimo do jardim no Notion;
-- criar domínio `src/lib/notion/domains/jardim/` depois da base do PLAN-002;
-- criar rota `/jardim` e subpáginas iniciais com navegação clara;
-- implementar indicativo visual de estágio e card explicativo para notas iniciais;
-- implementar filtros simples por ano e ordem via `searchParams`;
-- criar suporte inicial para subpáginas "Padrões" e "Trilha" quando o schema permitir.
+### Inclui
 
-## Fora do escopo
+- Definir schema mínimo do jardim.
+- Criar `src/lib/notion/domains/jardim/` depois do PLAN-002.
+- Criar `/jardim` e subpáginas iniciais.
+- Implementar estágios de nota e card explicativo.
+- Implementar filtros por ano e ordem via `searchParams`.
+- Validar rotas, responsividade e build.
 
-- busca full-text;
-- tags cruzadas avançadas;
-- edição de notas pelo site;
-- página individual de leitura — coberta pelo PLAN-004;
-- galeria de livros, viagens, músicas e fotos.
+### Não inclui
 
-## Áreas afetadas
+- Busca full-text.
+- Tags cruzadas avançadas.
+- Edição de notas pelo site.
+- Página individual de leitura, coberta pelo PLAN-004.
+- Galeria completa de livros, viagens, músicas e fotos.
+- Feed para IA, `/llms.txt` ou markdown bruto sem nova decisão.
 
-| Área | Ação | Observação |
-|------|------|------------|
-| `src/app/(pages)/jardim/` | criar | rota principal e subpáginas iniciais |
-| `src/lib/notion/domains/jardim/` | criar | types e queries do jardim |
-| `src/components/frames/EstagioNota/` | criar | indicativo visual do estágio |
-| `src/components/frames/CardAvisoEstagio/` | criar | aviso para notas em estágio inicial |
-| `src/components/shared/FiltroJardim/` | criar | filtros simples, se não houver componente existente melhor |
-| `src/components/index.ts` | modificar | exportar componentes novos quando existirem |
-| `docs/product/notion/data-sources.md` | atualizar | registrar schema do jardim quando definido |
+## Tarefas relacionadas
 
-## Backlog
+- `P005-T001` — Definir schema minimo do jardim e dominio Notion
+- `P005-T002` — Criar shell de /jardim e navegacao entre subpaginas iniciais
+- `P005-T003` — Implementar estagios de nota e texto explicativo do jardim
+- `P005-T004` — Implementar filtros por ano e ordem nas listagens
+- `P005-T005` — Implementar tratamentos de Padroes e Trilha quando houver dados
+- `P005-T006` — Validar rotas, responsividade e build
 
-- [ ] Definir schema mínimo do jardim e domínio Notion usando o mapa de bases do Notion como referência inicial.
-- [ ] Criar shell de `/jardim` e navegação entre subpáginas iniciais.
-- [ ] Implementar estágios de nota e texto explicativo do jardim.
-- [ ] Implementar filtros por ano e ordem nas listagens.
-- [ ] Implementar tratamento específico de "Padrões" e "Trilha" quando houver dados.
-- [ ] Validar rotas, responsividade e build.
+## Critérios de aceite da história
 
-## Riscos e dependências
+- [ ] Schema mínimo do jardim está documentado a partir das bases reais.
+- [ ] `/jardim` existe e responde bem com poucos dados.
+- [ ] Estágios de maturidade aparecem de forma clara.
+- [ ] Filtros simples usam URL compartilhável.
+- [ ] Subpáginas dependentes de schema ficam implementadas ou explicitamente adiadas.
+- [ ] Rotas e build foram validados.
 
-| Tipo | Descrição |
-|------|-----------|
-| Dependência de plano | PLAN-002 deve definir a organização por domínios antes do domínio `jardim`. |
-| Dependência externa | O Notion precisa ter propriedades estáveis para estágio, ano, categoria e ordem. |
-| Dependência documental | `docs/product/jardim-digital-notion-resume.md` deve continuar atualizado com IDs reais das bases do jardim. |
-| Risco | Cada subpágina pode querer schema próprio; forçar um único modelo cedo demais pode criar retrabalho. |
-| Risco | O conceito de jardim pode virar texto explicativo demais na UI; a página precisa ser navegável antes de ser didática. |
+## Questions
 
-## Notas de implementação
-
-- Começar pelo menor schema útil: título, status/publicação, estágio, ano, categoria/tipo, data e ordem opcional.
-- Preferir filtros por `searchParams` para URLs compartilháveis.
-- `CardAvisoEstagio` deve aparecer apenas para `semente`, `broto` e `muda`.
-- "Padrões" e "Trilha" dependem de propriedades específicas (`categoria`, `order` ou equivalente).
-- A navegação wiki da página de leitura pode consumir esse domínio em uma etapa posterior.
-
-## Conhecimentos consolidados
-
-- Jardim digital é uma frente de produto e conteúdo, não só uma página nova.
-- O jardim já tem uma página raiz no Notion e bases separadas para livros, cultura, viagens/lugares, textos, vídeos, cursos e projetos.
-- O schema do Notion precisa ser derivado das bases reais antes das subpáginas especiais.
-- Os IDs de database do jardim estão documentados em `docs/product/jardim-digital-notion-resume.md`; os `data_source_id` internos ainda não foram confirmados via API.
-- A navegação wiki do PLAN-004 depende deste plano, mas não deve bloquear a primeira melhoria da leitura.
-
-## Perguntas em aberto
-
-Perguntas, dúvidas e lacunas vivem em [`questions.md`](./questions.md). Respostas migram para as tasks ou notas de implementação e o item sai do arquivo.
-
-## Referências
-
-- [`docs/product/jardim-digital-notion-resume.md`](../../product/jardim-digital-notion-resume.md)
-- [`docs/product/notion/data-sources.md`](../../product/notion/data-sources.md)
-- [`docs/patterns/pages.md`](../../patterns/pages.md)
-
-## Log de execução
-
-| Data | O que foi feito |
-|------|-----------------|
-| 2026-04-19 | Plano revisado para priorizar schema/domínio antes de subpáginas específicas. |
-| 2026-04-19 | Adicionada referência ao mapa das bases do jardim digital no Notion. |
+- [ ] O jardim será consumido por IA no MVP com feed/sitemap estruturado, `/llms.txt`, endpoints markdown ou HTML mais semântico, ou isso vira história futura?
