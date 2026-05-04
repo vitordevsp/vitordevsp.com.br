@@ -1,39 +1,19 @@
 import type { Metadata } from "next"
-import { Fira_Sans } from "next/font/google"
-import { GoogleAnalytics } from "@next/third-parties/google"
-import { Analytics } from "@vercel/analytics/next"
-import { PageFooter, PageHeader } from "@/components"
-import "@/styles/globals.scss"
-
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID
-
-const firaSans = Fira_Sans({
-  weight: ["400", "500", "600", "700", "800"],
-  subsets: ["cyrillic"],
-})
+import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Vitor Sampaio",
-  description: "Blog pessoal.",
+  title: "Vitor Dev",
+  description: "Site pessoal de Vitor Dev",
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="pt-br">
-      <body className={firaSans.className}>
-        <PageHeader />
-        {children}
-        <PageFooter />
-
-        <Analytics />
-        {GA_ID && (
-          <GoogleAnalytics gaId={GA_ID} />
-        )}
-      </body>
+    <html lang="pt-BR">
+      <body>{children}</body>
     </html>
   )
 }
