@@ -4,7 +4,7 @@
 # Mantenha descrições concisas. Detalhes vivem em `references/` de cada skill.
 
 version: "0.1"
-updated: "2026-05-12 22:30"
+updated: "2026-05-13 00:00"
 
 tools:
   - name: ast-plan-writer
@@ -39,3 +39,13 @@ tools:
       Orientar commit, changelog, versionamento semântico e preparação de
       release com rastreabilidade, sem executar release automaticamente.
     tags: [release, versioning]
+
+  - name: journey-writer
+    type: skill
+    path: .claude/skills/journey-writer/SKILL.md
+    description: >
+      Transformar conversas, decisões, planos e registros de desenvolvimento
+      em narrativa pública dentro de `.journey/`, separada de `docs/` e da
+      implementação, com foco em storytelling de SDD e geração futura de
+      conteúdo.
+    tags: [journey, narrative, content]
