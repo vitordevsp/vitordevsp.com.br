@@ -1,0 +1,3 @@
+display_name: "Plan Writer"
+short_description: "Cria, refina e reestrutura planos e tasks"
+default_prompt: "Use $ast-plan-writer para avaliar se a frente merece plano, criar ou refinar planos em .claude/plans/, levantar perguntas objetivas para fechar lacunas e encaminhar criacao/refinamento de tasks para $ast-task-writer."

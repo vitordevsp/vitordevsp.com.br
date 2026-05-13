@@ -1,0 +1,3 @@
+display_name: "Release Manager"
+short_description: "Changelog, semver and release readiness"
+default_prompt: "Use $ast-release-manager to propose commits, changelog updates and semantic versioning, with validations and no release execution." 

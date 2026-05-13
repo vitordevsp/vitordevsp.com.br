@@ -1,0 +1,41 @@
+# tools.yaml
+#
+# Catálogo operacional de skills (Agents Studio v0.1).
+# Mantenha descrições concisas. Detalhes vivem em `references/` de cada skill.
+
+version: "0.1"
+updated: "2026-05-12 22:30"
+
+tools:
+  - name: ast-plan-writer
+    type: skill
+    path: .claude/skills/ast-plan-writer/SKILL.md
+    description: >
+      Criar e revisar planos multi-etapas em `.claude/plans/`, com escopo,
+      riscos, validacoes e mapa inicial de tasks, delegando manutencao de task
+      para `ast-task-writer`.
+    tags: [plans, workflow]
+
+  - name: ast-task-writer
+    type: skill
+    path: .claude/skills/ast-task-writer/SKILL.md
+    description: >
+      Criar e refinar tasks pequenas e autocontidas em `.claude/tasks/` ou em
+      `.claude/plans/<plan>/tasks/`, com foco forte em refinamento seguro.
+    tags: [tasks]
+
+  - name: ast-skill-writer
+    type: skill
+    path: .claude/skills/ast-skill-writer/SKILL.md
+    description: >
+      Criar e refatorar skills no padrão v0.1 em `.claude/skills/`, mantendo
+      `SKILL.md` enxuto e detalhes em `references/`.
+    tags: [skills, ops]
+
+  - name: ast-release-manager
+    type: skill
+    path: .claude/skills/ast-release-manager/SKILL.md
+    description: >
+      Orientar commit, changelog, versionamento semântico e preparação de
+      release com rastreabilidade, sem executar release automaticamente.
+    tags: [release, versioning]

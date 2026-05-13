@@ -1,0 +1,3 @@
+display_name: "Skill Writer"
+short_description: "Cria, refatora e versiona skills"
+default_prompt: "Use $ast-skill-writer para criar ou evoluir skills em .claude/skills/, interpretando a frase inicial do usuario para decidir entre criar, refatorar, expandir, reorganizar ou incorporar conhecimento."

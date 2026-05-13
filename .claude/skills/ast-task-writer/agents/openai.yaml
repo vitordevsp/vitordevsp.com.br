@@ -1,0 +1,3 @@
+display_name: "Task Writer"
+short_description: "Cria e refina tasks pequenas e autocontidas"
+default_prompt: "Use $ast-task-writer para avaliar se a demanda merece task, criar ou refinar tasks pequenas com estrutura compartilhada entre `.claude/tasks/` e `.claude/plans/<plan>/tasks/`, fazendo perguntas objetivas ao usuario para fechar lacunas antes de concluir."
