@@ -13,7 +13,8 @@ Enquanto a base documental estiver em construção, priorize documentação. Nã
 | Tarefa                              | Ler                                                                |
 | ----------------------------------- | ------------------------------------------------------------------ |
 | Qualquer tarefa                     | [`README.md`](README.md)                                           |
-| Produto, escopo, experiência        | [`product.md`](product.md), [`roadmap.md`](roadmap.md)             |
+| Produto, escopo, experiência        | [`product.md`](product.md)                                         |
+| Fases e planos de evolução          | [`.claude/plans/`](../.claude/plans/)                              |
 | Modelos de conteúdo                 | [`content-model.md`](content-model.md)                             |
 | Arquitetura, código, organização    | [`architecture.md`](architecture.md)                               |
 | Estilos                             | [`styling.md`](styling.md)                                         |

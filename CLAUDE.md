@@ -33,8 +33,7 @@ Estado atual: foco é criar a camada documental. Não implemente aplicação sem
 
 - `docs/`: documentação humana (camada de decisão funcional, contratos, ADRs);
 - `.claude/`: camada operacional para agentes (skills, planos, tasks, catálogo);
-- `src/`: aplicação Next.js (apenas scaffold inicial em `src/app/`);
-- `plans/`: planos legados na raiz, mantidos até decisão explícita de migração.
+- `src/`: aplicação Next.js (apenas scaffold inicial em `src/app/`).
 
 Entradas principais:
 
@@ -47,7 +46,7 @@ Entradas principais:
 
 Use `docs/` para conteúdo humano, explicativo, funcional ou consultivo. Estrutura atual é flat:
 
-- `docs/product.md`, `docs/content-model.md`, `docs/architecture.md`, `docs/notion.md`, `docs/styling.md`, `docs/roadmap.md`, `docs/agents.md`;
+- `docs/product.md`, `docs/content-model.md`, `docs/architecture.md`, `docs/notion.md`, `docs/styling.md`, `docs/agents.md`;
 - `docs/decisions/ADR-*.md` para decisões arquiteturais.
 
 Não criar `docs/product/`, `docs/team/` ou `docs/reports/` sem decisão explícita.
@@ -118,7 +117,6 @@ docs/
   README.md           Índice + decisões consolidadas + restrições MVP
   product.md          Visão, posicionamento, princípios, sitemap
   content-model.md    Modelos internos canônicos
-  roadmap.md          Fases de evolução
   architecture.md     Arquitetura geral e organização frontend
   notion.md           Integração Notion + referência das databases
   styling.md          Padrão de estilos (CSS Modules)
@@ -130,6 +128,8 @@ docs/
     ADR-004-rsc-first-frontend.md
     ADR-005-css-modules.md
 ```
+
+Fases de evolução e candidatos pós-v1 ficam em [`.claude/plans/`](./.claude/plans/) (operacional), não em `docs/`.
 
 ## Comandos confirmados
 

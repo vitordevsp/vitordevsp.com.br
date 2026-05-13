@@ -13,7 +13,6 @@ docs/
   README.md           Este arquivo. Índice + decisões consolidadas + restrições MVP.
   product.md          Visão, posicionamento, princípios, sitemap.
   content-model.md    Modelos internos canônicos (TextPost, Project, etc.).
-  roadmap.md          Fases de evolução.
   architecture.md     Arquitetura geral e organização frontend.
   notion.md           Integração Notion + referência das databases.
   styling.md          Padrão de estilos (CSS Modules).
@@ -26,13 +25,15 @@ docs/
     ADR-005-css-modules.md
 ```
 
+Fases de evolução, planos multi-etapas e candidatos pós-v1 ficam em [`.claude/plans/`](../.claude/plans/).
+
 ## Onde olhar
 
 | Tarefa                            | Documento                                                          |
 | --------------------------------- | ------------------------------------------------------------------ |
 | Produto, escopo, sitemap          | [`product.md`](product.md)                                         |
 | Modelos de conteúdo               | [`content-model.md`](content-model.md)                             |
-| Roadmap                           | [`roadmap.md`](roadmap.md)                                         |
+| Planos e fases de evolução        | [`.claude/plans/`](../.claude/plans/)                              |
 | Arquitetura, código, organização  | [`architecture.md`](architecture.md)                               |
 | Integração com Notion             | [`notion.md`](notion.md)                                           |
 | Estilos                           | [`styling.md`](styling.md)                                         |
