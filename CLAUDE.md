@@ -42,34 +42,24 @@ Permitido: criar diretórios e arquivos Markdown solicitados; preencher document
 
 Proibido: criar código de aplicação junto com documentação; instalar dependências; alterar build; criar estrutura em `src/` sem solicitação explícita.
 
-## Estrutura documental esperada
+## Estrutura documental
 
 ```txt
 docs/
-  README.md
-  product/
-    vision.md
-    principles.md
-    information-architecture.md
-    content-model.md
-    roadmap.md
-  architecture/
-    overview.md
-    frontend.md
-    notion-cms.md
-    styling.md
-  agent/
-    instructions.md
-    workflow.md
-    definition-of-done.md
+  README.md           Índice + decisões consolidadas + restrições MVP
+  product.md          Visão, posicionamento, princípios, sitemap
+  content-model.md    Modelos internos canônicos
+  roadmap.md          Fases de evolução
+  architecture.md     Arquitetura geral e organização frontend
+  notion.md           Integração Notion + referência das databases
+  styling.md          Padrão de estilos (CSS Modules)
+  agents.md           Guia para agentes (instruções, workflow, DoD)
   decisions/
     ADR-001-rebuild-from-zero.md
     ADR-002-notion-as-cms.md
     ADR-003-digital-garden-as-core-product.md
     ADR-004-rsc-first-frontend.md
     ADR-005-css-modules.md
-  reference/
-    notion-databases.md
 ```
 
 ## Estilo da documentação e prioridades
