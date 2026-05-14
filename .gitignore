@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python bytecode (scripts da skill journey-writer)
+__pycache__/
+*.pyc

@@ -30,6 +30,9 @@ A jornada deve vender a transformacao antes de vender a tecnica.
 3. **SDD como transformacao.** Posicione SDD como mudanca de mentalidade: de codigo direto para intencao estruturada, de tarefa solta para plano executavel, de prompt improvisado para contexto governado, de conversa descartavel para memoria de projeto, de implementacao isolada para sistema de execucao.
 4. **O agente como espelho e amplificador.** A IA aparece como espelho de raciocinio, parceira de estruturacao, forca de execucao, fonte de atrito quando mal orientada e amplificador quando recebe bom contexto. Nao retrate apenas como ferramenta de produtividade.
 5. **Conteudo com destino.** Todo registro tenta identificar usos futuros: post, aula, lead magnet, estudo de caso, roteiro de video, modulo de curso, trecho de landing page, newsletter.
+6. **Material real antes de interpretacao.** Antes de qualquer escrita substancial, buscar fontes objetivas (sessoes JSONL, git log, CHANGELOG, planos). Rascunho generico criado sem historico e **sempre reescrito depois** — desperdicio confirmado na pratica. Quando ha session JSONL disponivel, citar usuario verbatim em quote block ao inves de parafrasear. Detalhe operacional em [`pattern-source-extraction.md`](./pattern-source-extraction.md).
+7. **Numeros e tabelas > prosa abstrata.** Quando ha dados objetivos (contagens, percentuais, datas, listas finitas), preferir tabela ou bullet list com numero exato a frases tipo "varios", "alguns", "muitos". Ep cronologico saudavel cita pelo menos 1 commit, 1 quote verbatim (se houver session primary) e 1 numero objetivo.
+8. **Hipoteses editoriais marcadas.** Onde interpretacao supera fato, marcar com `> Hipotese editorial: ...`. Onde ha lacuna sabida, marcar com `> Em aberto: ...`. Distinguir fato, interpretacao e hipotese reduz custo de refinacao futura.
 
 ## Tom de voz
 
@@ -98,6 +101,36 @@ Para cada tipo, extraia: conflito, decisao, aprendizado, virada, consequencia, p
 
 Quando o destino for ambiguo, prefira `notes/raw-insights.md` e marque a lacuna em `open-questions.md`.
 
+## Marcacoes editoriais especiais
+
+| Marcacao | Onde usar | Proposito |
+|---|---|---|
+| `> Hipotese editorial: ...` | em qualquer ep, quando interpretacao supera fato | distinguir leitura editorial de fato registrado |
+| `> Em aberto: ...` | em hero.md ou ep, quando ha lacuna por preencher | sinalizar que o autor sabe que ali falta material |
+| `[promovido para: <destino>]` | em `notes/raw-insights.md` apos insight virar ep ou seed | preservar historico sem duplicar |
+| `[ainda raw]` | em `notes/raw-insights.md` | sinalizar insight nao promovido |
+| `[origem: ep-NNN]` | em `open-questions.md` por pergunta | rastreabilidade reversa pergunta -> ep que gerou |
+| `[origem: hero]` / `[origem: timeline]` | em `open-questions.md` | quando pergunta nasceu fora de ep especifico |
+| `**[origem: ep-NNN]**` (negrito) | em open-questions formatadas | destaque visual do origem |
+
+Marcacoes nao sao decoracao — sao contrato com o futuro agente que vai refinar. Sem elas, o proximo agente precisa reinterpretar tudo do zero.
+
+## Estrategia de validacao via AskUserQuestion estruturada
+
+Antes de escrever ep cronologico substancial, apresente sintese ao usuario e pergunte de forma estruturada:
+
+1. **mapa da linha do tempo** com sessoes identificadas + datas;
+2. **mapa de temas** detectados nos materiais;
+3. **AskUserQuestion** com 2-4 perguntas multipla escolha cobrindo:
+   - "A sintese bate?" (sim / bate em parte / nao bate);
+   - "Quais marcos viram episodio?" (multi-select);
+   - "Qual angulo do hero?";
+   - "Qual o foco editorial?".
+
+Usuario responde em segundos via opcoes; agente ganha confianca antes de escrever. Reduz retrabalho significativamente vs escrever direto e depois reescrever apos feedback.
+
+Confirmado na pratica: tres rodadas de `AskUserQuestion` antes de criar lote de eps gerou material que so precisou de ajuste leve em vez de reescrita.
+
 ## Estrategia de perguntas
 
 Pergunte somente o que melhora a narrativa, a clareza ou a oferta futura. Evite perguntas genericas.
@@ -140,7 +173,10 @@ Antes de fechar qualquer registro, valide:
 - [ ] existe potencial de reaproveitamento em conteudo publico?
 - [ ] o texto evita marketing generico?
 - [ ] o texto evita documentacao tecnica excessiva?
-- [ ] lacunas relevantes viraram perguntas objetivas em `open-questions.md`?
+- [ ] lacunas relevantes viraram perguntas objetivas em `open-questions.md` com `[origem: ep-NNN]`?
 - [ ] o registro preserva a separacao entre `.journey/` e o restante do projeto?
-- [ ] hipoteses estao marcadas e separadas de fatos?
+- [ ] hipoteses estao marcadas (`> Hipotese editorial:`) e separadas de fatos?
 - [ ] nivel de exposicao desejado foi respeitado?
+- [ ] ep cita pelo menos 1 commit hash + 1 numero objetivo (se cronologico) ou 2+ eps em `derived_from` (se meta)?
+- [ ] frontmatter completo com `metadata.sources` atualizado e `last_review` bumpado?
+- [ ] nenhuma ref orfa apos a escrita (rodar `grep -rE "episodes/00[0-9]"` em `.journey/`)?

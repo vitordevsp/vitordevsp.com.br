@@ -28,7 +28,8 @@ Nao mover para dentro de `docs/`, `.claude/` ou `src/`. A pasta nao e fonte de v
 ├── timeline.md
 ├── open-questions.md
 ├── episodes/
-│   └── 000-template.md
+│   ├── 001-introducao.md   (primeiro ep cronologico)
+│   └── ...                  (demais eps zero-pad: 002, 003, ...)
 ├── seeds/
 │   └── content-seeds.md
 └── notes/
@@ -59,9 +60,55 @@ Perguntas abertas que precisam ser respondidas para fortalecer a narrativa, a of
 
 ### `episodes/`
 
-Registros narrativos por episodio. Nomenclatura `NNN-titulo-em-kebab.md` com numeracao incremental zero-pad. Cada episodio deve poder virar post, video, aula curta, thread, newsletter, roteiro de bastidor ou estudo de caso. Base em [`../assets/template-episode.md`](../assets/template-episode.md).
+Registros narrativos por episodio. Nomenclatura `NNN-titulo-em-kebab.md` com numeracao incremental zero-pad **comecando em `001`**. Cada episodio deve poder virar post, video, aula curta, thread, newsletter, roteiro de bastidor ou estudo de caso. Template copiavel em [`../assets/template-episode.md`](../assets/template-episode.md).
 
-`000-template.md` permanece como referencia copiavel inicial e nao deve ser usado como episodio real.
+**Nao criar `000-template.md` em `episodes/`.** O template vive na skill (em `assets/`), nao na pasta narrativa do projeto. Manter o template fora de `episodes/` evita confusao entre referencia copiavel e episodio real.
+
+#### Tipos de episodio
+
+Todo episodio declara `type` no frontmatter:
+
+| Tipo | Proposito | Quando usar | Campos extras |
+|---|---|---|---|
+| `introducao` | capa narrativa da serie | apenas um por `.journey/` (geralmente `001-introducao`); explica o projeto e a solucao para quem chega de fora | `derived_from` listando os eps cronologicos centrais |
+| `cronologico` | registra um momento ou periodo especifico ancorado em datas, commits ou sessoes | maioria dos eps; cobre acontecimentos com fronteira temporal clara | `era`, commits, sessions |
+| `meta` | atravessa multiplos momentos da historia para nomear um padrao recorrente | quando 2+ eps cronologicos sao manifestacoes do mesmo padrao (ex: dois resets totais; uma decisao que sobreviveu a versoes) | `derived_from` listando os eps que servem de fonte |
+| `retrospectiva` | leitura tardia sobre periodo ja distante (anos depois) | quando o autor olha pra tras com distancia editorial; geralmente raro | nota explicando defasagem temporal |
+
+Eps `meta` consolidam material — nao duplicar conteudo dos derived. Citar e referenciar.
+
+#### Renumeracao de episodios
+
+Quando a cronologia precisa mudar (novo ep no meio, fusao, divisao), seguir [`pattern-renumeration-safe.md`](./pattern-renumeration-safe.md). Renumeracao casual sem padrao gera refs orfas dificeis de detectar.
+
+### Frontmatter como contrato
+
+Todo episodio em `episodes/` carrega frontmatter padronizado. Spec completo em [`../assets/template-episode.md`](../assets/template-episode.md). Campos minimos obrigatorios:
+
+```yaml
+---
+title: EP-NNN - Titulo
+status: draft | refinando | refinado | publicado
+type: introducao | cronologico | meta | retrospectiva
+metadata:
+  owner: journey-writer
+  created_at: AAAA-MM-DD HH:MM
+  updated_at: AAAA-MM-DD HH:MM
+  tags:
+    - episode
+  era: atemporal | v1 | v2 | v3 | v3.1 | v3.2 | v1-v2 (etc)
+  lentes: []
+  sources:
+    sessions: []
+    commits: []
+    files: []
+    last_review: AAAA-MM-DD HH:MM
+---
+```
+
+`metadata.sources` e mecanismo anti-retrabalho: registra fontes ja consultadas para nao reler conversas inteiras a cada refinamento. Detalhe em [`pattern-source-extraction.md`](./pattern-source-extraction.md).
+
+Ep sem frontmatter completo nao deve ser considerado refinado.
 
 ### `seeds/content-seeds.md`
 
@@ -76,11 +123,11 @@ Notas menos processadas, insights soltos, frases que ainda nao viraram episodio.
 Quando `.journey/` nao existe:
 
 1. confirmar com o usuario antes de criar;
-2. copiar templates de `assets/` para os caminhos definitivos;
+2. copiar templates de `assets/` (excluindo `template-episode.md`) para os caminhos definitivos em `.journey/`;
 3. preencher `hero.md` com rascunho inicial (mesmo incompleto), marcando lacunas;
 4. registrar o primeiro marco em `timeline.md`;
 5. adicionar perguntas iniciais em `open-questions.md`;
-6. deixar `episodes/000-template.md` intocado como referencia;
+6. deixar `episodes/` vazia inicialmente — primeiro ep sera criado a parte e numerado `001-`. Template copiavel permanece em `assets/template-episode.md` da skill;
 7. avisar o usuario de que a primeira versao e um mapa inicial, nao a versao definitiva.
 
 ## Comportamento na atualizacao
