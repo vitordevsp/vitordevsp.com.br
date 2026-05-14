@@ -8,7 +8,7 @@ tags:
 metadata:
   owner: docs-foundation
   created_at: 2026-05-12 22:35
-  updated_at: 2026-05-12 22:35
+  updated_at: 2026-05-14 16:17
 ---
 
 # PLAN-001 - Fundacao documental e governanca do projeto
@@ -27,7 +27,7 @@ Estrutura final entregue divergiu da proposta inicial (layout flat em `docs/` em
 
 - estrutura flat de `docs/` consolidada;
 - `CLAUDE.md` na raiz com regras de operacao para agentes;
-- documentos funcionais: `product.md`, `content-model.md`, `architecture.md`, `notion.md`, `styling.md`, `roadmap.md`, `agents.md`;
+- documentos funcionais: `product.md`, `content-model.md`, `architecture.md`, `notion.md`, `styling.md`, `agents.md`;
 - ADRs iniciais (`ADR-001` a `ADR-005`);
 - referencia de databases Notion documentada em `docs/notion.md`;
 - indice consolidado em [`docs/README.md`](../../../docs/README.md).

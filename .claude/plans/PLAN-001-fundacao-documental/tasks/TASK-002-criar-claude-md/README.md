@@ -6,7 +6,7 @@ type: documentacao
 metadata:
   owner: docs-foundation
   created_at: 2026-05-12 22:35
-  updated_at: 2026-05-12 22:35
+  updated_at: 2026-05-14 16:17
   tags:
     - tasks
     - docs
