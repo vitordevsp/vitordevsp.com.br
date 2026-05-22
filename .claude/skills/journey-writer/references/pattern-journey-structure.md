@@ -3,8 +3,8 @@ title: Pattern de estrutura da pasta .journey/
 description: Define o papel de cada arquivo em `.journey/`, comportamento na criacao e atualizacao, e separacao com `docs/` e `.claude/`.
 metadata:
   author: agents-studio
-  last_updated: 2026-05-13 00:00
-  version: "1.0.0"
+  last_updated: 2026-05-16 12:00
+  version: "1.1.0"
 ---
 
 # Pattern de estrutura da pasta .journey/
@@ -32,6 +32,9 @@ Nao mover para dentro de `docs/`, `.claude/` ou `src/`. A pasta nao e fonte de v
 │   └── ...                  (demais eps zero-pad: 002, 003, ...)
 ├── seeds/
 │   └── content-seeds.md
+├── knowledges/
+│   ├── README.md
+│   └── NNN-titulo-em-kebab.md
 └── notes/
     └── raw-insights.md
 ```
@@ -60,9 +63,18 @@ Perguntas abertas que precisam ser respondidas para fortalecer a narrativa, a of
 
 ### `episodes/`
 
-Registros narrativos por episodio. Nomenclatura `NNN-titulo-em-kebab.md` com numeracao incremental zero-pad **comecando em `001`**. Cada episodio deve poder virar post, video, aula curta, thread, newsletter, roteiro de bastidor ou estudo de caso. Template copiavel em [`../assets/template-episode.md`](../assets/template-episode.md).
+Cada episodio e um **pacote** `NNN-titulo-em-kebab/`:
 
-**Nao criar `000-template.md` em `episodes/`.** O template vive na skill (em `assets/`), nao na pasta narrativa do projeto. Manter o template fora de `episodes/` evita confusao entre referencia copiavel e episodio real.
+- `episode.md` — narrativa;
+- `sources/INDEX.md` — indice de fontes;
+- `sources/conversations/*.md` — digest condensado por conversa (tool, path, agente);
+- `sources/artifacts/` — commits, files, resgates externos.
+
+Spec: [`pattern-episode-package.md`](./pattern-episode-package.md). Template: [`../assets/template-episode.md`](../assets/template-episode.md).
+
+Formato legado `NNN-slug.md` na raiz de `episodes/` ainda existe nos eps nao migrados; link canonico apos migracao: `episodes/NNN-slug/episode.md`.
+
+**Nao criar `000-template` em `episodes/`.** Ver [`episodes/README.md`](../../.journey/episodes/README.md) no projeto.
 
 #### Tipos de episodio
 
@@ -118,6 +130,23 @@ Banco de ideias reaproveitaveis. Cada semente declara origem, tese, formatos pos
 
 Notas menos processadas, insights soltos, frases que ainda nao viraram episodio. Aceita lista cronologica de fragmentos curtos.
 
+### `knowledges/`
+
+Posts editoriais de blog compilados a partir de episodios, notas e observacoes do co-autor humano. **Voz:** primeira pessoa do agente redator (`metadata.voice: knowledge-redactor`). **Co-autoria:** humano nomeado em `metadata.authors.co_author` e no bloco de creditos do corpo.
+
+Diferenca essencial:
+
+- `episodes/` = bastidor com fontes e rastreabilidade;
+- `knowledges/` = palco para leitor do jardim digital, com honestidade sobre quem redigiu o texto corrido.
+
+Nomenclatura: `NNN-titulo-em-kebab.md`, numeracao independente de `episodes/`, comecando em `001`.
+
+Spec de voz e workflow: [`pattern-knowledge-authoring.md`](./pattern-knowledge-authoring.md). Template: [`../assets/template-knowledge.md`](../assets/template-knowledge.md). README da pasta: [`../assets/template-knowledges-readme.md`](../assets/template-knowledges-readme.md).
+
+Status tipico: `draft` → `revisao-humana` → `pronto-publicar` → `publicado`. Nao publicar fora do repositorio sem revisao do co-autor humano.
+
+Apos compilar, marcar episodios fonte com `[compilado em: knowledges/NNN-slug]` para rastreio reverso.
+
 ## Comportamento na criacao
 
 Quando `.journey/` nao existe:
@@ -128,7 +157,8 @@ Quando `.journey/` nao existe:
 4. registrar o primeiro marco em `timeline.md`;
 5. adicionar perguntas iniciais em `open-questions.md`;
 6. deixar `episodes/` vazia inicialmente — primeiro ep sera criado a parte e numerado `001-`. Template copiavel permanece em `assets/template-episode.md` da skill;
-7. avisar o usuario de que a primeira versao e um mapa inicial, nao a versao definitiva.
+7. criar `knowledges/README.md` a partir de `assets/template-knowledges-readme.md`; pasta sem posts ate `compilar-conhecimento`;
+8. avisar o usuario de que a primeira versao e um mapa inicial, nao a versao definitiva.
 
 ## Comportamento na atualizacao
 

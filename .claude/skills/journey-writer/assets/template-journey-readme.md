@@ -56,9 +56,12 @@ Cada contribuicao deve tentar responder:
   timeline.md
   open-questions.md
   episodes/
+  knowledges/
   seeds/
   notes/
 ```
+
+`knowledges/` — posts de blog compilados pelo agente redator, com voce como co-autor. Ver README em `knowledges/`.
 
 ## O que registrar
 

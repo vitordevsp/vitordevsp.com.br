@@ -1,4 +1,5 @@
 ---
+
 title: EP-004 - Reset total como marca do protagonista
 status: refinando
 type: meta
@@ -28,14 +29,15 @@ metadata:
       - 003-v3-e-v3.1-sass-bem-e-notion-continua
       - 005-v32-nasce-com-sdd-desde-primeira-linha
     note: episodio meta. Consolida material dos episodios cronologicos vizinhos e CHANGELOG, sem sessoes proprias.
-    last_review: 2026-05-13 20:30
+last_review: 2026-05-13 20:30
+
 ---
 
 # EP-004 — Reset total como marca do protagonista
 
 ## Sobre este episodio
 
-Episodio meta. Atravessa os dois resets totais do repositorio (2023-12-05 e 2026-05-04) e o padrao que os une. Vem antes do episodio sobre o nascimento da branch atual ([`005-v32-nasce-com-sdd-desde-primeira-linha.md`](./005-v32-nasce-com-sdd-desde-primeira-linha.md)) porque o segundo reset so faz sentido a luz do primeiro.
+Episodio meta. Atravessa os dois resets totais do repositorio (2023-12-05 e 2026-05-04) e o padrao que os une. Vem antes do episodio sobre o nascimento da branch atual (`[005-v32-nasce-com-sdd-desde-primeira-linha.md](./005-v32-nasce-com-sdd-desde-primeira-linha.md)`) porque o segundo reset so faz sentido a luz do primeiro.
 
 ## Gancho
 
@@ -48,15 +50,17 @@ Isso nao e acidente. Isso e marca.
 O repositorio `vitordevsp.com.br` tem cinco anos de historia (primeiro commit em 2021-05-25). Nesse periodo, dois eventos rompem com o padrao normal de evolucao: dois resets totais em que todos os arquivos foram apagados e o projeto reiniciou do zero.
 
 **Reset 1 — 2023-12-05 (rumo a v3):**
+
 - commit `5fab737`: "exclui todos os arquivos do projeto";
 - commit `414bdb8`: "Initial commit v3";
 - saiu de v2 (Chakra UI + Notion antigo + API Routes internas + modulo content) para nova base com Tailwind (depois substituido por Sass + BEM) + Notion v2 + estrutura de componentes nova.
 
 **Reset 2 — 2026-05-04 (rumo a v3.2):**
+
 - commit `218da0a`: "feat: nova base para a v3.2";
 - saiu de v3.1.x (Sass + BEM + Notion wrapper proprio) para Next.js 16 hello world + SDD + tres camadas (`docs/`, `.claude/`, `.journey/`).
 
-Entre os dois resets: v3.0.0 (2025-04-01), v3.1.0 (2025-04-10), v3.1.x ate maio/2026. Ver [`003-v3-e-v3.1-sass-bem-e-notion-continua.md`](./003-v3-e-v3.1-sass-bem-e-notion-continua.md).
+Entre os dois resets: v3.0.0 (2025-04-01), v3.1.0 (2025-04-10), v3.1.x ate maio/2026. Ver `[003-v3-e-v3.1-sass-bem-e-notion-continua.md](./003-v3-e-v3.1-sass-bem-e-notion-continua.md)`.
 
 ## Conflito
 
@@ -89,7 +93,7 @@ Reset total nao significa trocar tudo. Significa apagar o codigo, manter o apren
 
 O que sobreviveu aos dois resets, mesmo com tudo apagado:
 
-- **Notion como CMS editorial.** A unica decisao arquitetural que atravessou v2 -> v3 -> v3.2 sem ser questionada com seriedade. Ver absorcao em [`002-v1-e-v2-anos-de-aprendizado-base.md`](./002-v1-e-v2-anos-de-aprendizado-base.md) (onde entrou) e [`003-v3-e-v3.1-sass-bem-e-notion-continua.md`](./003-v3-e-v3.1-sass-bem-e-notion-continua.md) (sobrevivencia ao reset 1);
+- **Notion como CMS editorial.** A unica decisao arquitetural que atravessou v2 -> v3 -> v3.2 sem ser questionada com seriedade. Ver absorcao em `[002-v1-e-v2-anos-de-aprendizado-base.md](./002-v1-e-v2-anos-de-aprendizado-base.md)` (onde entrou) e `[003-v3-e-v3.1-sass-bem-e-notion-continua.md](./003-v3-e-v3.1-sass-bem-e-notion-continua.md)` (sobrevivencia ao reset 1);
 - **portugues como idioma do projeto**;
 - **conventional commits**;
 - **deploy na Vercel**;
@@ -101,6 +105,7 @@ Apagar tudo nao e desculpa pra trocar tudo. Saber o que apagar e o que manter e 
 ## Aprendizado
 
 **Aprendizado 1: existem dois tipos de reset.**
+
 - reset tecnico: troca de stack porque a base envelheceu;
 - reset metodologico: troca de modo de criar porque o codigo atual nao acomoda o metodo novo.
 
@@ -129,10 +134,10 @@ Cada dev tem seu padrao de "o que sempre fica". Para o Vitor, e Notion como loca
 
 ## Perguntas abertas
 
-- [ ] Se SDD funcionar como antidoto, este sera o ultimo reset total deste repo? Ou reset e padrao permanente?
-- [ ] Existe um terceiro tipo de reset (filosofico, identitario) que ainda nao apareceu mas pode aparecer?
-- [ ] Quanto tempo precisa passar entre o reset de 2026 e o proximo (se houver) para confirmar que SDD quebrou o ciclo?
-- [ ] Existe outra decisao deste repo que sobreviveu a tudo e ainda nao foi formalizada como ADR (portugues, conventional commits, deploy na Vercel)?
+- Se SDD funcionar como antidoto, este sera o ultimo reset total deste repo? Ou reset e padrao permanente?
+- Existe um terceiro tipo de reset (filosofico, identitario) que ainda nao apareceu mas pode aparecer?
+- Quanto tempo precisa passar entre o reset de 2026 e o proximo (se houver) para confirmar que SDD quebrou o ciclo?
+- Existe outra decisao deste repo que sobreviveu a tudo e ainda nao foi formalizada como ADR (portugues, conventional commits, deploy na Vercel)?
 
 ## Fragmentos aproveitaveis
 
@@ -152,4 +157,4 @@ Cada dev tem seu padrao de "o que sempre fica". Para o Vitor, e Notion como loca
 - `414bdb8` (2023-12-05): "Initial commit v3" — restart pos reset 1.
 - `218da0a` (2026-05-04): "feat: nova base para a v3.2" — reset 2.
 
-Ver tambem: [`005-v32-nasce-com-sdd-desde-primeira-linha.md`](./005-v32-nasce-com-sdd-desde-primeira-linha.md) (foco no reset 2 especifico) e [`../../CHANGELOG.md`](../../CHANGELOG.md) (visao completa do repositorio).
+Ver tambem: `[005-v32-nasce-com-sdd-desde-primeira-linha.md](./005-v32-nasce-com-sdd-desde-primeira-linha.md)` (foco no reset 2 especifico) e `[../../CHANGELOG.md](../../CHANGELOG.md)` (visao completa do repositorio).

@@ -3,8 +3,8 @@ title: Fluxos de sequencia da journey-writer
 description: Explicita os fluxos principais por acao da skill com diagramas Mermaid curtos para reduzir ambiguidade operacional sem inflar o SKILL principal.
 metadata:
   author: agents-studio
-  last_updated: 2026-05-14 03:30
-  version: "1.3.0"
+  last_updated: 2026-05-16 12:00
+  version: "1.4.0"
 ---
 
 # Fluxos de sequencia da journey-writer
@@ -207,4 +207,24 @@ sequenceDiagram
     S->>J: scripts/source-add.py --type external (registra rescue + bumpa last_review)
     S->>J: scripts/validate.sh (audita ao final)
     S-->>U: devolve ep enriquecido + lista de novas lacunas que viraram open-questions
+```
+
+## Compilar conhecimento
+
+Quando material maduro em episodios/notas deve virar post de blog em `knowledges/` com voz de agente e co-autoria explicita.
+
+```mermaid
+sequenceDiagram
+    participant U as Usuario
+    participant S as journey-writer
+    participant J as .journey/
+    U->>S: pede post / compilar conhecimento sobre tema X
+    S->>J: le eps e notas em compiled_from candidatos
+    S->>U: confirma tese, fontes e exposicao (AskUserQuestion se ambiguo)
+    U-->>S: valida escopo
+    S->>S: aplica pattern-knowledge-authoring (voz redator descolado, 1a pessoa LLM)
+    S->>J: cria knowledges/NNN-slug.md com frontmatter + creditos honestos
+    S->>J: marca eps fonte com [compilado em: knowledges/NNN-slug]
+    S->>J: scripts/validate.sh (refs de episodes/)
+    S-->>U: devolve draft para revisao-humana do co-autor
 ```

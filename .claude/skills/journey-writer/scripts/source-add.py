@@ -38,10 +38,22 @@ except ImportError:
 FRONTMATTER_RE = re.compile(r"^(---\n)([\s\S]*?)(\n---\n)")
 
 
+def resolve_ep_path(root: Path, slug: str) -> tuple[Path, str]:
+    """Retorna (path, layout) com layout 'package' ou 'flat'."""
+    pkg = root / "episodes" / slug / "episode.md"
+    flat = root / "episodes" / f"{slug}.md"
+    if pkg.is_file():
+        return pkg, "package"
+    if flat.is_file():
+        return flat, "flat"
+    raise FileNotFoundError(f"ep nao encontrado: {slug} (tentei {pkg} e {flat})")
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("--ep", required=True, help="slug do ep (ex: 003-v3-e-v3.1-...)")
     p.add_argument("--root", default=".journey")
+    p.add_argument("--tool", default="claude-code", help="tool.id para digest (package)")
     p.add_argument("--type", required=True, choices=["session", "commit", "file", "branch", "external", "derived"])
     p.add_argument("--id", default="")
     p.add_argument("--date", default="")
@@ -86,10 +98,19 @@ def ensure_sources(fm: dict) -> dict:
 def main() -> int:
     args = parse_args()
     root = Path(args.root).resolve()
-    ep_path = root / "episodes" / f"{args.ep}.md"
-    if not ep_path.exists():
-        print(f"erro: ep nao encontrado: {ep_path}", file=sys.stderr)
+    try:
+        ep_path, layout = resolve_ep_path(root, args.ep)
+    except FileNotFoundError as e:
+        print(f"erro: {e}", file=sys.stderr)
         return 2
+
+    if layout == "package" and args.type == "session":
+        print(
+            "aviso: ep em pacote v2 — prefira criar digest em "
+            f"episodes/{args.ep}/sources/conversations/ "
+            "(template-conversation-digest.md) e atualizar sources/INDEX.md",
+            file=sys.stderr,
+        )
 
     content = ep_path.read_text(encoding="utf-8")
     fm, body, _ = load_frontmatter(content)

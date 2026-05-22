@@ -53,7 +53,9 @@ Para quem chega aqui pela primeira vez, ler nesta ordem:
   timeline.md            Marcos cronologicos com refs aos episodios
   open-questions.md      Lacunas com tag de origem por pergunta
   episodes/
-    001-introducao.md
+    README.md
+    001-introducao.md          (flat legado — migrar para pacote)
+    009-criacao-do-fluxo-journey/   (pacote v2: episode.md + sources/)
     002-v1-e-v2-anos-de-aprendizado-base.md
     003-v3-e-v3.1-sass-bem-e-notion-continua.md
     004-reset-total-como-marca.md           (meta)
@@ -62,6 +64,8 @@ Para quem chega aqui pela primeira vez, ler nesta ordem:
     007-skills-trazidas-do-agents-studio.md
     008-dez-plans-em-draft.md
     009-criacao-do-fluxo-journey.md         (boilerplate, popular por ultimo)
+  knowledges/
+    README.md            Posts de blog (agente redator + co-autoria humana)
   seeds/
     content-seeds.md     Sementes de conteudo publico futuro
   notes/
@@ -69,6 +73,8 @@ Para quem chega aqui pela primeira vez, ler nesta ordem:
 ```
 
 Episodios comecam em `001`. Template copiavel vive na skill em [`.claude/skills/journey-writer/assets/template-episode.md`](../.claude/skills/journey-writer/assets/template-episode.md), nao em `episodes/`.
+
+Knowledges comecam em `001` com numeracao propria. Voz do redator-agente em primeira pessoa; humano como co-autor — ver [`knowledges/README.md`](./knowledges/README.md) e [pattern-knowledge-authoring](../.claude/skills/journey-writer/references/pattern-knowledge-authoring.md).
 
 Ver tambem: [`../CHANGELOG.md`](../CHANGELOG.md) — visao completa do repositorio (5 anos, 3 versoes maiores, 2 resets totais), serve como insumo para refinacao narrativa.
 

@@ -159,59 +159,34 @@ Cuidado de exposicao: o `{PROJECT_SUMMARY}` enviado para LLM externo vira proxy 
 6. **escrever o ep com material concreto:** citacoes em quote block, tabelas com numeros, lista de itens reais (nao "varios" ou "alguns");
 7. **bumpar `last_review`** apos terminar.
 
-## Como instrumentar `metadata.sources`
+## Como instrumentar fontes (pacote v2)
+
+1. Apos ler uma conversa, criar `sources/conversations/{8hex}-{tool-id}.md` ([`../assets/template-conversation-digest.md`](../assets/template-conversation-digest.md)).
+2. Preencher `tool.id` conforme origem real (nao assumir claude-code se foi Cursor/Codex/Antigravity).
+3. Preencher `storage.path` absoluto do JSONL ou export.
+4. Preencher `agent.name` (skill ou produto que conduziu a sessao).
+5. Corpo do digest: resumo, decisoes, quotes USER+ASSISTANT, numeros.
+6. Atualizar `sources/INDEX.md` ([`../assets/template-sources-index.md`](../assets/template-sources-index.md)).
+7. Bumpar `last_review` no INDEX e em `metadata.sources` do `episode.md`.
+
+Rollup no ep:
 
 ```yaml
-sources:
-  sessions:
-    - id: 748c1940-398e-419a-8ab2-38107bb479f3
-      date: 2026-05-12
-      relevance: primary
-      summary: diagnostico cruzado, numeros (5921 -> 2335), consolidacao em flat
-  commits:
-    - 1ae4ffc
-    - 16af8bd
-  files:
-    - docs/
-    - docs/decisions/
-  branches:
-    - claude_experiment
-  external_rescues:
-    - llm: gpt-4
-      date: 2026-05-15
-      assunto: motivacao real para apagar a v3.1.x
-      exposicao: privado
-      summary: usuario lembrou tres frustracoes especificas com agente sobre v3.1.x; duas viraram quotes verbatim no ep
-  last_review: 2026-05-15 09:30
+metadata:
+  sources:
+    index: sources/INDEX.md
+    package: episode-package/1.0
+    last_review: 2026-05-16 14:00
+    counts:
+      conversations: 2
+      commits: 3
+      files: 4
+      external: 0
 ```
 
-Para eps meta:
+### Formato legado (flat, deprecated)
 
-```yaml
-sources:
-  sessions: []
-  commits: []
-  files:
-    - CHANGELOG.md
-  derived_from:
-    - 002-v1-e-v2-anos-de-aprendizado-base
-    - 003-v3-e-v3.1-sass-bem-e-notion-continua
-    - 005-v32-nasce-com-sdd-desde-primeira-linha
-  note: episodio meta. Consolida material dos episodios cronologicos vizinhos.
-  last_review: 2026-05-13 20:30
-```
-
-Para eps anteriores a sessoes Claude Code disponiveis:
-
-```yaml
-sources:
-  sessions: []
-  commits: [42a2075, 36443e0, ...]
-  files:
-    - CHANGELOG.md
-  note: episodio cronologico antigo, anterior a sessoes Claude Code disponiveis. Material vem de git log + CHANGELOG.
-  last_review: 2026-05-13 20:30
-```
+Listas `sessions`/`commits`/`files` no frontmatter do `.md` unico ainda aparecem em eps 001–008. Migrar com [`pattern-migration-episode-packages.md`](./pattern-migration-episode-packages.md). Nao criar eps novos nesse formato.
 
 ## Antipadroes
 

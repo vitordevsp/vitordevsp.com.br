@@ -1,18 +1,18 @@
 ---
 name: journey-writer
-description: "Transforma conversas, decisões, planos e registros de desenvolvimento em narrativa pública dentro de `.journey/`, com foco editorial, storytelling de SDD e geração futura de conteúdo, sem virar documentação técnica."
+description: "Transforma conversas, decisões, planos e registros em narrativa em `.journey/` e compila posts de blog em `knowledges/` com voz de agente redator e co-autoria humana explícita; foco em SDD e conteúdo público, sem virar documentação técnica."
 compatibility: "Projetada para Agents Studio v0.1. Opera somente em projetos que aceitam manter uma camada narrativa `.journey/` separada de `docs/` e da implementação."
 metadata:
   author: agents-studio
-  last_updated: 2026-05-14 03:30
-  version: "1.3.0"
+  last_updated: 2026-05-16 14:00
+  version: "2.0.0"
 ---
 
 # journey-writer
 
 ## Inicio rapido
 
-1. Leia a primeira frase do usuario e classifique a acao principal: `inicializar`, `analisar-insumo`, `registrar`, `refinar`, `enriquecer`, `colher-conteudo`, `reorganizar` ou `validar`.
+1. Leia a primeira frase do usuario e classifique a acao principal: `inicializar`, `analisar-insumo`, `registrar`, `refinar`, `enriquecer`, `colher-conteudo`, `compilar-conhecimento`, `reorganizar` ou `validar`.
 2. **Antes de escrever qualquer linha narrativa, busque historico real** (sessoes JSONL, git log, CHANGELOG, planos, skills). Detalhe em [`references/pattern-source-extraction.md`](./references/pattern-source-extraction.md). Material real evita rascunho generico que e sempre reescrito depois.
 3. Verifique se `.journey/` ja existe na raiz do projeto e mapeie quais arquivos estao presentes.
 4. Identifique o tipo de insumo (`conversa`, `decisao`, `plano`, `erro`, `reflexao`, `mudanca-de-direcao`, `duvida`, `conteudo-bruto`).
@@ -30,6 +30,7 @@ metadata:
 - refinar o arco principal em `hero.md`, episodios e perguntas abertas em `open-questions.md`;
 - enriquecer episodios existentes com mais detalhes extraidos de fontes ja vistas ou novas;
 - colher seeds de conteudo publico a partir de registros ja existentes;
+- compilar episodios e observacoes em posts de blog em `knowledges/`, com voz de agente redator descolado e co-autoria explicita do humano;
 - reorganizar a numeracao cronologica dos episodios mantendo refs cruzadas validas;
 - validar consistencia de refs, frontmatter e sources;
 - preservar separacao estrita entre narrativa (`.journey/`) e documentacao tecnica (`docs/`).
@@ -42,7 +43,8 @@ metadata:
 - uma mudanca de direcao precisa ser capturada antes de virar retrospectiva;
 - ha duvida ou frustracao com agentes que ensina algo reutilizavel;
 - episodio existente esta raso e precisa ganhar numeros, citacoes ou exemplos concretos;
-- a cronologia da serie precisa ser reorganizada com seguranca.
+- a cronologia da serie precisa ser reorganizada com seguranca;
+- ha material maduro em episodios/notas e o usuario quer post de blog honesto (agente redige, humano e co-autor).
 
 ## Quando nao usar
 
@@ -55,12 +57,13 @@ metadata:
 
 | Acao | Quando usar | Entradas esperadas | Saidas esperadas |
 |------|------|------|------|
-| `inicializar` | `.journey/` ainda nao existe ou esta incompleto | confirmacao do usuario, contexto inicial do projeto, nome do protagonista; **se houver historico (sessoes JSONL, git log, CHANGELOG), buscar antes de escrever** | estrutura base em `.journey/` com `README.md`, `hero.md` rascunho, `timeline.md`, `open-questions.md`, `episodes/` (vazia, primeiro ep e `001-`), `seeds/content-seeds.md`, `notes/raw-insights.md`. Template copiavel vive em `assets/template-episode.md` da skill, nao em `episodes/`. |
+| `inicializar` | `.journey/` ainda nao existe ou esta incompleto | confirmacao do usuario, contexto inicial do projeto, nome do protagonista; **se houver historico (sessoes JSONL, git log, CHANGELOG), buscar antes de escrever** | estrutura base em `.journey/` com `README.md`, `hero.md` rascunho, `timeline.md`, `open-questions.md`, `episodes/` (vazia, primeiro ep e `001-`), `knowledges/` (vazia com `README.md`), `seeds/content-seeds.md`, `notes/raw-insights.md`. Templates copiaveis vivem em `assets/` da skill, nao em `episodes/` nem `knowledges/`. |
 | `analisar-insumo` | usuario traz material bruto e quer saber onde registrar | trecho da conversa, link/cita do plano ou decisao, contexto temporal | classificacao por tipo, lente e estagio da jornada; recomendacao de destino antes de escrever |
-| `registrar` | ja existe clareza editorial sobre o destino | tipo de registro alvo (`marco`, `episodio`, `semente`, `fragmento`) e material destilado | arquivo certo criado ou atualizado em `.journey/`, com tom autoral preservado e frontmatter completo (eps) |
+| `registrar` | ja existe clareza editorial sobre o destino | tipo de registro alvo (`marco`, `episodio`, `semente`, `fragmento`) e material destilado | arquivo certo em `.journey/`; **episodio novo** = pasta `episodes/NNN-slug/` com `episode.md` + `sources/INDEX.md` vazio |
 | `refinar` | `hero.md`, episodio ou `open-questions.md` precisa amadurecer | arquivo alvo, nova evidencia, lacuna a fechar | mesmo arquivo evoluido sem duplicacao, com hipoteses marcadas como hipoteses; `metadata.sources.last_review` atualizado |
 | `enriquecer` | episodio ja existe mas esta raso, precisa ganhar numeros/citacoes/exemplos | episodio alvo + indicacao de fontes ja vistas ou novas a consultar | mesmo ep com tabelas, citacoes verbatim, dados concretos; sources atualizado |
 | `colher-conteudo` | registros existentes ja tem material para virar oferta publica | recorte de episodios ou marcos relevantes | entradas novas em `seeds/content-seeds.md` com formato, tese, publico e relacao com SDD |
+| `compilar-conhecimento` | material maduro (2+ eps ou ep + nota forte) deve virar post de blog com voz de agente e co-autoria explicita | tese do post, eps/fontes, observacoes novas do usuario, nivel de exposicao | novo arquivo em `knowledges/NNN-slug.md` com frontmatter `compiled_from`, bloco de creditos honesto, voz em primeira pessoa do redator ([`references/pattern-knowledge-authoring.md`](./references/pattern-knowledge-authoring.md)) |
 | `reorganizar` | numeracao cronologica precisa mudar (novo ep no meio, fusao, divisao) | mapa antigo->novo de IDs de eps | renomeacao segura via padrao topologico ([`references/pattern-renumeration-safe.md`](./references/pattern-renumeration-safe.md)); refs cruzadas atualizadas; timeline mapa atualizado; zero refs orfas |
 | `validar` | suspeita de refs quebradas, frontmatter inconsistente, sources defasados | nenhuma; varre `.journey/` inteira | relatorio de refs orfas, eps sem frontmatter completo, eps com `last_review` muito antigo ou ausente |
 | `gerar-prompt-externo` | usuario quer levar um assunto pra LLM externo (ChatGPT, Claude.ai, Gemini) e trazer resposta de volta | linha curta com assunto (ex: "gerar prompt sobre reset v3.2"); opcionalmente `ep alvo` e `nivel de exposicao` | bloco markdown copiavel com prompt estruturado preenchido com contexto do projeto, lacunas conhecidas e formato de resposta esperado. Template em [`assets/template-external-rescue-prompt.md`](./assets/template-external-rescue-prompt.md) |
@@ -79,6 +82,7 @@ Nomes equivalentes que podem aparecer na frase inicial do usuario:
 - `auditar`, `checar-refs` (todos equivalem a `validar`)
 - `gerar prompt sobre <X>`, `prompt-resgate <X>`, `resgate-externo <X>` (todos equivalem a `gerar-prompt-externo`)
 - `colar resgate`, `absorver resposta do gpt`, `enriquecer com resgate` (todos equivalem a `absorver-resgate-externo`)
+- `escrever knowledge`, `compilar episodios em post`, `post do blog`, `novo knowledge` (todos equivalem a `compilar-conhecimento`)
 
 ## Entradas tipicas
 
@@ -105,7 +109,7 @@ Para cada novo insumo, siga o workflow:
 1. classificar tipo (`conversa`, `decisao`, `plano`, `erro`, `reflexao`, `mudanca-de-direcao`, `duvida`, `conteudo-bruto`);
 2. extrair elementos narrativos (`conflito`, `decisao`, `aprendizado`, `virada`, `consequencia`, `pergunta-aberta`, `conteudo-potencial`);
 3. classificar estagio da jornada (`mundo-comum`, `chamado`, `resistencia`, `metodo`, `provacao`, `recompensa`, `integracao`, `ensino`);
-4. escolher destino (`hero.md`, `timeline.md`, `episodes/`, `open-questions.md`, `seeds/content-seeds.md`, `notes/raw-insights.md`);
+4. escolher destino (`hero.md`, `timeline.md`, `episodes/`, `open-questions.md`, `seeds/content-seeds.md`, `notes/raw-insights.md`, `knowledges/`);
 5. separar fato, interpretacao e hipotese editorial (marcar com `> Hipotese editorial:`);
 6. so escrever quando o destino estiver decidido.
 
@@ -165,9 +169,22 @@ Para puxar memoria que so o usuario tem (ou que precisa de outro modelo pra dest
 
 Exposicao: respostas externas chegam com `nivel_exposicao` declarado no prompt (`privado`, `semi-publico`, `publico`). Skill respeita esse marcador na hora de absorver — material `privado` nao deve sair do `.journey/` sem revisao explicita.
 
+### Compilar conhecimento (posts de blog)
+
+Quando a acao for `compilar-conhecimento`:
+
+1. carregar [`references/pattern-knowledge-authoring.md`](./references/pattern-knowledge-authoring.md) — persona do redator descolado, co-autoria honesta, antipadrao de ghostwriting;
+2. confirmar tese, `compiled_from` e exposicao antes de redigir (AskUserQuestion se faltar);
+3. redigir em **primeira pessoa do agente**; o humano e **co-autor**, nao autor fantasma unico;
+4. fechar com bloco **Creditos e como este texto foi feito** (obrigatorio);
+5. marcar eps fonte com `[compilado em: knowledges/NNN-slug]` apos o humano validar o draft;
+6. nao publicar fora do repo sem `status` >= `revisao-humana` e exposicao compativel.
+
+Voz de `knowledges/` e excecao deliberada a "preservar tom autoral do usuario" — aqui o tom autoral e do **redator-agente**, com credito ao humano.
+
 ## Frontmatter como contrato
 
-Todo episodio em `.journey/episodes/` carrega frontmatter padronizado. Spec completo em [`assets/template-episode.md`](./assets/template-episode.md). Campos chave:
+Todo `episode.md` carrega frontmatter padronizado. Spec em [`assets/template-episode.md`](./assets/template-episode.md). **Fontes detalhadas** ficam em `sources/` — ver [`references/pattern-episode-package.md`](./references/pattern-episode-package.md). Campos chave:
 
 - `title`: `EP-NNN - Titulo`;
 - `status`: `draft` -> `refinando` -> `refinado` -> `publicado`;
@@ -180,32 +197,13 @@ Eps `meta` (atravessam multiplos momentos) usam tambem `metadata.sources.derived
 
 ## Mecanismo `sources` (anti-retrabalho)
 
-`metadata.sources` em cada ep registra o que ja foi consultado:
+**v2 (pacote):** `metadata.sources.index` aponta para `sources/INDEX.md`. Cada conversa consultada vira digest em `sources/conversations/{8hex}-{tool-id}.md` com frontmatter rico (`tool.id`: claude-code | cursor | codex | antigravity | …; `storage.path` absoluto; `agent.name`). O agente le digests condensados em vez de reler JSONL.
 
-```yaml
-sources:
-  sessions:
-    - id: <uuid-jsonl>
-      date: AAAA-MM-DD
-      relevance: primary | secondary
-      summary: descricao curta
-  commits: [<hash-curto>, ...]
-  files: [<path>, ...]
-  branches: [<branch>, ...]      # opcional
-  derived_from: [<ep-slug>, ...] # so meta/intro
-  external_rescues:              # opcional, populado por absorver-resgate-externo
-    - llm: gpt-4 | claude.ai | gemini | other
-      date: AAAA-MM-DD
-      assunto: <input que gerou o prompt>
-      exposicao: privado | semi-publico | publico
-      summary: resumo curto do que foi extraido
-  note: <contexto opcional>
-  last_review: AAAA-MM-DD HH:MM
-```
+**Legado (flat):** listas `sessions`/`commits` no frontmatter ainda funcionam ate migracao — ver [`references/pattern-migration-episode-packages.md`](./references/pattern-migration-episode-packages.md).
 
-Antes de reler conversas, agente consulta `sources.sessions` do ep alvo e foca em material novo. Atualizar `last_review` toda vez que sources for tocado.
+Fluxo ao consultar conversa: criar/atualizar digest → INDEX → bumpar `last_review` no INDEX e no `episode.md`.
 
-Detalhe em [`references/pattern-source-extraction.md`](./references/pattern-source-extraction.md).
+Detalhe em [`references/pattern-source-extraction.md`](./references/pattern-source-extraction.md) e [`assets/template-conversation-digest.md`](./assets/template-conversation-digest.md).
 
 ## Marcacoes editoriais especiais
 
@@ -227,17 +225,30 @@ Detalhe em [`references/pattern-source-extraction.md`](./references/pattern-sour
 ├── timeline.md
 ├── open-questions.md
 ├── episodes/
-│   ├── 001-introducao.md   (primeiro ep cronologico, capa)
-│   └── ...                  (demais eps em ordem cronologica zero-pad)
+│   ├── README.md
+│   ├── 001-introducao/          (pacote v2)
+│   │   ├── episode.md
+│   │   └── sources/
+│   │       ├── INDEX.md
+│   │       ├── conversations/
+│   │       └── artifacts/
+│   └── NNN-slug/                (idem)
 ├── seeds/
 │   └── content-seeds.md
+├── knowledges/
+│   ├── README.md
+│   └── NNN-slug/                (pacote: knowledge.md + sources/)
 └── notes/
     └── raw-insights.md
 ```
 
-`.journey/` fica na raiz do projeto, fora de `docs/` e fora de `.claude/`. Nao misture registros narrativos com documentacao tecnica.
+`.journey/` fica na raiz do projeto, fora de `docs/` e fora de `.claude/`.
 
-Episodios comecam em `001`. **Nao criar `000-template.md` em `episodes/`** — o template copiavel vive em [`assets/template-episode.md`](./assets/template-episode.md) desta skill.
+**Episodios (v2):** pasta `episodes/NNN-slug/` — narrativa em `episode.md`; fontes em `sources/` com **INDEX** + **digest por conversa** (frontmatter com `tool.id`, `storage.path`, `agent.name`). Spec: [`references/pattern-episode-package.md`](./references/pattern-episode-package.md). Formato flat `NNN-slug.md` e legado (aviso no validate).
+
+**Knowledges:** mesmo padrao de `sources/`; template em [`assets/template-knowledge.md`](./assets/template-knowledge.md).
+
+Refs cruzadas: `episodes/NNN-slug/episode.md` (nao `NNN-slug.md` apos migracao).
 
 ## Versionamento leve
 
@@ -260,7 +271,9 @@ Episodios comecam em `001`. **Nao criar `000-template.md` em `episodes/`** — o
 - **escrever rascunho generico antes de buscar historico real** (sempre reescrito depois — desperdicio);
 - pular validacao de refs orfas apos renomeacoes;
 - esquecer de atualizar `metadata.sources.last_review` apos refinacao;
-- reler sessoes JSONL ja listadas em `sources.sessions` quando nao ha material novo a extrair.
+- reler sessoes JSONL ja listadas em `sources.sessions` quando nao ha material novo a extrair;
+- compilar knowledge sem bloco de creditos ou fingindo autoria exclusiva humana;
+- usar voz de episodio (bastidor) dentro de `knowledges/` sem primeira pessoa do agente.
 
 ## Scripts disponiveis
 
@@ -285,6 +298,9 @@ Pre-requisitos: `jq` (P1) e `PyYAML` (P2/P3). Sem `ruamel.yaml` por enquanto —
 Carregue primeiro as referencias ativas desta skill:
 
 - [`references/pattern-journey-authoring.md`](./references/pattern-journey-authoring.md) — principios editoriais, tom, lentes, marcacoes especiais, estrategia de perguntas e checklist de qualidade.
+- [`references/pattern-knowledge-authoring.md`](./references/pattern-knowledge-authoring.md) — voz do redator-agente, co-autoria honesta, workflow de `compilar-conhecimento`, checklist de posts em `knowledges/`.
+- [`references/pattern-episode-package.md`](./references/pattern-episode-package.md) — pasta por ep/knowledge, INDEX, digests de conversa, tool.id e storage.path.
+- [`references/pattern-migration-episode-packages.md`](./references/pattern-migration-episode-packages.md) — flat → pacote.
 - [`references/pattern-journey-structure.md`](./references/pattern-journey-structure.md) — papel de cada arquivo em `.journey/`, tipos de episodio, frontmatter como contrato, separacao com `docs/`.
 - [`references/pattern-source-extraction.md`](./references/pattern-source-extraction.md) — como extrair sessoes JSONL, git log, CHANGELOG; mapear sessao->ep; instrumentar sources.
 - [`references/pattern-renumeration-safe.md`](./references/pattern-renumeration-safe.md) — como reorganizar numeracao de eps sem quebrar refs.
@@ -300,12 +316,16 @@ Carregue assets quando precisar copiar templates para `.journey/`:
 - [`assets/template-episode.md`](./assets/template-episode.md) — frontmatter spec + corpo modelo
 - [`assets/template-content-seed.md`](./assets/template-content-seed.md)
 - [`assets/template-external-rescue-prompt.md`](./assets/template-external-rescue-prompt.md) — template parametrizado de prompt para LLM externo (ChatGPT, Claude.ai, Gemini), usado por `gerar-prompt-externo`
+- [`assets/template-knowledge.md`](./assets/template-knowledge.md) — frontmatter e corpo de post em `knowledges/`
+- [`assets/template-knowledges-readme.md`](./assets/template-knowledges-readme.md) — README da pasta `knowledges/`
+- [`assets/template-sources-index.md`](./assets/template-sources-index.md) — `sources/INDEX.md`
+- [`assets/template-conversation-digest.md`](./assets/template-conversation-digest.md) — digest por conversa
 
 ## Limites e seguranca
 
 - nao escrever em `docs/`, `.claude/` ou `src/` a partir desta skill;
 - nao deletar arquivos existentes em `.journey/` sem confirmacao explicita do usuario;
-- preservar tom autoral do usuario; nao reescrever frase ja consolidada sem pedido;
+- preservar tom autoral do usuario em `episodes/`, `hero.md` e notas; em `knowledges/`, usar voz do redator-agente (primeira pessoa LLM) e creditar o humano como co-autor — ver [`references/pattern-knowledge-authoring.md`](./references/pattern-knowledge-authoring.md);
 - marcar hipotese como hipotese, separada de fato;
 - escrever em portugues brasileiro;
 - respeitar nivel de exposicao desejado antes de registrar detalhe sensivel;

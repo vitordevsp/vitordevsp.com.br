@@ -44,8 +44,7 @@ tools:
     type: skill
     path: .claude/skills/journey-writer/SKILL.md
     description: >
-      Transformar conversas, decisões, planos e registros de desenvolvimento
-      em narrativa pública dentro de `.journey/`, separada de `docs/` e da
-      implementação, com foco em storytelling de SDD e geração futura de
-      conteúdo.
+      Narrativa em `.journey/` e posts em `knowledges/` (agente redator em
+      primeira pessoa, co-autoria humana explícita), separado de `docs/` e
+      da implementação; storytelling de SDD e conteúdo para o jardim digital.
     tags: [journey, narrative, content]

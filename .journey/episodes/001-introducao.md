@@ -1,4 +1,5 @@
 ---
+
 title: EP-001 - Introducao
 status: draft
 type: introducao
@@ -27,7 +28,8 @@ metadata:
       - 003-v3-e-v3.1-sass-bem-e-notion-continua
       - 004-reset-total-como-marca
       - 005-v32-nasce-com-sdd-desde-primeira-linha
-    last_review: 2026-05-13 20:30
+last_review: 2026-05-13 20:30
+
 ---
 
 # EP-001 — Introducao
@@ -70,17 +72,17 @@ A intencao final: transformar essa pasta em materia-prima para serie de posts pu
 ## Como ler os episodios
 
 - **Cronologicos** — contam um momento ou periodo especifico da historia do repo:
-  - [`002-v1-e-v2-anos-de-aprendizado-base.md`](./002-v1-e-v2-anos-de-aprendizado-base.md) — 2021 a 2022, fundacao tecnica;
-  - [`003-v3-e-v3.1-sass-bem-e-notion-continua.md`](./003-v3-e-v3.1-sass-bem-e-notion-continua.md) — 2023 a 2026, Sass+BEM, Notion sobrevive ao reset 1;
-  - [`005-v32-nasce-com-sdd-desde-primeira-linha.md`](./005-v32-nasce-com-sdd-desde-primeira-linha.md) — 2026-05-04, nascimento da branch `claude_experiment`;
-  - [`006-docs-de-categorizado-pra-flat.md`](./006-docs-de-categorizado-pra-flat.md) — 2026-05-12, virada na arquitetura documental;
-  - [`007-skills-trazidas-do-agents-studio.md`](./007-skills-trazidas-do-agents-studio.md) — 2026-05-12, reuso entre projetos;
-  - [`008-dez-plans-em-draft.md`](./008-dez-plans-em-draft.md) — 2026-05-13, planejamento como artefato;
-  - [`009-criacao-do-fluxo-journey.md`](./009-criacao-do-fluxo-journey.md) — 2026-05-13, nascimento desta propria pasta.
+  - `[002-v1-e-v2-anos-de-aprendizado-base.md](./002-v1-e-v2-anos-de-aprendizado-base.md)` — 2021 a 2022, fundacao tecnica;
+  - `[003-v3-e-v3.1-sass-bem-e-notion-continua.md](./003-v3-e-v3.1-sass-bem-e-notion-continua.md)` — 2023 a 2026, Sass+BEM, Notion sobrevive ao reset 1;
+  - `[005-v32-nasce-com-sdd-desde-primeira-linha.md](./005-v32-nasce-com-sdd-desde-primeira-linha.md)` — 2026-05-04, nascimento da branch `claude_experiment`;
+  - `[006-docs-de-categorizado-pra-flat.md](./006-docs-de-categorizado-pra-flat.md)` — 2026-05-12, virada na arquitetura documental;
+  - `[007-skills-trazidas-do-agents-studio.md](./007-skills-trazidas-do-agents-studio.md)` — 2026-05-12, reuso entre projetos;
+  - `[008-dez-plans-em-draft.md](./008-dez-plans-em-draft.md)` — 2026-05-13, planejamento como artefato;
+  - `[009-criacao-do-fluxo-journey.md](./009-criacao-do-fluxo-journey.md)` — 2026-05-13, nascimento desta propria pasta.
 - **Meta** — atravessa multiplos momentos:
-  - [`004-reset-total-como-marca.md`](./004-reset-total-como-marca.md) — padrao multi-reset (cobre os dois resets de 2023 e 2026; absorve antiga reflexao sobre Notion como fio que sobrevive).
+  - `[004-reset-total-como-marca.md](./004-reset-total-como-marca.md)` — padrao multi-reset (cobre os dois resets de 2023 e 2026; absorve antiga reflexao sobre Notion como fio que sobrevive).
 
-Para visao cronologica curta de todos os marcos, ver [`../timeline.md`](../timeline.md). Para arco narrativo do protagonista, ver [`../hero.md`](../hero.md). Para visao completa do repositorio, ver [`../../CHANGELOG.md`](../../CHANGELOG.md).
+Para visao cronologica curta de todos os marcos, ver `[../timeline.md](../timeline.md)`. Para arco narrativo do protagonista, ver `[../hero.md](../hero.md)`. Para visao completa do repositorio, ver `[../../CHANGELOG.md](../../CHANGELOG.md)`.
 
 ## Para quem este projeto e relevante
 

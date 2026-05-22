@@ -73,7 +73,7 @@ Convencao:
 
 ## Sobre `.journey/` (meta-narrativa)
 
-- [x] **[origem: ep-009]** Quando o EP-009 (criacao do fluxo journey) vai ser populado de verdade? — Resolvido em 2026-05-14, apos a entrega da skill `1.3.0` (camada de scripts). Marco simbolico do fechamento do ciclo de criacao do fluxo. Detalhe em [`episodes/009-criacao-do-fluxo-journey.md`](./episodes/009-criacao-do-fluxo-journey.md).
+- [x] **[origem: ep-009]** Quando o EP-009 (criacao do fluxo journey) vai ser populado de verdade? — Resolvido em 2026-05-14, apos a entrega da skill `1.3.0` (camada de scripts). Marco simbolico do fechamento do ciclo de criacao do fluxo. Detalhe em [`episodes/009-criacao-do-fluxo-journey/episode.md`](./episodes/009-criacao-do-fluxo-journey/episode.md).
 - [x] **[origem: ep-009]** O fluxo `.journey/` precisa de scripts proprios? — Sim. Resolvido em `1.3.0` (2026-05-14) com 7 scripts em `.claude/skills/journey-writer/scripts/`: `validate.sh`, `extract-sessions.sh` (interativo, 6 perguntas), `extract-conversation.sh` (USER+ASSISTANT), `reorganize.py`, `gen-rescue-prompt.py`, `episode-status-map.py`, `source-add.py`. Pattern em [`pattern-scripts.md`](../.claude/skills/journey-writer/references/pattern-scripts.md).
 - [ ] **[origem: ep-009]** Qual o primeiro projeto do Vitor que vai receber `.journey/` apos esse?
 - [ ] **[origem: ep-009]** Quando promover scripts de PyYAML para `ruamel.yaml`? — Adiar ate preservacao de formato/comentarios virar problema real.

@@ -3,8 +3,8 @@ title: Pattern de autoria narrativa para .journey/
 description: Define principios editoriais, tom, lentes narrativas, estrategia de perguntas e checklist de qualidade aplicados em todo registro de jornada.
 metadata:
   author: agents-studio
-  last_updated: 2026-05-13 00:00
-  version: "1.0.0"
+  last_updated: 2026-05-16 12:00
+  version: "1.1.0"
 ---
 
 # Pattern de autoria narrativa para .journey/
@@ -98,8 +98,9 @@ Para cada tipo, extraia: conflito, decisao, aprendizado, virada, consequencia, p
 | lacuna importante para a narrativa ou oferta futura | `open-questions.md` |
 | ideia reaproveitavel para post, aula, video, newsletter ou lead magnet | `seeds/content-seeds.md` |
 | fragmento solto, insight ainda nao maduro | `notes/raw-insights.md` |
+| material maduro (2+ eps ou ep + nota forte) + pedido de post de blog com co-autoria honesta agente/humano | `knowledges/NNN-titulo.md` via acao `compilar-conhecimento` ([`pattern-knowledge-authoring.md`](./pattern-knowledge-authoring.md)) |
 
-Quando o destino for ambiguo, prefira `notes/raw-insights.md` e marque a lacuna em `open-questions.md`.
+Quando o destino for ambiguo, prefira `notes/raw-insights.md` e marque a lacuna em `open-questions.md`. Se a ideia for post mas o material ainda for raso, use seed primeiro; nao force knowledge.
 
 ## Marcacoes editoriais especiais
 

@@ -1,4 +1,5 @@
 ---
+
 title: EP-002 - v1 e v2, os anos de aprendizado da base
 status: draft
 type: cronologico
@@ -34,7 +35,8 @@ metadata:
     files:
       - CHANGELOG.md
     note: episodio cronologico antigo, anterior a sessoes Claude Code disponiveis. Material vem de git log + CHANGELOG.
-    last_review: 2026-05-13 20:30
+last_review: 2026-05-13 20:30
+
 ---
 
 # EP-002 — v1 e v2, os anos de aprendizado da base
@@ -68,6 +70,7 @@ Componentes criados: `ActiveLink`, `IconLink`, `Toolbar`, `Logo`, `Main`, `Heade
 Paginas: Home, Projects, Videos, Posts, About.
 
 Services hardcoded buscando dados de tres APIs externas:
+
 - YouTube: videos com fallback de thumbnails maxres;
 - Dev.to: posts;
 - GitHub: repositorios com tratamento de erro.
@@ -96,6 +99,7 @@ Cinco meses de transformacao. Saiu da arquitetura "tres APIs externas, render di
 ### Tecnico
 
 Adicionou:
+
 - `@notionhq/client`;
 - services Notion para posts, projects e videos;
 - modulo `content` como abstracao de leitura;
@@ -110,6 +114,7 @@ Adicionou:
 - `DateUtil` para formatar datas.
 
 Mudou:
+
 - todas as paginas (`home`, `posts`, `post`, `projects`, `videos`) passaram a buscar dados via API Routes internas, em vez de chamar APIs externas direto;
 - pasta `components` reorganizada para clareza;
 - filtros e paginacao (`pageSize`) padronizados;
@@ -131,7 +136,7 @@ Razoes que mantiveram a decisao por tanto tempo:
 - **interface de edicao gratis.** Nenhum CMS headless (Sanity, Contentful, Strapi, Hygraph) tem editor melhor que o Notion para texto longo, blocos heterogeneos, listas e referencias cruzadas;
 - **aposta de longa duracao por evidencia, nao por preferencia ideologica.** Ja sustentou tres versoes maiores; provavel que sustente a quarta.
 
-A virada formal aconteceria so na v3.2 (2026-05-12), quando a decisao virou `ADR-002-notion-as-cms.md` — primeira vez que foi documentada como compromisso normativo, depois de cinco anos de uso na pratica. Episodios sobre isso: ver [`003-v3-e-v3.1-sass-bem-e-notion-continua.md`](./003-v3-e-v3.1-sass-bem-e-notion-continua.md) (sobrevivencia ao reset 1) e [`005-v32-nasce-com-sdd-desde-primeira-linha.md`](./005-v32-nasce-com-sdd-desde-primeira-linha.md) (formalizacao em ADR).
+A virada formal aconteceria so na v3.2 (2026-05-12), quando a decisao virou `ADR-002-notion-as-cms.md` — primeira vez que foi documentada como compromisso normativo, depois de cinco anos de uso na pratica. Episodios sobre isso: ver `[003-v3-e-v3.1-sass-bem-e-notion-continua.md](./003-v3-e-v3.1-sass-bem-e-notion-continua.md)` (sobrevivencia ao reset 1) e `[005-v32-nasce-com-sdd-desde-primeira-linha.md](./005-v32-nasce-com-sdd-desde-primeira-linha.md)` (formalizacao em ADR).
 
 > Hipotese editorial: identidade tecnica vem da decisao que voce nao troca. Para o Vitor, e Notion como fonte de verdade do conteudo.
 
@@ -166,10 +171,10 @@ Tudo isso atravessou os dois resets totais (2023 e 2026) como conhecimento tacit
 
 ## Perguntas abertas
 
-- [ ] Qual foi o motivo concreto que fez o Vitor migrar de APIs externas para Notion em dezembro/2021?
-- [ ] A v1 e v2 foram motivadas por aprendizado pessoal ou por necessidade publica concreta (cliente, oportunidade)?
-- [ ] Que parte da v1/v2 ainda se reconhece no Vitor de hoje? Que parte parece de outra pessoa?
-- [ ] Existe algum componente ou abstracao da v1/v2 que voltou a inspirar uma decisao da v3.2?
+- Qual foi o motivo concreto que fez o Vitor migrar de APIs externas para Notion em dezembro/2021?
+- A v1 e v2 foram motivadas por aprendizado pessoal ou por necessidade publica concreta (cliente, oportunidade)?
+- Que parte da v1/v2 ainda se reconhece no Vitor de hoje? Que parte parece de outra pessoa?
+- Existe algum componente ou abstracao da v1/v2 que voltou a inspirar uma decisao da v3.2?
 
 ## Fragmentos aproveitaveis
 
@@ -198,4 +203,4 @@ Marcos da v2:
 - `25dd5a5` (2022-02-28): "feat: criando as rotas /posts -> controller" — API Routes internas.
 - `f25632d` (2022-03-11): tag `v2.0.0`.
 
-Para visao completa, ver [`../../CHANGELOG.md`](../../CHANGELOG.md).
+Para visao completa, ver `[../../CHANGELOG.md](../../CHANGELOG.md)`.

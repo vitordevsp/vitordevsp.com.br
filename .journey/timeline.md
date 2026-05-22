@@ -121,7 +121,7 @@ Commit `eac92f5` adiciona skill `journey-writer`. Skill aplicada para criar a es
 
 Ate este ponto, a reconstrucao tinha duas camadas tecnicas. Faltava registro da travessia: tensao, decisao, virada, aprendizado. Sem essa camada, a jornada vira retrospectiva. Esse passo virou tambem prova de conceito: o fluxo `.journey/` sera replicado em outros projetos do Vitor como vitrine viva do metodo.
 
-Detalhe completo em [`episodes/009-criacao-do-fluxo-journey.md`](./episodes/009-criacao-do-fluxo-journey.md) (populado em 2026-05-14 com material de tres sessoes + entrega da skill 1.3.0).
+Detalhe completo em [`episodes/009-criacao-do-fluxo-journey/episode.md`](./episodes/009-criacao-do-fluxo-journey/episode.md) (populado em 2026-05-14 com material de tres sessoes + entrega da skill 1.3.0).
 
 ## Mapa rapido de status dos episodios
 

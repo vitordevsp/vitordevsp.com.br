@@ -1,3 +1,3 @@
 display_name: "Journey Writer"
 short_description: "Transforma insumos brutos em narrativa de jornada em .journey/"
-default_prompt: "Use $journey-writer para inicializar, analisar insumo, registrar marco/episódio/semente, refinar arco ou colher conteúdo em `.journey/`, interpretando a frase inicial do usuário para decidir a ação e preservando a separação com `docs/`."
+default_prompt: "Use $journey-writer para inicializar, analisar insumo, registrar marco/episódio/semente, refinar arco, colher conteúdo ou compilar posts em `.journey/knowledges/` (voz de agente redator, co-autoria humana explícita), interpretando a frase inicial do usuário para decidir a ação e preservando a separação com `docs/`."
